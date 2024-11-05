@@ -1,0 +1,77 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ .bg-color {
+     background-color: #F6F8FB !important;
+     height: 100vh;
+ }
+
+ .container-img {
+     background-image: url("./Images/RegFormBackImg.png") !important;
+     background-repeat: no-repeat;
+     background-size: cover;
+     height: 100vh;
+ }
+
+ .from {
+     width: 530px;
+     border-radius: 15px;
+     background: #ffffff;
+     box-shadow: 0px 0px 4px rgb(211, 211, 214);
+ }
+ .from1 {
+     width: 530px;
+     border-radius: 15px;
+     background: #ffffff;
+     box-shadow: 0px 0px 4px rgb(211, 211, 214);
+ }
+
+ .radious {
+     border-radius: 10px;
+ }
+
+ .l-btn {
+     background: linear-gradient(90deg, #FE512E 0%, #F09619 100%);
+     border: none;
+     border-radius: 10px;
+ }
+ .text-decoretion{
+    text-decoration: none ;
+ }
+
+ @media only screen and (max-width: 768px) {
+    .from{
+        display: flex;
+        margin-top: 120px;
+        align-items: center;
+    }
+    .logo{
+        margin-top: 50px !important;
+    }
+ }
+
+.login-container {
+    height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 0;
+    }
+    .form-container {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .form-container {
+        max-width: 450px;
+    }
+    .bg-color {
+        background-color: #f9f9f9;
+    }
+}
