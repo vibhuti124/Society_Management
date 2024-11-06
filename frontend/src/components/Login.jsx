@@ -8,13 +8,14 @@ export default function Login() {
         password: ""
     });
 
-    const handleLogin = (e) => {
+
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         if (!values.email) {
             handleError("email", "Email or phone number is required.");
             return;
-        } else {
+        } else {+
             clearError("email");
         }
 
@@ -24,6 +25,25 @@ export default function Login() {
         } else {
             clearError("password");
         }
+
+        //try { 
+            const response = await fetch('http://localhost:9000/api/auth/login', { 
+              method: 'POST', 
+              headers: { 'Content-Type': 'application/json', }, 
+              body: JSON.stringify({ email: values.email, password: values.password }) });
+          
+              if (response.ok) { 
+                alert('Login successful'); 
+                navigate('/registration');
+                 } 
+              else { 
+                alert('Login failed');
+              }
+        //        } } 
+        //    catch (error) { 
+        //     console.error('Error:', error); 
+        //     alert('An error occurred. Please try again.');
+        //    };
 
         console.log("Login successful:", values);
     };

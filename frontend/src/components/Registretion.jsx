@@ -25,14 +25,29 @@ function RegistrationPage() {
     setShowConfirmPassword((prev) => !prev);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (!isAgreed) {
       alert('You must agree to the terms and conditions to register.');
       return;
     }
-    console.log(data);
-    navigate('/Dashboard');
-  };
+     try { 
+      const response = await fetch('http://localhost:9000/api/auth/register', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json', }, 
+        body: JSON.stringify({ firstName: data.firstName, lastName: data.lastName, email: data.email, phoneNumber: data.phone, country: data.country, state: data.state, city: data.city, society: data.society, password: data.password, confirmPassword: data.confirmPassword, }), });
+    
+
+        if (response.ok) { 
+          alert('Registration successful'); 
+          navigate('/login'); } 
+        else { 
+          alert('Registration failed');
+         } } 
+     catch (error) { 
+      console.error('Error:', error); 
+      alert('An error occurred. Please try again.');
+     };
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

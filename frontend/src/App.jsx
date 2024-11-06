@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/registration' element={<RegistrationPage />} />
         <Route path='/forget' element={<ForgetScreen/>} />
         <Route path='/otp' element={<OTPVerification />} />
