@@ -1,12 +1,10 @@
 const express = require('express');
+const { createSociety } = require('../controllers/societyController');
+const { getSocieties } = require('../controllers/societyController');
+const { protect, isAdmin } = require('../middlewares/authMiddleware');
 const router = express.Router();
-const societyController = require('../controllers/societyController');
-const auth = require('../middleware/auth');
 
-router.post('/', auth, societyController.createSociety);
-router.get('/', societyController.getAllSocieties);
-router.get('/:id', societyController.getSocietyById);
-router.put('/:id', auth, societyController.updateSociety);
-router.delete('/:id', auth, societyController.deleteSociety);
+router.post('/create', protect, isAdmin, createSociety);
+router.get('/list', getSocieties);
 
 module.exports = router;
