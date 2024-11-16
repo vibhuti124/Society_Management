@@ -4,6 +4,7 @@ import useForm from "/src/hooks/useForm";
 import axios from 'axios';
 
 
+
 export default function ForgetScreen() {
     const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ export default function ForgetScreen() {
     };
 
     // Initialize useForm with initial values and validation function
-    const { values, errors, handleChange } = useForm(
+    const { values, errors, handleChange, setErrors } = useForm(
         { Email: "" },
         validate
     );
@@ -28,16 +29,17 @@ export default function ForgetScreen() {
             return;
         }
         try {
-            await axios.post('http://localhost:9000/api/auth/forgot-password/send-otp',
-                { 
-                    emailorphone: values.Email 
-                }); 
-                alert("OTP sent successfully")
-                navigate('/otp'); 
-            } catch (error) { 
-                console.error('There was an error!', error); 
-                setErrors({ ...errors, email: 'Error sending OTP. Please try again.' }); 
-            }
+            console.log('Sending request with:',
+                { emailorphone: values.Email });
+            const response = await axios.post('http://localhost:9000/api/auth/forgot-password/send-otp',
+                { emailorphone: values.Email });
+            console.log('Response:', response.data);
+            alert("OTP sent successfully");
+            navigate('/otp');
+        } catch (error) {
+            console.error('There was an error!', error);
+            setErrors({ ...errors, Email: 'Error sending OTP. Please try again.' });
+        }
     };
 
     return (

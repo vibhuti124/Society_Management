@@ -29,46 +29,52 @@ exports.login = async (req, res) => {
 
 // Sending OTP via email
 exports.sendOTP = async (req, res) => {
-  const { emailorphone } = req.body; 
+  const { emailorphone } = req.body;
 
   try {
-      const user = await User.findOne({
-          $or: [{ email: emailorphone }, { phone: emailorphone }]
-      });
+    const user = await User.findOne({
+      $or: [{ email: emailorphone }, { phone: emailorphone }]
+    });
 
-      if (!user) {
-          return res.status(400).json({ message: 'User not found' });
-      }
-      const otp = crypto.randomInt(100000, 999999).toString();
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    const otp = crypto.randomInt(100000, 999999).toString();
 
-      otpMap.set(emailorphone, { otp, expiresIn: Date.now() + 15 * 60 * 1000 });
+    otpMap.set(emailorphone, { otp, expiresIn: Date.now() + 15 * 60 * 1000 });
 
-      await sendEmail(user.email, otp); 
+    await sendEmail(user.email, otp);
 
-      res.status(200).json({ message: 'OTP sent successfully' });
+    res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error('Error:', error);
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
 const sendEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-          user: 'vibhuti.kothiya259@gmail.com', 
-          pass: 'kigfcduqjrivchxb' 
-      }
+    service: 'gmail',
+    auth: {
+      user: 'vibhuti.kothiya259@gmail.com',
+      pass: 'Vibhuti Kothiya25'
+    },
+    tls: { rejectUnauthorized: false, },
   });
 
   const mailOptions = {
-      from: 'vibhuti.kothiya259@gmail.com',
-      to: email,
-      subject: 'DashStack Password Reset OTP',
-      text: `Your OTP is: ${otp}`
+    from: 'vibhuti.kothiya259@gmail.com',
+    to: email,
+    subject: 'DashStack Password Reset OTP',
+    text: `Your OTP is: ${otp}`
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 };
 
 //verify otp
@@ -76,16 +82,16 @@ exports.verifyOTP = async (req, res) => {
   const { emailorphone, otp } = req.body;
   console.log('Received OTP verification request:', { emailorphone, otp });
   try {
-      const storedOTP = otpMap.get(emailorphone);
-      if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
-          return res.status(400).json({ message: 'Invalid or expired OTP' });
-      }
+    const storedOTP = otpMap.get(emailorphone);
+    if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    }
 
-      otpMap.delete(emailorphone);
+    otpMap.delete(emailorphone);
 
-      res.status(200).json({ message: 'OTP verified successfully' });
+    res.status(200).json({ message: 'OTP verified successfully' });
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -94,19 +100,19 @@ exports.resetPassword = async (req, res) => {
   const { emailorphone, newPassword } = req.body;
 
   try {
-      const user = await User.findOne({
-          $or: [{ email: emailorphone }, { phone: emailorphone }]
-      });
+    const user = await User.findOne({
+      $or: [{ email: emailorphone }, { phone: emailorphone }]
+    });
 
-      if (!user) {
-          return res.status(400).json({ message: 'User not found' });
-      }
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
 
-      user.password = newPassword;
-      await user.save();
+    user.password = newPassword;
+    await user.save();
 
-      res.status(200).json({ message: 'Password reset successful' });
+    res.status(200).json({ message: 'Password reset successful' });
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };

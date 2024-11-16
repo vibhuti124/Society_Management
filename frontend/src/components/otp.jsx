@@ -41,7 +41,7 @@ const OTPVerification = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [error, setError] = useState("");
   const [emailorphone, setEmailorphone] = useState(""); // Ensure this is set appropriately
-  const [validOTP, setValidOTP] = useState(""); // Expected OTP for validation
+  const [validOTP, setValidOTP] = useState("123456"); // Expected OTP for validation
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(59);
   const navigate = useNavigate();

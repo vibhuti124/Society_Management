@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ResetPassword() {
     const [showPassword, setShowPassword] = useState(false);
@@ -7,7 +8,7 @@ export default function ResetPassword() {
     const togglePasswordVisibility = () => {
       setShowPassword(prev => !prev);
     };
-    const naviget = useNavigate()
+    const navigate = useNavigate()
     const [password, setPassword] = useState({
         newPassword: "",
         confirmPassword: ""
@@ -16,6 +17,10 @@ export default function ResetPassword() {
         newPassword: "",
         confirmPassword: ""
     });
+
+    const [loading, setLoading] = useState(false);  // To handle loading state
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const validatePassword = () => {
         let valid = true;
@@ -40,11 +45,29 @@ export default function ResetPassword() {
     async function setNewPassword() {
         if (validatePassword()) {
             try {
-                // Add further password update logic here (e.g., API call)
-                // alert("Password reset successful!");
-                naviget("/login")
+                setLoading(true);
+                setErrorMessage('');  // Clear previous error messages
+
+                // Call the backend API to reset the password
+                const response = await axios.post('http://localhost:9000/api/auth/forgot-password/reset', {
+                    emailorphone: 'vibhuti.kothiya259@gmail.com',  
+                    newPassword: password.newPassword,
+                });
+
+                // Handle successful response
+                setSuccessMessage(response.data.message);
+                setLoading(false);
+                setPassword({ newPassword: '', confirmPassword: '' });  // Reset form
+                setTimeout(() => {
+                    navigate('/login');  // Redirect to login after a successful reset
+                }, 2000);
             } catch (error) {
-                console.log(error);
+                setLoading(false);
+                if (error.response) {
+                    setErrorMessage(error.response.data.message);  
+                } else {
+                    setErrorMessage('An error occurred. Please try again.');
+                }
             }
         }
     }
