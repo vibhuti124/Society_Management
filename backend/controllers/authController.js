@@ -47,6 +47,7 @@ exports.sendOTP = async (req, res) => {
 
       res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
+    console.error('Error:', error);
       res.status(500).json({ message: error.message });
   }
 };
@@ -55,13 +56,13 @@ const sendEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: 'rjparsana8@gmail.com', 
+          user: 'vibhuti.kothiya259@gmail.com', 
           pass: 'kigfcduqjrivchxb' 
       }
   });
 
   const mailOptions = {
-      from: 'rjparsana8@gmail.com',
+      from: 'vibhuti.kothiya259@gmail.com',
       to: email,
       subject: 'DashStack Password Reset OTP',
       text: `Your OTP is: ${otp}`
@@ -73,7 +74,7 @@ const sendEmail = async (email, otp) => {
 //verify otp
 exports.verifyOTP = async (req, res) => {
   const { emailorphone, otp } = req.body;
-
+  console.log('Received OTP verification request:', { emailorphone, otp });
   try {
       const storedOTP = otpMap.get(emailorphone);
       if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {

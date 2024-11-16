@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: #ff6b00;
+    background: linear-gradient(90deg, #FE512E 0%, #F09619 100%);
   color: white;
   border: none;
   border-radius: 4px;
@@ -12,6 +14,11 @@ const Button = styled.button`
 
   &:hover {
     background-color: #ff8c42;
+  }
+
+  &:disabled {
+    background-color: black;
+    cursor: not-allowed;
   }
 `;
 
@@ -33,10 +40,11 @@ const OTPInput = styled.div`
 const OTPVerification = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [error, setError] = useState("");
-  const [validOTP, setValidOTP] = useState("123456");
+  const [emailorphone, setEmailorphone] = useState(""); // Ensure this is set appropriately
+  const [validOTP, setValidOTP] = useState(""); // Expected OTP for validation
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(59);
-  const naviget = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;
@@ -48,14 +56,24 @@ const OTPVerification = () => {
     }
   };
 
-  const handleSubmit = () => {
-    const enteredOTP = otp.join("");
-    if (enteredOTP !== validOTP) {
-      setError("Invalid OTP. Please try again.");
-    } else {
-      setError("");
-      naviget("/resetpassword")
+  const handleSubmit = async () => {
+    const enteredOTP = otp.join('');
+    console.log('Sending OTP verification request:', { emailorphone, otp: enteredOTP });
+    try {
+      const response = await axios.post('http://localhost:9000/api/auth/forgot-password/verify-otp',
+        { emailorphone: emailorphone, // Use the defined variable here,
+           otp: enteredOTP });
+           console.log('Response:', response.data);
+      if (response.data.message === 'OTP verified successfully') {
+        setError("");
+        navigate('/resetpassword');
 
+      } else {
+        setError('Invalid OTP. Please try again.');
+      }
+    } catch (error) {
+      console.error('There was an error!', error);
+      setError('Invalid OTP. Please try again.');
     }
   };
 
@@ -83,30 +101,30 @@ const OTPVerification = () => {
     setSeconds(59);
   };
 
+  // Check if all OTP fields are filled
+  const isButtonDisabled = otp.some(value => value === "");
+
   return (
     <div className='container-fluid'>
-      <div className="col-12   d-sm-block d-md-none mt-5  text-center">
-        <img className='w-50 mt-5 h-50 img-fluid ' src="src/Images/Logo.png" alt="Logo" />
+      <div className="col-12 d-sm-block d-md-none mt-5 text-center">
+        <img className='w-50 mt-5 h-50 img-fluid' src="src/assets/Logo.png" alt="Logo" />
       </div>
       <div className="row container-img">
-
         <div className="col-12 col-md-6 d-none d-md-block bg-color">
-          <div className="logo mt-5">
-            <img className='w-25 h-25  ms-4' src="src/Images/Logo.png" alt="Logo" />
+          <div className="logo mt-4 ms-3 ">
+            <img className='w-25 h-25 ms-4' src="src/assets/Logo.png" alt="Logo" />
           </div>
-          <div className="mailImg text-center">
-            <img className="img-fluid" style={{ width: "100%", maxWidth: "507px", height: "auto" }} src="src/Images/forget-img.png" alt="Forget" />
+          <div className="mailImg  text-center">
+            <img className="img-fluid mt-5" style={{ width: "100%", maxWidth: "507px", height: "auto" }} src="src/assets/forget-img.png" alt="Forget" />
           </div>
         </div>
 
-        <div className="col-12 col-md-6 mb-5 d-flex justify-content-center align-items-center">
-
-          <div className="from1 row mb-5 p-5">
-            <img className='d-sm-block d-md-none' src="src/Images/forget-img.png" alt="" />
+        <div className="col-12  mt-5 col-md-6 mb-5 d-flex justify-content-center align-items-center">
+          <div className="from1 row mt-5  row mb-5 p-5">
+            <img className='d-sm-block d-md-none' src="src/assets/forget-img.png" alt="" />
             <h2>Enter OTP</h2>
             <p>Please enter the 6-digit code sent to your phone number.</p>
-            <form>
-
+            <form className=''>
               <OTPInput>
                 {otp.map((data, index) => (
                   <input
@@ -147,10 +165,14 @@ const OTPVerification = () => {
                   </span>
                 </div>
               </div>
-
             </form>
-            <button className='mt-4 text-light l-btn radious p-3' onClick={handleSubmit}>Verify</button>
-
+            <Button
+              disabled={isButtonDisabled}
+              className='mt-4 text-light  radious p-3'
+              onClick={handleSubmit}
+            >
+              Verify
+            </Button>
           </div>
         </div>
       </div>

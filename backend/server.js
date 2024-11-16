@@ -20,7 +20,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/societies', societyRoutes);
 app.use('/api/tenants', tenantRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

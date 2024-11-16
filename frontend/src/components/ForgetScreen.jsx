@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "/src/hooks/useForm";
+import axios from 'axios';
 
 
 export default function ForgetScreen() {
     const navigate = useNavigate();
 
+    // Define validation function for email
     const validate = (name, value) => {
         if (name === "Email") {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,49 +16,56 @@ export default function ForgetScreen() {
         return "";
     };
 
+    // Initialize useForm with initial values and validation function
     const { values, errors, handleChange } = useForm(
         { Email: "" },
         validate
     );
 
-    const handleSendOtp = () => {
+    const handleSendOtp = async () => {
         if (!values.Email || errors.Email) {
             alert("Please enter a valid email before proceeding.");
             return;
         }
         try {
-            navigate("/otp");
-        } catch (error) {
-            console.log(error);
-        }
+            await axios.post('http://localhost:9000/api/auth/forgot-password/send-otp',
+                { 
+                    emailorphone: values.Email 
+                }); 
+                alert("OTP sent successfully")
+                navigate('/otp'); 
+            } catch (error) { 
+                console.error('There was an error!', error); 
+                setErrors({ ...errors, email: 'Error sending OTP. Please try again.' }); 
+            }
     };
 
     return (
         <div className='container-fluid'>
             <div className="col-12 d-sm-block d-md-none mt-5 text-center">
-                <img className='w-50 h-50 img-fluid mb-5' src="src/Images/Logo.png" alt="Logo" />
+                <img className='w-50 h-50 img-fluid mb-5' src="src/assets/Logo.png" alt="Logo" />
             </div>
             <div className="row container-img">
 
                 <div className="col-12 col-md-6 d-none d-md-block bg-color">
                     <div className="logo">
-                        <img className='w-25 h-25 mt-4 ms-4' src="src/Images/Logo.png" alt="Logo" />
+                        <img className='w-25 h-25 mt-5 ms-4' src="src/assets/Logo.png" alt="Logo" />
                     </div>
-                    <div className="mailImg mt-5 text-center">
-                        <img className="img-fluid" style={{ width: "100%", maxWidth: "507px", height: "auto" }} src="src/Images/forget-img.png" alt="Forget" />
+                    <div className="mailImg mt-4 text-center">
+                        <img className="img-fluid mt-4" style={{ width: "100%", maxWidth: "507px", height: "auto", position: "sticky" }} src="src/assets/forget-img.png" alt="Forget" />
                     </div>
                 </div>
 
                 <div className="col-12 col-md-6 mt-5 d-flex justify-content-center align-items-center">
-                    <from className="from1 row mb-5 p-3">
+                    <from className="from1 row mb-5 mt-5 p-3">
                         <div className="col-12 d-sm-block d-md-none mb-4 text-center">
-                            <img style={{ height: "332.99px", width: "355.11px" }} className='img-fluid' src="src/Images/forget-img.png" alt="Forget" />
+                            <img style={{ height: "332.99px", width: "355.11px" }} className='img-fluid' src="src/assets/forget-img.png" alt="Forget" />
                         </div>
 
                         <h3 className='mt-5 mb-4'>Forget Password</h3>
                         <p className='text-center'>Enter your email and we'll send you an OTP to reset your password</p>
 
-                        <div className="col-12 mt-3 mb-2">
+                        <div className="col-12 mt-3 mb-2 ">
                             <label style={{ fontWeight: "500" }} htmlFor="email">
                                 Email <span className='text-danger'>*</span>
                             </label>
@@ -78,12 +87,12 @@ export default function ForgetScreen() {
                                 className='btn text-white radious l-btn w-100 p-3'
                                 disabled={!values.Email || errors.Email}
                             >
-                                Send OTP
+                                Get OTP
                             </button>
                         </div>
 
                         <div className="col-12 text-center mt-3">
-                            <Link to={'/'} className='text-decoration-none'>
+                            <Link to={'/login'} className='text-decoration-none'>
                                 <span className='text-danger' style={{ cursor: "pointer" }}>Back to Login</span>
                             </Link>
                         </div>

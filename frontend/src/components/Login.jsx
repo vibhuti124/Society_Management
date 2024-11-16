@@ -1,21 +1,29 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "/src/hooks/useForm";
+import axios from 'axios';
 
 export default function Login() {
+
+    const navigate = useNavigate();
     const { values, errors, handleChange, handleError, clearError } = useForm({
         email: "",
         password: ""
     });
 
+    const [showPassword, setShowPassword] = useState(false);
 
-    const handleLogin = async (e) => {
+    const togglePasswordVisibility = () => {
+      setShowPassword(prev => !prev);
+    };
+
+    const handleLogin =  async (e) => {
         e.preventDefault();
 
         if (!values.email) {
             handleError("email", "Email or phone number is required.");
             return;
-        } else {+
+        } else {
             clearError("email");
         }
 
@@ -26,52 +34,45 @@ export default function Login() {
             clearError("password");
         }
 
-        //try { 
-            const response = await fetch('http://localhost:9000/api/auth/login', { 
-              method: 'POST', 
-              headers: { 'Content-Type': 'application/json', }, 
-              body: JSON.stringify({ email: values.email, password: values.password }) });
-          
-              if (response.ok) { 
-                alert('Login successful'); 
-                navigate('/registration');
-                 } 
-              else { 
-                alert('Login failed');
-              }
-        //        } } 
-        //    catch (error) { 
-        //     console.error('Error:', error); 
-        //     alert('An error occurred. Please try again.');
-        //    };
+        // Proceed with login logic here
 
-        console.log("Login successful:", values);
+        try { 
+            const response = await axios.post('http://localhost:9000/api/auth/login', values); 
+            alert("Login sucessfull");
+            console.log('Login successfull:', response.data); 
+            navigate('/dashboard'); 
+        } catch (error) { 
+            alert("Login failed");
+            console.error('Login failed!', error); 
+            handleError("server", error.response?.data?.msg || 'Server error'); 
+        }
+
     };
 
     return (
-        <div className='container-fluid container-img' style={{ overflow: "hidden" }}>
-            <div className="col-12 d-sm-block d-md-none mt-5 text-center">
-                <img className='w-50 h-50 img-fluid mb-5' src="src/Images/Logo.png" alt="Logo" />
+        <div className='container-fluid container-img ' >
+            <div className="col-12 d-sm-block d-md-none mt-5  text-center">
+                <img className='w-50 h-50 img-fluid ' src="src/assets/Logo.png" alt="Logo" />
             </div>
-            <div className="row d-flex">
+            <div className="row d-flex gap-5">
                 <div className="col-12 col-md-6 d-none d-md-flex bg-color justify-content-center align-items-center">
                     <div>
-                        <img className='w-25 h-25 mt-4 ms-4' src="src/Images/Logo.png" alt="Logo" />
-                        <div className="mailImg mt-4 text-center">
-                            <img style={{ width: "507px", height: "491px" }} src="src/Images/sideIMG.png" alt="Logo" className="img-fluid mt-3" />
+                        <img style={{ width: "200px", marginLeft: "-30px", marginTop: "0px" }} className='' src="src/assets/Logo.png" alt="Logo" />
+                        <div className="mailImg mt-5 text-center">
+                            <img style={{ width: "507px", height: "491px", position: "sticky" }} src="src/assets/sideIMG.png" alt="Logo" className="img-fluid mt-3" />
                         </div>
                     </div>
                 </div>
 
-                <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-5   d-flex justify-content-center align-items-center">
                     <form className="form-container from container radious border p-4" onSubmit={handleLogin} noValidate>
                         <div className="row">
                             <div className="col-12 d-sm-block d-md-none mt-5 text-center">
-                                <img className='w-75 h-75 img-fluid mb-5' src="src/Images/sideIMG.png" alt="Logo" />
+                                <img className='w-75 h-75 img-fluid mb-5' src="src/assets/sideIMG.png" alt="Logo" />
                             </div>
 
                             <div className="col-12 mt-3">
-                            <h2 className='mt-3'>Login</h2>
+                                <h2 className='mt-3'>Login</h2>
                                 <label htmlFor="email" style={{ fontWeight: "500" }}>
                                     Email or Phone <span className='text-danger'>*</span>
                                 </label>
@@ -87,19 +88,33 @@ export default function Login() {
                                 {errors.email && <span className='text-danger'>{errors.email}</span>}
                             </div>
 
-                            <div className="col-12 mt-3">
+                            <div className="col-12 mt-3 from-c">
                                 <label htmlFor="password" style={{ fontWeight: "500" }}>
                                     Password <span className='text-danger'>*</span>
                                 </label>
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     className='form-control radious p-3 mt-2'
                                     placeholder="Enter your password"
                                     value={values.password}
                                     onChange={handleChange}
                                 />
+                                <span
+                                    className="hide"
+                                    onClick={togglePasswordVisibility}
+                                    style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }}
+                                >
+                                    <i className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+                                </span>
+                                <span
+                                    className="hide1"
+                                    onClick={togglePasswordVisibility}
+                                    style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }}
+                                >
+                                    <i className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+                                </span>
                                 {errors.password && <span className='text-danger'>{errors.password}</span>}
                             </div>
 
@@ -120,14 +135,14 @@ export default function Login() {
                             </div>
 
                             <div className="col-12 mt-3">
-                                <button type="submit" className='btn text-white l-btn w-100 p-3'>
+                                <button disabled={!values.email || !values.password} type="submit" className='btn text-white l-btn w-100 p-3'>
                                     Sign In
                                 </button>
                             </div>
 
                             <div className="col-12 text-center mt-3">
-                                <p>
-                                    Don't have an account? <Link to="/registration" className='text-danger' style={{ cursor: "pointer" }}>Register</Link>
+                                <p style={{ textDecoration: "none" }}>
+                                    Don't have an account? <Link to={"/"} className='text-danger text-decoretion' style={{ cursor: "pointer" }}>Register</Link>
                                 </p>
                             </div>
                         </div>
