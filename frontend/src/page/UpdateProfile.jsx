@@ -14,9 +14,6 @@ const UpdateProfile = () => {
     state: 'Gujarat',
     city: 'Baroda',
   });
-
-
-
  
 
   return (
@@ -24,8 +21,7 @@ const UpdateProfile = () => {
     <div className="d-flex justify-content-between">
 
       <h2>Edit Profile</h2>
-      
-      
+            
       <button onClick={()=>naviget("/profileupdate")} className='l-btn p-2 text-white btn mx-1'><span className='mx-2 mb-1'><FaEdit/></span> Edit Profile</button>
       
     </div>

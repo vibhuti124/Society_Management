@@ -222,7 +222,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-
         <div className="col-lg-4" style={{ height: "361px", overflowY: "auto" }}>
           <div className="card h-100" style={{ borderRadius: "15px" }}>
             <div className="card-body">
@@ -288,7 +287,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header>
-        <Modal.Title>{initialData ? 'Edit Contact' : 'Add Contact'}</Modal.Title>
+        <Modal.Title>{initialData ? 'Edit Contact' : 'Add Important Number'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmitForm}>
@@ -296,6 +295,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
             <Form.Label>Full Name <span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
               type="text"
+              placeholder='Enter Full Name'
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
@@ -305,7 +305,8 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
           <Form.Group controlId="formPhoneNumber">
             <Form.Label>Phone Number<span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
-              type="text"
+              type="number"
+              placeholder='+91'
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
@@ -316,6 +317,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
             <Form.Label>Work<span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
               type="text"
+              placeholder='Enter Work'
               name="work"
               value={formData.work}
               onChange={handleChange}

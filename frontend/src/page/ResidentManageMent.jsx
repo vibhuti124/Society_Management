@@ -45,8 +45,6 @@ const ResidentManageMent = () => {
                         params.row.fullName === "" ? "-" : <span>{params.value}</span>
                     }
 
-
-
                 </div>
             ),
         },
@@ -73,8 +71,6 @@ const ResidentManageMent = () => {
                     {
                         params.row.unitStatus === "Occupied" ? <span> <LuBuilding2 /> {params.value}</span> : <span><FaBuildingUser /> {params.value}</span>
                     }
-
-
 
                 </span>
             )

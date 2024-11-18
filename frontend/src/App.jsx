@@ -30,12 +30,13 @@ function App() {
         <Route path='/dashboard' element={<Layout component={<Dashbord/>} />}/>
         <Route path='/resident' element={<Layout component={<ResidentManageMent/>}/>}/>
         <Route path='/financial' element={<Layout/>}/>
+
         {/* profile */}
         <Route path='/profileupdate' element={<Layout component={<ProfileEditForm/>} />}/>
         <Route path='/profile' element={<Layout component={<UpdateProfile/>}/>}/>
+
         {/* resident */}
-        <Route path='/owner' element={<Layout component={<Owner/>} />}/>
-       
+        <Route path='/owner' element={<Layout component={<Owner/>} />}/>       
         <Route path='/Announcement' element={<Layout component={<Announcement />} />} />
     
         

@@ -20,7 +20,6 @@ import { FaGreaterThan } from "react-icons/fa6";
 
 
 
-
 export default function Layout({ component }) {
     const [show, setShow] = useState(false);
     const naviget = useNavigate()
@@ -28,25 +27,17 @@ export default function Layout({ component }) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
     // const [show2, setShow2] = useState(false);
     const [showFinancialSubmenu2, setShowFinancialSubmenu2] = useState(false);
     const [showFinancialSubmenu3, setShowFinancialSubmenu3] = useState(false);
-
-
-
 
     // Toggle Financial Management submenu
     const toggleFinancialSubmenu = () => setShowFinancialSubmenu2(!showFinancialSubmenu2);
     const toggleFinancialSubmenu1 = () => setShowFinancialSubmenu3(!showFinancialSubmenu3);
 
 
-
     // notification 
-
-
     const [isOpen, setIsOpen] = useState(false);
-
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -172,7 +163,7 @@ cursor: pointer;
   width: 10px;
   height: 50px;
   padding: 14px ;
-left:-23px;
+    left:-23px;
   background: linear-gradient(180deg, #ff5722, #ff9800);
   border-radius: 6px;
    border-right:2px solid black
@@ -187,7 +178,7 @@ left:-23px;
             <div className="row d-flex">
                 <div className="  layout  col-12 col-md-3 side-bar h-   ">
                     <Logo className="mt-1">
-                        <Link to={"/deshbord"}>
+                        <Link to={"/dashboard"}>
                             <img className='h-75 w-75' src="src/assets/Logo.png" alt="Logo" />
                         </Link>
                         <center>
@@ -197,11 +188,10 @@ left:-23px;
                     </Logo>
                     <NavLinks className='h-50'>
 
-
-                        <Link className='link-tag' to={"/deshbord"}  > <div className='side-design' style={{ display: location.pathname === "/deshbord" ? "block" : "none" }}><SidebarMiniButton /> </div>    <NavLink style={{ background: location.pathname === "/deshbord" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/deshbord" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
+                        <Link className='link-tag' to={"/dashboard"}  > <div className='side-design' style={{ display: location.pathname === "/dashboard" ? "block" : "none" }}><SidebarMiniButton /> </div>    <NavLink style={{ background: location.pathname === "/dashboard" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/dashboard" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
                         <Link className='link-tag' to={"/resident"} >  <div className='side-design' style={{ display: location.pathname === "/resident" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/resident" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/resident" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'>  <MdAddHomeWork className=' fs-3 mb-1' />Resident Management </NavLink></Link>
                         <Link className='link-tag' to={"/financial"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/financial" ? "block" : "none" }}><SidebarMiniButton /> </div>   <NavLink style={{ background: location.pathname === "/financial" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/financial" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' /> Financial Management </NavLink> </Link>
-                        
+
                         {/* acoding */}
 
                         {showFinancialSubmenu2 && (
@@ -259,8 +249,7 @@ left:-23px;
                                     {/* sidebar for A mobail sceen */}
                                     <NavLinks>
 
-
-                                        <Link className='link-tag' to={"/deshbord"}  > <div className='side-design ' style={{ display: location.pathname === "/deshbord" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>    <NavLink style={{ background: location.pathname === "/deshbord" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/deshbord" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
+                                        <Link className='link-tag' to={"/dashboard"}  > <div className='side-design ' style={{ display: location.pathname === "/dashboard" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>    <NavLink style={{ background: location.pathname === "/dashboard" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/dashboard" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
 
                                         <Link className='link-tag' to={"/resident"} >  <div className='side-design' style={{ display: location.pathname === "/resident" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/resident" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/resident" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'>  <MdAddHomeWork className=' fs-3 mb-1' />Resident Management </NavLink></Link>
                                         <Link className='link-tag' to={"/financial"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/financial" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>   <NavLink style={{ background: location.pathname === "/financial" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/financial" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' /> Financial Management </NavLink> </Link>
@@ -305,7 +294,7 @@ left:-23px;
                         </div>
                         <div className="search">
                             {
-                                location.pathname === "/deshbord" ? <SearchBar className='perent-search' type='search' placeholder=" 🔍    Search Here" /> : <div> <span onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>  <span className='ms-2  mb-2'><FaGreaterThan className='' /></span> <span style={{ color: "#5678E9" }} className='ms-2'>{location.pathname.split("/")}</span></div>
+                                location.pathname === "/dashboard" ? <SearchBar className='perent-search' type='search' placeholder=" 🔍 Search Here" /> : <div> <span onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>  <span className='ms-2  mb-2'><FaGreaterThan className='' /></span> <span style={{ color: "#5678E9" }} className='ms-2'>{location.pathname.split("/")}</span></div>
                             }
 
                         </div>
