@@ -70,6 +70,54 @@ exports.login = async (req, res) => {
 
 // Sending OTP via email
 exports.sendOTP = async (req, res) => {
+
+    const { emailorphone } = req.body; 
+
+
+    try {
+        const user = await User.findOne({
+            $or: [{ email: emailorphone }, { phone: emailorphone }]
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+        const otp = crypto.randomInt(100000, 999999).toString();
+
+        otpMap.set(emailorphone, { otp, expiresIn: Date.now() + 5 * 60 * 1000 });
+
+        await sendEmail(user.email, otp); 
+
+        res.status(200).json({ message: 'OTP sent successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const sendEmail = async (email, otp) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER, 
+            pass: process.env.EMAIL_PASS 
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'DashStack Password Reset OTP',
+        text: `Your OTP is: ${otp}`
+    };
+
+    await transporter.sendMail(mailOptions);
+<<<<<<< HEAD
+=======
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+=======
     const { emailorphone } = req.body; 
 
     try {
@@ -109,10 +157,13 @@ const sendEmail = async (email, otp) => {
     };
 
     await transporter.sendMail(mailOptions);
+>>>>>>> 41911805e912617fd076252333eb3354b6eebc61
+>>>>>>> main
 };
 
 //verify otp
 exports.verifyOTP = async (req, res) => {
+<<<<<<< HEAD
     const { emailorphone, otp } = req.body;
 
     try {
@@ -127,12 +178,80 @@ exports.verifyOTP = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+=======
+<<<<<<< HEAD
+  const { emailorphone, otp } = req.body;
+  console.log('Received OTP verification request:', { emailorphone, otp });
+  try {
+    const storedOTP = otpMap.get(emailorphone);
+    if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    }
+
+    otpMap.delete(emailorphone);
+
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+=======
+    const { emailorphone, otp } = req.body;
+
+    try {
+        const storedOTP = otpMap.get(emailorphone);
+        if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+
+        otpMap.delete(emailorphone);
+
+        res.status(200).json({ message: 'OTP verified successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 41911805e912617fd076252333eb3354b6eebc61
+>>>>>>> main
 };
 
 // reset password
 exports.resetPassword = async (req, res) => {
     const { emailorphone, newPassword } = req.body;
 
+<<<<<<< HEAD
+    try {
+        const user = await User.findOne({
+            $or: [{ email: emailorphone }, { phone: emailorphone }]
+        });
+=======
+<<<<<<< HEAD
+  try {
+    const user = await User.findOne({
+      $or: [{ email: emailorphone }, { phone: emailorphone }]
+    });
+>>>>>>> main
+
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        user.password = newPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password reset successful' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+<<<<<<< HEAD
+=======
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+=======
     try {
         const user = await User.findOne({
             $or: [{ email: emailorphone }, { phone: emailorphone }]
@@ -149,4 +268,6 @@ exports.resetPassword = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+>>>>>>> 41911805e912617fd076252333eb3354b6eebc61
+>>>>>>> main
 };
