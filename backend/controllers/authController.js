@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/Chairman');
 const generateToken = require('../utils/generateToken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const otpMap = new Map();
 
 exports.register = async (req, res) => {
-    const { firstName, lastName, email, phone, country, state, city, society, password, role } = req.body;
+    const { firstName, lastName, email, phoneNumber, country, state, city, society, password, role } = req.body;
 
     try {
         const userExists = await User.findOne({ email });
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
         }
 
         const user = await User.create({
-            firstName, lastName, email, phone, country, state, city, society, password, role
+            firstName, lastName, email, phoneNumber, country, state, city, society, password, role
         });
 
         res.status(201).json({
@@ -111,13 +111,11 @@ const sendEmail = async (email, otp) => {
     };
 
     await transporter.sendMail(mailOptions);
-<<<<<<< HEAD
-=======
     console.log('Email sent successfully');
-  } catch (error) {
-    console.error('Error sending email:', error);
-  }
-=======
+//   } catch (error) {
+//     console.error('Error sending email:', error);
+//   }
+
     const { emailorphone } = req.body; 
 
     try {
@@ -140,46 +138,10 @@ const sendEmail = async (email, otp) => {
     }
 };
 
-const sendEmail = async (email, otp) => {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER, 
-            pass: process.env.EMAIL_PASS 
-        }
-    });
-
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'DashStack Password Reset OTP',
-        text: `Your OTP is: ${otp}`
-    };
-
-    await transporter.sendMail(mailOptions);
->>>>>>> 41911805e912617fd076252333eb3354b6eebc61
->>>>>>> main
-};
 
 //verify otp
 exports.verifyOTP = async (req, res) => {
-<<<<<<< HEAD
-    const { emailorphone, otp } = req.body;
 
-    try {
-        const storedOTP = otpMap.get(emailorphone);
-        if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
-            return res.status(400).json({ message: 'Invalid or expired OTP' });
-        }
-
-        otpMap.delete(emailorphone);
-
-        res.status(200).json({ message: 'OTP verified successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-=======
-<<<<<<< HEAD
   const { emailorphone, otp } = req.body;
   console.log('Received OTP verification request:', { emailorphone, otp });
   try {
@@ -194,41 +156,19 @@ exports.verifyOTP = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-=======
-    const { emailorphone, otp } = req.body;
 
-    try {
-        const storedOTP = otpMap.get(emailorphone);
-        if (!storedOTP || storedOTP.otp !== otp || storedOTP.expiresIn < Date.now()) {
-            return res.status(400).json({ message: 'Invalid or expired OTP' });
-        }
-
-        otpMap.delete(emailorphone);
-
-        res.status(200).json({ message: 'OTP verified successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
->>>>>>> 41911805e912617fd076252333eb3354b6eebc61
->>>>>>> main
+    
 };
 
 // reset password
 exports.resetPassword = async (req, res) => {
     const { emailorphone, newPassword } = req.body;
 
-<<<<<<< HEAD
-    try {
-        const user = await User.findOne({
-            $or: [{ email: emailorphone }, { phone: emailorphone }]
-        });
-=======
-<<<<<<< HEAD
+
   try {
     const user = await User.findOne({
       $or: [{ email: emailorphone }, { phone: emailorphone }]
     });
->>>>>>> main
 
         if (!user) {
             return res.status(400).json({ message: 'User not found' });
@@ -241,33 +181,7 @@ exports.resetPassword = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-<<<<<<< HEAD
-=======
 
-    user.password = newPassword;
-    await user.save();
-
-    res.status(200).json({ message: 'Password reset successful' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-=======
-    try {
-        const user = await User.findOne({
-            $or: [{ email: emailorphone }, { phone: emailorphone }]
-        });
-
-        if (!user) {
-            return res.status(400).json({ message: 'User not found' });
-        }
-
-        user.password = newPassword;
-        await user.save();
-
-        res.status(200).json({ message: 'Password reset successful' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
->>>>>>> 41911805e912617fd076252333eb3354b6eebc61
->>>>>>> main
+          
+       
 };

@@ -3,12 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "react-scripts start"
-=======
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
->>>>>>> 41911805e912617fd076252333eb3354b6eebc61
   },
   "keywords": [],
   "author": "dash-stack",
