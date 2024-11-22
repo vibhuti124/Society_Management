@@ -4,7 +4,7 @@ exports.validateUser = [
     check('firstName').not().isEmpty().withMessage('First Name is required'),
     check('lastName').not().isEmpty().withMessage('Last Name is required'),
     check('email').isEmail().withMessage('Enter a valid email address'),
-    check('phone').isMobilePhone().withMessage('Enter a valid phone number'),
+    check('phoneNumber').isMobilePhone().withMessage('Enter a valid phone number'),
     check('country').not().isEmpty().withMessage('Country is required'),
     check('state').not().isEmpty().withMessage('State is required'),
     check('city').not().isEmpty().withMessage('City is required'),
