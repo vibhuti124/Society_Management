@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  server:{
-    proxy:{
-      '/api':'http://localhost:8001',
-    },
-  },
   plugins: [react()],
+    base: '/',
+    server: {
+      historyApiFallback: true,  // This helps with react-router routing
+    }
+  
 })
