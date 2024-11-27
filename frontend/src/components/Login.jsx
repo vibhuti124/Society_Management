@@ -5,16 +5,22 @@ import axios from 'axios';
 
 export default function Login() {
 
-    const navigate = useNavigate();
-    const { values, errors, handleChange, handleError, clearError } = useForm({
-        email: "",
-        password: ""
-    });
-
-    const [showPassword, setShowPassword] = useState(false);
-
-    const togglePasswordVisibility = () => {
-      setShowPassword(prev => !prev);
+    const [values, setValues] = useState({ email: '', password: '' }); 
+    const [errors, setErrors] = useState({}); 
+    const [showPassword, setShowPassword] = useState(false); 
+    const navigate = useNavigate(); 
+    
+    const handleChange = (e) => { 
+        setValues({ ...values, [e.target.name]: e.target.value }); 
+    }; 
+    const handleError = (name, message) => { 
+        setErrors({ ...errors, [name]: message }); 
+    }; 
+    const clearError = (name) => { 
+        setErrors({ ...errors, [name]: '' }); 
+    }; 
+    const togglePasswordVisibility = () => { 
+        setShowPassword(!showPassword); 
     };
 
     const handleLogin =  async (e) => {
@@ -34,10 +40,13 @@ export default function Login() {
             clearError("password");
         }
 
-        // Proceed with login logic here
+        //Proceed with login logic here
 
         try { 
-            const response = await axios.post('http://localhost:9000/api/auth/login', values); 
+            const response = await axios.post('http://localhost:9000/api/auth/login', { 
+                emailorphone: values.email, // Send emailorphone to match backend 
+                password: values.password
+            }); 
             alert("Login sucessfull");
             console.log('Login successfull:', response.data); 
             navigate('/dashboard'); 
@@ -46,7 +55,7 @@ export default function Login() {
             console.error('Login failed!', error); 
             handleError("server", error.response?.data?.msg || 'Server error'); 
         }
-
+ 
     };
 
     return (
@@ -73,11 +82,11 @@ export default function Login() {
 
                             <div className="col-12 mt-3">
                                 <h2 className='mt-3'>Login</h2>
-                                <label htmlFor="email" style={{ fontWeight: "500" }}>
+                                <label htmlFor="emailorphone" style={{ fontWeight: "500" }}>
                                     Email or Phone <span className='text-danger'>*</span>
                                 </label>
                                 <input
-                                    id="email"
+                                    id="emailorphone"
                                     name="email"
                                     type="text"
                                     className='form-control radious p-3 mt-2'
@@ -148,6 +157,10 @@ export default function Login() {
                         </div>
                     </form>
                 </div>
+   
+   
+   
+   
             </div>
         </div>
     );

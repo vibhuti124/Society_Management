@@ -7,7 +7,6 @@ import img from '../assets/img.png';
 import axios from "axios";
 
 function RegistrationPage() {
-
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
   const [showModal, setShowModal] = useState(false);
   const [societies, setSocieties] = useState([]);
@@ -19,8 +18,8 @@ function RegistrationPage() {
   const [zipCode, setZipCode] = useState('');
   const [isAgreed, setIsAgreed] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const toggleConfirmPasswordVisibility = () => {
@@ -37,11 +36,11 @@ function RegistrationPage() {
     try { 
       const response = await axios.post('http://localhost:9000/api/auth/register', data); 
       console.log(response.data); 
-      alert("user registration successfull");
+      alert("admin registration successfull");
       navigate('/dashboard'); 
     } catch (error) { 
-      alert(" registration failed");
-      console.error('There was an error!', error); 
+      console.error('There was an error!', error);
+      alert("Registration failed: " + error.response?.data?.error || error.message); 
     }
   };
 
@@ -193,7 +192,7 @@ function RegistrationPage() {
             <div className="mb-3">
               <label htmlFor="selectSociety" className="form-label">Select Society<span style={{ color: "red" }}>*</span></label>
               <select
-                className={`form-select ${errors.society ? 'is-invalid' : ''}`}
+                className={` w-100 form-select ${errors.society ? 'is-invalid' : ''}`}
                 id="selectSociety"
                 {...register('society', { required: 'Please select a society' })}
                 onChange={(e) => {
@@ -202,7 +201,7 @@ function RegistrationPage() {
                   }
                 }}
               >
-                <option value=""> Choose a society... </option>
+                <option value="">Choose a society...</option>
                 {societies.map((society, index) => (
                   <option key={index} value={society.name}>
                     {society.name}
@@ -212,8 +211,9 @@ function RegistrationPage() {
                 <option >twin towr</option>
                 <option value="create" className="gradient-option" style={{ color: "white", fontSize: "20px", backgroundColor: "#FE512E" }}>Create a new society</option>
 
+
               </select>
-              {/* {errors.society && <p className="text-danger">{errors.society.message}</p>} */}
+              {errors.society && <p className="text-danger">{errors.society.message}</p>}
             </div>
 
             <div className="mb-3" style={{ position: 'relative' }}>
@@ -412,6 +412,8 @@ function RegistrationPage() {
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
+
+
 
     </div>
   );

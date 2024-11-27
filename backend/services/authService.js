@@ -30,11 +30,13 @@ exports.registerChairman = async (chairmanData) => {
   return chairman;
 };
 
-exports.loginChairman = async (email, password) => {
-  const chairman = await Chairman.findOne({ email });
-  if (!chairman) {
-    throw new Error('Invalid credentials');
-  }
+
+
+exports.loginChairman = async (emailorphone, password) => {
+  const chairman = await Chairman.findOne({ $or: [{ email: emailorphone }, { phone: emailorphone }] });
+    if (!chairman) {
+        throw new Error('Invalid credentials');
+    }
 
   const isMatch = await bcrypt.compare(password, chairman.password);
   if (!isMatch) {
@@ -63,5 +65,3 @@ exports.generateToken = (chairmanId) => {
     );
   });
 };
-
-
