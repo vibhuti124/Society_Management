@@ -59,12 +59,12 @@ const sendEmail = async (email, otp) => {
       service: 'gmail',
       auth: {
           user: 'vibhuti.kothiya259@gmail.com', 
-          pass: 'Vibhuti Kothiya25' 
+          pass: 'pqrtizbunjwrpzuz' 
       }
   });
 
   const mailOptions = {
-      from: 'rjparsana8@gmail.com',
+      from: 'vibhuti.kothiya259@gmail.com',
       to: email,
       subject: 'DashStack Password Reset OTP',
       text: `Your OTP is: ${otp}`

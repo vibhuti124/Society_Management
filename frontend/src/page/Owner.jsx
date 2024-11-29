@@ -18,7 +18,7 @@ export default function Owner() {
                         <p>Owner</p>
                     </div>
                     <div style={{ background: location.pathname === "/tenant" ? "linear-gradient(90deg, #FE512E, #F09619)" : "#ffff", color: location.pathname === "/tenant" ? "white" : "black" }} className='f-btn d-flex justify-content-center'>
-                        <p>Tenant</p>
+                        <p>Tenant</p>l
                     </div>
                 </div>
             </div>
