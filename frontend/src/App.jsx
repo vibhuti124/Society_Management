@@ -72,18 +72,18 @@ function App() {
           <Route path='/EditProfile' element={<EditProfile />} />
 
 
-          <Route path='/personal-details' element={<PersonalDetail/>} />
-          <Route path='/personal-details-tenant' element={<TenantPersonalDetails/>} />
-          <Route path='/service-and-complaint' element={<ServiceComplaint/>} />
-          <Route path='/request-and-submission' element={<RequestSubmission/>} />
-          <Route path='/events-and-participation' element={<EventParticipation/>} />
-          <Route path='/activity-and-participation' element={<ActivityParticipation/>} />
-          <Route path='/maintenance-invoices' element={<MaintenanceInvoices/>} />
-          <Route path='/other-income-nvoice' element={<OtherIncomeInvoices/>}/>
+          <Route path='/personal-details' element={<PersonalDetail />} />
+          <Route path='/personal-details-tenant' element={<TenantPersonalDetails />} />
+          <Route path='/service-and-complaint' element={<ServiceComplaint />} />
+          <Route path='/request-and-submission' element={<RequestSubmission />} />
+          <Route path='/events-and-participation' element={<EventParticipation />} />
+          <Route path='/activity-and-participation' element={<ActivityParticipation />} />
+          <Route path='/maintenance-invoices' element={<MaintenanceInvoices />} />
+          <Route path='/other-income-nvoice' element={<OtherIncomeInvoices />} />
 
 
           <Route path='/Resident-Protocols' element={<SecurityProtocolsResident />} />
-          <Route path='view-invoice' element={<ViewInvoice/>} />
+          <Route path='view-invoice' element={<ViewInvoice />} />
 
 
         </Routes>
