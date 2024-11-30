@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import { GetOtp, Otpverification } from '../apiservices/Authentication';
+import toast from 'react-hot-toast';
 
 const Button = styled.button`
   width: 100%;
@@ -38,44 +39,60 @@ const OTPInput = styled.div`
 `;
 
 const OTPVerification = () => {
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
-  const [emailorphone, setEmailorphone] = useState(""); // Ensure this is set appropriately
-  const [validOTP, setValidOTP] = useState("123456"); // Expected OTP for validation
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(59);
-  const navigate = useNavigate();
 
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return;
+  const handleChange = (index, value) => {
+    if (/^[0-9]*$/.test(value) && value.length <= 1) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
 
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-
-    if (element.nextSibling) {
-      element.nextSibling.focus();
-    }
-  };
-
-  const handleSubmit = async () => {
-    const enteredOTP = otp.join('');
-    console.log('Sending OTP verification request:', { emailorphone, otp: enteredOTP });
-    try {
-      const response = await axios.post('http://localhost:9000/api/auth/forgot-password/verify-otp',
-        { emailorphone: emailorphone, // Use the defined variable here,
-           otp: enteredOTP });
-           console.log('Response:', response.data);
-      if (response.data.message === 'OTP verified successfully') {
-        setError("");
-        navigate('/resetpassword');
-
-      } else {
-        setError('Invalid OTP. Please try again.');
+      if (value && index < otp.length - 1) {
+        document.getElementById(otp-input-${index + 1}).focus();
       }
-    } catch (error) {
-      console.error('There was an error!', error);
-      setError('Invalid OTP. Please try again.');
     }
   };
+
+  const handleKeyDown = (index, event) => {
+   
+    if (event.key === "Backspace" && !otp[index] && index > 0) {
+      document.getElementById(otp-input-${index - 1}).focus();
+    }
+  };
+
+  const handleOtp = async () => {
+    try {
+      const OTP = otp.join("");  // Join OTP as a string
+      const EmailOrPhone = localStorage.getItem("EmailOrPhone");
+  
+      if (!OTP || !EmailOrPhone) {
+        throw new Error("Missing OTP or Email/Phone");
+      }
+  
+      const otpDetail = { otp: OTP, EmailOrPhone: EmailOrPhone };
+      console.log("Payload to verify OTP:", otpDetail);
+  
+      const response = await Otpverification(otpDetail);
+      toast.success(response.data.message);
+      navigate("/resetpassword");
+    } catch (error) {
+      console.error("Error in OTP verification:", error);
+  
+      // error handling and message
+      if (error.response) {
+        console.error("Response from server:", error.response);
+        toast.error(error.response?.data?.message || "Error verifying OTP");
+      } else {
+        toast.error("Unknown error occurred.");
+      }
+    }
+  };
+  
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -96,9 +113,15 @@ const OTPVerification = () => {
     };
   }, [seconds, minutes]);
 
-  const resendOTP = () => {
-    setMinutes(0);
-    setSeconds(59);
+  const resendOtp = async () => {
+    try {
+      const EmailOrPhone = localStorage.getItem("EmailOrPhone");
+      const response = await GetOtp({ EmailOrPhone });
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Error sending OTP");
+    }
   };
 
   // Check if all OTP fields are filled
@@ -126,14 +149,16 @@ const OTPVerification = () => {
             <p>Please enter the 6-digit code sent to your phone number.</p>
             <form className=''>
               <OTPInput>
-                {otp.map((data, index) => (
+                {otp.map((Number, index) => (
                   <input
+                   key={index}
                     type="text"
+                    id={otp-input-${index}}
                     maxLength="1"
-                    key={index}
-                    value={data}
+                    value={Number}
                     className='radious'
-                    onChange={(e) => handleChange(e.target, index)}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
                   />
                 ))}
               </OTPInput>
@@ -145,8 +170,8 @@ const OTPVerification = () => {
                   {seconds > 0 || minutes > 0 ? (
                     <p>
                       <span><i className="fa-regular fa-clock"></i> </span>
-                      {minutes < 10 ? `0${minutes}` : minutes}:
-                      {seconds < 10 ? `0${seconds}` : seconds} sec
+                      {minutes < 10 ? 0${minutes} : minutes}:
+                      {seconds < 10 ? 0${seconds} : seconds} sec
                     </p>
                   ) : (
                     <p>Didn't receive code?</p>
@@ -159,7 +184,7 @@ const OTPVerification = () => {
                       color: seconds > 0 ? "gray" : "red",
                       cursor: "pointer"
                     }}
-                    onClick={resendOTP}
+                    onClick={resendOtp}
                   >
                     Resend OTP
                   </span>
@@ -169,7 +194,7 @@ const OTPVerification = () => {
             <Button
               disabled={isButtonDisabled}
               className='mt-4 text-light  radious p-3'
-              onClick={handleSubmit}
+              onClick={handleOtp}
             >
               Verify
             </Button>
