@@ -88,7 +88,18 @@ function RegistrationPage() {
   };
   
   
-  
+  // const signup = async (formData) => {
+  //   try {
+  //     const response = await axios.post('http://localhost:8001/api/auth/signup', formData, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     return response;
+  //   } catch (error) {
+  //     throw error; // Re-throw error to be caught in onSubmit
+  //   }
+  // };
 
   const togglePasswordVisibility = () => {
     showPassword(prev => !prev);
@@ -176,7 +187,7 @@ function RegistrationPage() {
                   type="text"
                   name='UserName'
                   value={formData.UserName} 
-                  className={form-control ${errors.UserName ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.UserName ? 'is-invalid' : ''}`}
                   placeholder="Enter First Name"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('UserName', { required: true })}
@@ -191,7 +202,7 @@ function RegistrationPage() {
                   type="text"
                   name='SurName'
                   value={formData.SurName}
-                  className={form-control ${errors.SurName ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.SurName ? 'is-invalid' : ''}`}
                   placeholder="Enter Last Name"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('SurName', { required: true })}
@@ -208,7 +219,7 @@ function RegistrationPage() {
                   type="email"
                   name='Email'
                   value={formData.Email}
-                  className={form-control ${errors.Email ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.Email ? 'is-invalid' : ''}`}
                   placeholder="Enter Email Address"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('Email', { required: true })}
@@ -223,7 +234,7 @@ function RegistrationPage() {
                   type="tel"
                   name='Phone_Number'
                   value={formData.Phone_Number}
-                  className={form-control ${errors.Phone_Number ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.Phone_Number ? 'is-invalid' : ''}`}
                   placeholder="91+"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('Phone_Number', { required: true })}
@@ -239,7 +250,7 @@ function RegistrationPage() {
                 <input
                   type="text"
                   name='Country'
-                  className={form-control ${errors.Country ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.Country ? 'is-invalid' : ''}`}
                   placeholder="Enter Country"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('Country', { required: true })}
@@ -254,7 +265,7 @@ function RegistrationPage() {
                 <input
                   type="text"
                   name='State'
-                  className={form-control ${errors.State ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.State ? 'is-invalid' : ''}`}
                   placeholder="Enter State"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('State', { required: true })}
@@ -269,7 +280,7 @@ function RegistrationPage() {
                 <input
                   type="text"
                   name='City'
-                  className={form-control ${errors.City ? 'is-invalid' : ''}}
+                  className={`form-control ${errors.City ? 'is-invalid' : ''}`}
                   placeholder="Enter City"
                   style={{ borderRadius: "15px", border: "1px solid #D3D3D3" }}
                   {...register('City', { required: true })}
@@ -328,7 +339,7 @@ function RegistrationPage() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 name='password'
-                className={form-control ${errors.password ? 'is-invalid' : ''}}
+                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                 placeholder="Enter Password"
                 style={{
                   borderRadius: "15px",
@@ -352,7 +363,7 @@ function RegistrationPage() {
                   transform: 'translateY(-50%)',
                 }}
               >
-                <i className={fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}}></i>
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
               </span>
               {errors.password && <p className="text-danger">{errors.password.message}</p>}
             </div>
@@ -362,7 +373,7 @@ function RegistrationPage() {
               <label htmlFor="">Confirm password <span style={{ color: "red" }}>*</span></label>
               <input
                 type={ShowConfirmPassword ? 'text' : 'password'}
-                className={form-control ${errors.confirmPassword ? 'is-invalid' : ''}}
+                className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
                 placeholder="Confirm Password"
                 name='Cpassword'
                 style={{
@@ -390,7 +401,7 @@ function RegistrationPage() {
                   transform: 'translateY(-50%)',
                 }}
               >
-                <i className={fas ${ShowConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}}></i>
+                <i className={`fas ${ShowConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
               </span>
             </div>
 
