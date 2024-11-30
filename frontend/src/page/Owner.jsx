@@ -55,7 +55,7 @@ export default function Owner() {
                         <label className="photo-upload mt-2 ">
                             <img src="/src/assets/addprofile.png " alt="" />
                             <input type="file" accept="image/*" />
-                            <div className="photo-preview text-center mt-4 profil-text" style={{ backgroundImage: `url(${photo || ''})` }}>
+                            <div className="photo-preview text-center mt-4 profil-text" style={{ backgroundImage: url(${photo || ''}) }}>
                                 {!photo && <span className="camera-icon text-center mt-5">Add Photo</span>}
                             </div>
                         </label>
@@ -100,7 +100,7 @@ export default function Owner() {
                                             {["Male", "Female", "Other"].map((option) => (
                                                 <div
                                                     key={option}
-                                                    className={`dropdown-option  ${selectedOption === option ? "selected" : ""}`}
+                                                    className={dropdown-option  ${selectedOption === option ? "selected" : ""}}
                                                     onClick={() => handleSelect(option)}
                                                 >
                                                     <span className="radio-icon">
@@ -228,7 +228,7 @@ export default function Owner() {
                         {[...Array(totalRows).keys()].map((index) => (
                             <div
                                 key={index}
-                                className={`row gy-3 member-row ${index < memberCount ? '' : 'd-none'}`}
+                                className={row gy-3 member-row ${index < memberCount ? '' : 'd-none'}}
                             >
                                 <div className="col-md-2 col-12">
                                     <label className='text-wrap '>Full Name <span className='text-danger1 '>*</span></label>
@@ -282,7 +282,7 @@ export default function Owner() {
                         {[...Array(totalvaical).keys()].map((index) => (
                             <div
                                 key={index}
-                                className={`row gy-3  member-row ${index < vaicalCount ? '' : 'd-none'}`}
+                                className={row gy-3  member-row ${index < vaicalCount ? '' : 'd-none'}}
                             >
 
 

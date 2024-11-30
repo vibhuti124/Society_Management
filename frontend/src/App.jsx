@@ -91,7 +91,7 @@ function App() {
         <Route path='/profileupdate' element={<Layout component={<ProfileEditForm />} />} />
         <Route path='/profile' element={<Layout component={<UpdateProfile />} />} />
         {/* resident */}
-        {/* resident */}
+      
 
 
 

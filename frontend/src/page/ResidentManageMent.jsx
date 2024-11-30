@@ -55,7 +55,7 @@ const ResidentManageMent = () => {
         {
             field: 'unitNumber', headerName: 'Unit Number', flex: 1, minWidth: 100, headerAlign: 'center', align: 'center',
             renderCell: (params) => (
-                <div className={`status-badge ${params.value.toLowerCase()} d-flex gap-3`}>
+                <div className={status-badge ${params.value.toLowerCase()} d-flex gap-3}>
                     <p className='wing mt-2' ><p className='wing-chile mb-4'>{params.row.wing}</p> </p>  <span> {params.value}</span>
 
                 </div>
@@ -71,7 +71,7 @@ const ResidentManageMent = () => {
             headerAlign: 'center',
             align: 'center',
             renderCell: (params) => (
-                <span className={`status-badge ${params.value.toLowerCase()}`}>
+                <span className={status-badge ${params.value.toLowerCase()}}>
                     {
                         params.row.unitStatus === "Occupied" ? <span> <LuBuilding2 /> {params.value}</span> : <span><FaBuildingUser /> {params.value}</span>
                     }
@@ -89,7 +89,7 @@ const ResidentManageMent = () => {
             headerAlign: 'center',
             align: 'center',
             renderCell: (params) => (
-                <span className={`status-badge ${params.value.toLowerCase()}`}>
+                <span className={status-badge ${params.value.toLowerCase()}}>
 
                     {
                         params.row.residentStatus === "Tenant" ? <span> <FaUser /> {params.value}</span> : params.row.residentStatus === "" ? <span>--</span> : <span><RiShieldUserFill /> {params.value}</span>

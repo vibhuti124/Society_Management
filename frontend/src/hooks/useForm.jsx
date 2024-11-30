@@ -1,7 +1,7 @@
 // hooks/useForm.js
 import { useState } from 'react';
 
-export default function useForm(initialValues) {
+export default function useForm(initialValues, validate) {
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState({});
 
@@ -33,6 +33,7 @@ export default function useForm(initialValues) {
         errors,
         handleChange,
         handleError,
-        clearError
+        clearError,
+        setErrors
     };
 }
