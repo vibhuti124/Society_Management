@@ -7,13 +7,16 @@ const UpdateProfile = () => {
   const [profile, setProfile] = useState({
     firstName: 'Arlene',
     lastName: 'McCoy',
-    phoneNumber: '+91 99130 44537',
+    phoneNumber: '+91 95123 64879',
     email: 'you@example.com',
     society: 'Shantigram residency',
     country: 'India',
     state: 'Gujarat',
     city: 'Baroda',
   });
+
+
+
  
 
   return (
@@ -21,7 +24,8 @@ const UpdateProfile = () => {
     <div className="d-flex justify-content-between">
 
       <h2>Edit Profile</h2>
-            
+      
+      
       <button onClick={()=>naviget("/profileupdate")} className='l-btn p-2 text-white btn mx-1'><span className='mx-2 mb-1'><FaEdit/></span> Edit Profile</button>
       
     </div>

@@ -25,7 +25,6 @@ export default function Dashboard() {
   const [contacts, setContacts] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
-  // Function to toggle the modal
   const toggleModal = () => {
     setShowModal(!showModal);
     if (showModal) {
@@ -40,15 +39,14 @@ export default function Dashboard() {
         index === editIndex ? newContact : contact
       );
       setContacts(updatedContacts);
-    } 
-    else {
+    } else {
 
       setContacts([...contacts, newContact]);
     }
     setShowModal(false);
   };
 
-  // Data for the chart
+  
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
@@ -94,14 +92,33 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container-fluid p-4">
+    <div className="container-fluid " style={{ width: "100%" }}>
       {/* Statistics  */}
       <div className="row mb-4">
-
-        <StatCard className="col-12  col-md-4" title="Total Balance" value="₹ 22,520" borderColor="#6a5acd" />
-        <StatCard className="col-12  col-md-4" title="Total Income" value="₹ 55,000" borderColor="#28a745" />
-        <StatCard className="col-12  col-md-4" title="Total Expense" value="₹ 20,550" borderColor="#dc3545" />
-        <StatCard className="col-12  col-md-4" title="Total Unit" value="₹ 20,550" borderColor="#ffc107" />
+        <StatCard
+          title="Total Balance"
+          value="₹ 2,22,520"
+          iconSrc="src/Assets/button1.png"
+          cardClass="balance-card-orange"
+        />
+        <StatCard
+          title="Total Income"
+          value="₹ 55,000"
+          iconSrc="src/Assets/button2.png"
+          cardClass="balance-card-green"
+        />
+        <StatCard
+          title="Total Expense"
+          value="₹ 20,550"
+          iconSrc="src/Assets/button3.png"
+          cardClass="balance-card-blue"
+        />
+        <StatCard
+          title="Total Unit"
+          value="₹ 20,550"
+          iconSrc="src/Assets/button4.png"
+          cardClass="balance-card-pink"
+        />
 
       </div>
 
@@ -112,12 +129,34 @@ export default function Dashboard() {
             <div className="card-body">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h3 className="card-title me-3">Total Balance</h3>
-                <select className="form-select mb-2" style={{ width: 'auto' }}>
-                  <option > Month</option>
-                  <option >Last week</option>
+                <select
+                  className="form-select position-absolute top-0 end-0 m-2 p-1"
+                  style={{
+                    width: 'auto',
+                    minWidth: '100px',
+                    height: '44px',
+                    fontSize: '13px',
+                    appearance: 'none',
+                    MozAppearance: 'none',
+                    WebkitAppearance: 'none',
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    paddingTop: '12px',
+                    paddingRight: '14px',
+                    paddingBottom: '12px',
+                    paddingLeft: '14px',
+                    gap: '10px',
+                  }}
+                >
+                  <option>Month</option>
+                  <option>Last week</option>
                   <option>Last month</option>
                   <option>Last Year</option>
                 </select>
+
+
+
+
               </div>
               <div style={{ height: '300px' }}>
                 <Line data={data} options={options} />
@@ -128,15 +167,15 @@ export default function Dashboard() {
 
         {/* Important Numbers and Pending Maintenance */}
         <div className="col-lg-6 d-flex flex-wrap">
-          <div className="col-lg-6 col-md-7 mb-4" style={{ marginLeft: "-10px", marginRight: "2px" }}>
+          {/* Important Numbers Section */}
+          <div className="col-lg-6 col-md-6 mb-4" style={{ marginLeft: "-10px", marginRight: "2px" }}>
             <div className="card h-100" style={{ marginRight: "5px", borderRadius: "15px" }}>
               <div className="card-body" style={{ paddingBottom: "0" }}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="card-title">Important Numbers</h6>
-
+                  <h6 className="card-title" style={{ fontSize: "16px", fontWeight: "bold" }}>Important Numbers</h6>
                   <Button
                     onClick={toggleModal}
-                    className="btn mb-4"
+                    className="btn "
                     style={{
                       background: "linear-gradient(90deg, rgb(254, 81, 46) 0%, rgb(240, 150, 25) 100%)",
                       color: "white",
@@ -144,6 +183,9 @@ export default function Dashboard() {
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
+
+                      textAlign: "center",
+                      justifyContent: "center",
                       position: "static",
                       marginBottom: "15px",
                     }}
@@ -152,16 +194,11 @@ export default function Dashboard() {
                     Add
                   </Button>
                 </div>
+                <div style={{ overflowY: "auto" }}>
+                  <ContactCard name="Hanna Donin" phone="98595733657" work="Plumber" />
+                  <ContactCard name="Hanna Donin" phone="98595733657" work="Plumber" />
 
 
-                <div
-                  style={{
-                    maxHeight: "300px",
-                    overflowY: "auto",
-                  }}
-                >
-                  <ContactCard name=" Hanna Donin" phone="  985957 33657" work=" Plumber" />
-                  <ContactCard name=" Jane Doe" phone=" 9123456789" work=" Electrician" />
 
                   {contacts.map((contact, index) => (
                     <ContactCard
@@ -174,46 +211,79 @@ export default function Dashboard() {
                     />
                   ))}
                 </div>
+
               </div>
             </div>
           </div>
 
-          <div className="col-lg-6 col-md-6 mb-4" style={{ marginLeft: "7px" }}>
-            <div className="card h-100" style={{ borderRadius: "15px" }}>
-              <div className="card-body" style={{ paddingBottom: "0" }}>
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="card-title">Pending Maintenances</h6>
-                  <a href="#" className="text-primary" style={{ textDecoration: "none" }}>View all</a>
-                </div>
+          {/* Pending Maintenances Section */}
+          <div className="col-12 col-sm-6 col-md-6 col-lg-6 mb-4 p-2">
+  <div className="card h-100" style={{ borderRadius: "15px" }}>
+    <div className="card-body" style={{ paddingBottom: "0" }}>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h6 className="card-title" style={{ fontSize: "13px", fontWeight: "bold" }}>
+          Pending Maintenances
+        </h6>
+        <a href="#" className="text-primary" style={{ textDecoration: "none" }}>
+          View all
+        </a>
+      </div>
 
-                <div
-                  style={{
-                    marginRight: "50px",
-                  }}
-                >
-                  <MaintenanceCard name="Roger Lubin" amount="₹ 5,000" photo="path_to_roger_photo.jpg" />
-                  <MaintenanceCard name="Mark Smith" amount="₹ 7,500" photo="path_to_mark_photo.jpg" />
-                  <MaintenanceCard name="John Doe" amount="₹ 10,000" photo="path_to_john_photo.jpg" />
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Mapping  maintenanceData array */}
+      <div className="d-flex flex-wrap gap-2">
+        {maintenanceData.map((item) => (
+          <MaintenanceCard
+            key={item.id}
+            name={item.name}
+            amount={item.amount}
+            photo={item.photo}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
         </div>
+
+
       </div>
 
 
-      <div className="row mb-4">
-        <div className="col-lg-8 mb-4" style={{ height: "361px", overflowY: "auto" }}>
+      <div className="row">
+        {/* Complaint List Section */}
+        <div className="col-lg-9 mb-4" style={{ height: "361px", overflowY: "auto" }}> 
           <div className="card h-100" style={{ borderRadius: "15px" }}>
-            <div className="card-body">
-              <div className='d-flex'>
-                <h3 className="card-title">Complaint List</h3>
-                <select className="form-select mb-2 position-absolute top-0 end-0 m-2" style={{ width: 'auto' }}>
+            <div className="card-body ">
+              <div className="d-flex justify-content-between align-items-center p-2" style={{ padding: "0" }}>
+                <h5 className="card-title p-2" style={{ marginBottom: "0" }}>Complaint List</h5>
+                <select
+                  className="form-select position-absolute top-0 end-0 m-2 p-1"
+                  style={{
+                    width: 'auto',
+                    minWidth: '100px',
+                    height: '44px',
+                    fontSize: '13px',
+                    appearance: 'none',
+                    MozAppearance: 'none',
+                    WebkitAppearance: 'none',
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    paddingTop: '12px',
+                    paddingRight: '14px',
+                    paddingBottom: '12px',
+                    paddingLeft: '14px',
+                    gap: '10px',
+                  }}
+                >
                   <option>Month</option>
                   <option>Last week</option>
                   <option>Last month</option>
                   <option>Last Year</option>
                 </select>
+
               </div>
               <div style={{ maxHeight: "250px", overflowY: "auto" }}>
                 <ComplaintTable />
@@ -222,24 +292,56 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="col-lg-4" style={{ height: "361px", overflowY: "auto" }}>
-          <div className="card h-100" style={{ borderRadius: "15px" }}>
-            <div className="card-body">
-              <div className='d-flex'>
-                <h4 className="card-title p-2">Upcoming Activities</h4>
-                <select className="form-select mb-2 position-absolute top-0 end-0 m-3 p-2" style={{ width: 'auto' }}>
+        {/* Upcoming Activities Section */}
+        <div className="col-lg-3 mb-4" style={{ height: '361px', overflowY: 'auto' }}>
+          <div className="card h-100" style={{ borderRadius: '15px' }}>
+            <div className="card-body ">
+              <div className="d-flex justify-content-between align-items-center p-2" style={{ padding: '0' }}>
+                <h6
+                  className="card-title p-2"
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Upcoming Activities
+                </h6>
+                <select
+                  className="form-select position-absolute top-0 end-0 m-2 p-1"
+                  style={{
+                    width: 'auto',
+                    minWidth: '100px',
+                    height: '44px',
+                    fontSize: '13px',
+                    appearance: 'none',
+                    MozAppearance: 'none',
+                    WebkitAppearance: 'none',
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    paddingTop: '12px',
+                    paddingRight: '14px',
+                    paddingBottom: '12px',
+                    paddingLeft: '14px',
+                    gap: '10px',
+                  }}
+                >
                   <option>Month</option>
                   <option>Last week</option>
                   <option>Last month</option>
                   <option>Last Year</option>
                 </select>
               </div>
-
-              <ActivityList />
+              <div style={{ maxHeight: '250px', overflowY: 'auto', paddingTop: '10px' }}>
+                <ActivityList />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
 
       {/* Modal Form */}
       <ModalForm
@@ -253,8 +355,7 @@ export default function Dashboard() {
 }
 
 function ModalForm({ show, handleClose, handleAddContact, initialData }) {
-  const [formData, setFormData] = useState(initialData || 
-    {
+  const [formData, setFormData] = useState(initialData || {
     fullName: '',
     phoneNumber: '',
     work: '',
@@ -287,7 +388,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header>
-        <Modal.Title>{initialData ? 'Edit Contact' : 'Add Important Number'}</Modal.Title>
+        <Modal.Title>{initialData ? 'Edit Contact' : 'Add Contact'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmitForm}>
@@ -295,7 +396,6 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
             <Form.Label>Full Name <span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
               type="text"
-              placeholder='Enter Full Name'
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
@@ -305,8 +405,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
           <Form.Group controlId="formPhoneNumber">
             <Form.Label>Phone Number<span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
-              type="number"
-              placeholder='+91'
+              type="text"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
@@ -317,7 +416,6 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
             <Form.Label>Work<span style={{ color: "red" }}>*</span></Form.Label>
             <Form.Control
               type="text"
-              placeholder='Enter Work'
               name="work"
               value={formData.work}
               onChange={handleChange}
@@ -363,8 +461,8 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
 }
 function StatCard({ title, value, iconSrc, cardClass }) {
   return (
-    <div className="col-lg-3 mb-3 ">
-      <div className={`balance-card  ${cardClass}`}>
+    <div className="col-lg-3  ">
+      <div className={balance-card  ${cardClass}}>
         <div className="balance-info ">
           <p className="mb-0 text-muted pt-2">{title}</p>
           <h5 className="balance-amount f-2">{value}</h5>
@@ -385,78 +483,124 @@ function ContactCard({ name, phone, work, onEdit, onDelete, id }) {
   const handleCloseDeleteModal = () => setShowDeleteModal(false);
 
   const handleDelete = () => {
-    onDelete(id);
-    setShowDeleteModal(false);
+    onDelete(id); 
+    setShowDeleteModal(false); 
   };
 
   return (
-    <div className="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2" style={{ borderRadius: "15px" }}>
-      <div>
-        <p className='mb-0' style={{ color: "grey" }}><span style={{ color: "black" }}>Name:-</span> {name}</p>
-        <div className="d-flex align-items-center">
-          <p className="mb-0" style={{ color: "grey" }}><span style={{ color: "black" }}>Phone:-</span>{phone}</p>
-          {/* Edit and Delete buttons next to phone */}
-          <div className="ms-2">
-            <Button onClick={onEdit} style={{ color: "green", backgroundColor: "transparent", border: "none", width: "30px", height: "30px" }} size="sm">
-              <FaRegEdit />
+    <div className="importent-number" style={{ overflowX: "hidden" }}>
+      <div className="row">
+        <div className="col-12 col-md-6">
+          <p style={{ color: "grey", marginBottom: "0" }}>
+            <span style={{ color: "black", fontSize: "11px" }}>Name:</span>
+            <span style={{ fontSize: "13px" }}>{name}</span>
+          </p>
+          <p style={{ color: "grey", marginBottom: "0" }}>
+            <span style={{ color: "black", fontSize: "11px" }}>Phone:</span>
+            <span style={{ fontSize: "13px" }}> {phone}</span>
+          </p>
+          <p style={{ color: "grey" }}>
+            <span style={{ color: "black", fontSize: "11px" }}>Work:</span>
+            <span style={{ fontSize: "13px" }}> {work}</span>
+          </p>
+        </div>
+        <div className="col-12 col-md-6">
+          <div className="button-icon ms-5">
+            <Button
+              onClick={onEdit}
+              style={{
+                color: "green",
+                backgroundColor: "transparent",
+                border: "none",
+               width:"30px",
+                height: "30px",
+              }}
+              size="sm"
+            >
+              <FaRegEdit className="fs-4" />
             </Button>
             <Button
               onClick={handleShowDeleteModal}
-              style={{ color: "red", backgroundColor: "transparent", border: "none", width: "30px", height: "30px" }}
+              style={{
+                color: "red",
+                backgroundColor: "transparent",
+                border: "none",
+                width:"30px",
+                height: "30px",
+              }}
               size="sm"
-              className="ms-2"
             >
-              <MdOutlineDeleteOutline />
+              <MdOutlineDeleteOutline className="fs-4" />
             </Button>
           </div>
+          <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Confirm Delete</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are you sure you want to delete this number?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button style={{ backgroundColor: "transparent", border: "1px solid grey", color: "black" }} onClick={handleCloseDeleteModal}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={handleDelete}>
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
-        <p style={{ color: "grey" }}><span style={{ color: "black" }}>Work:-</span>{work}</p>
       </div>
-
-      {/* Delete Confirmation Modal */}
-      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete this number?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button style={{ backgroundColor: "transparent", border: "1px solid grey", color: "black" }} onClick={handleCloseDeleteModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
+
   );
 }
 
 const MaintenanceCard = ({ name, amount, photo }) => {
   return (
-    <div className="d-flex align-items-center mb-3 w-100">
+    <div className="d-flex flex-column flex-sm-row align-items-center mb-3 w-100" style={{ minWidth: "200px" }}>
       <img
-        src="https://pics.craiyon.com/2023-11-26/oMNPpACzTtO5OVERUZwh3Q.webp"
+        src={photo}  
         alt={name}
-        style={{ width: "50px", borderRadius: "50%", marginRight: "10px" }}
+        className="rounded-circle me-2 mb-2 mb-sm-0"
+        style={{ width: "50px", height: "50px", objectFit: "cover" }}
       />
-      <div className="d-flex justify-content-between align-items-center w-100">
-        <div className="d-flex flex-column align-items-start">
+      <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start w-100">
+        <div className="d-flex flex-column align-items-start mb-2 mb-sm-0">
           <span>{name}</span>
-          <p style={{ fontSize: "0.8em", color: "gray", margin: 0 }}>2 months</p>
+          <p className="text-muted mb-0" style={{ fontSize: "0.8em" }}>2 months</p>
         </div>
-        <span style={{ color: "red" }}>{amount}</span>
+        <span className="text-danger fw-bold">{amount}</span>
       </div>
     </div>
   );
 };
 
+const maintenanceData = [
+  {
+    id: 1,
+    name: "Building Maintenance",
+    amount: "$5000",
+    photo: "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png"
+  },
+  {
+    id: 2,
+    name: "Plumbing",
+    amount: "$2000",
+    photo: "https://png.pngtree.com/png-vector/20240204/ourmid/pngtree-avatar-job-student-flat-portrait-of-man-png-image_11606888.png"
+  },
+  {
+    id: 3,
+    name: "Electrical Repair",
+    amount: "$3000",
+    photo: "https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp"
+  }
+];
+
 
 const ComplaintTable = () => {
   const [complaints, setComplaints] = useState([
-    { id: 1, name: 'John Doe', complaint: 'Unethical Behavior', date: '2024-11-01', status: 'Open', priority: 'Medium', profilePhoto: 'https://www.shutterstock.com/image-vector/vector-illustration-color-avatar-user-260nw-2463110233.jpg' },
+    { id: 1, name: 'John Doe', complaint: 'UnethicalBehavior', date: '2024-11-01', status: 'Open', priority: 'Medium', profilePhoto: 'https://www.shutterstock.com/image-vector/vector-illustration-color-avatar-user-260nw-2463110233.jpg' },
     { id: 2, name: 'Jane Smith', complaint: 'Noise Complaint', date: '2024-11-01', status: 'Pending', priority: 'High', profilePhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbC_i3mdPG4rauxrzDGjwL1QHiqtDVuHbcifrdanG8VzxmqSQEvmEl3tpynyz0yiV7Y00&usqp=CAU' },
     { id: 3, name: 'Alex Johnson', complaint: 'Pothole Issue', date: '2024-11-01', status: 'Solved', priority: 'Low', profilePhoto: 'https://img.freepik.com/premium-photo/stylish-man-flat-vector-profile-picture-ai-generated_606187-310.jpg' },
     { id: 4, name: ' Johnson', complaint: 'Pothole ', date: '2024-11-01', status: 'Solved', priority: 'Low', profilePhoto: 'https://img.freepik.com/premium-photo/orange-white-picture-man-with-beard-smile_745528-17296.jpg' },
@@ -503,26 +647,28 @@ const ComplaintTable = () => {
   };
 
   return (
-    <div className="table-responsive" style={{ borderRadius: "15px" }}>
-      <table className="table table-hover table-striped" style={{ borderCollapse: 'separate', borderSpacing: '0' }}>
-        <thead>
+    <div className="table-responsive  radius" style={{ borderRadius: "20px" }}>
+      <table className="table table-hover table-striped " >
+        <thead style={{ borderSpacing: '0', borderRadius: "20px" }}>
           <tr style={{ textAlign: 'center' }}>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Complainer Name</th>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Complaint Name</th>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Date</th>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Priority</th>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Status</th>
-            <th style={{ backgroundColor: "#E5E8FD" }}>Action</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13px", }}>Complainer Name</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13px" }}>Complaint Name</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13px" }}>Date</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13px" }}>Priority</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13x" }}>Status</th>
+            <th style={{ backgroundColor: "#E5E8FD", fontSize: "13px" }}>Action</th>
           </tr>
         </thead>
         <tbody>
           {complaints.map((comp) => (
-            <tr className="no-shadow"
+            <tr
+              className="no-shadow"
               key={comp.id}
               style={{
                 textAlign: 'center',
                 boxShadow: 'none',
-
+                fontSize: "16px",
+                padding: '10px 0',
               }}
             >
               <td
@@ -532,6 +678,10 @@ const ComplaintTable = () => {
                   alignItems: 'center',
                   justifyContent: 'flex-start',
                   border: 'none',
+                  fontSize: "16px",
+                  padding: '8px 15px',
+                  verticalAlign: 'middle',
+                  marginLeft: '20px',
                 }}
               >
                 <img
@@ -542,14 +692,39 @@ const ComplaintTable = () => {
                     height: '45px',
                     borderRadius: '50%',
                     marginRight: '10px',
+                    fontSize: "13px"
                   }}
                 />
-                <span style={{ border: 'none', boxShadow: "none" }}>{comp.name}</span>
+                <span>{comp.name}</span>
               </td>
 
-              <td style={{ border: 'none', boxShadow: "none" }}>{comp.complaint}</td>
-              <td style={{ border: 'none', boxShadow: "none" }}>{comp.date}</td>
-              <td style={{ border: 'none', boxShadow: "none" }}>
+              <td style={{
+                border: 'none',
+                boxShadow: "none",
+                fontSize: "16px",
+                padding: '8px 15px',
+                marginLeft: '20px',
+                verticalAlign: 'middle',
+              }}>
+                {comp.complaint}
+              </td>
+              <td style={{
+                border: 'none',
+                boxShadow: "none",
+                fontSize: "16px",
+                padding: '8px 15px',
+                marginLeft: '20px',
+                verticalAlign: 'middle',
+              }}>
+                {comp.date}
+              </td>
+              <td style={{
+                border: 'none',
+                boxShadow: "none",
+                padding: '8px 15px',
+                marginLeft: '20px',
+                verticalAlign: 'middle',
+              }}>
                 <span
                   style={{
                     boxShadow: "none",
@@ -560,12 +735,19 @@ const ComplaintTable = () => {
                     color: 'white',
                     width: '80px',
                     textAlign: 'center',
+                    fontSize: "13px"
                   }}
                 >
                   {comp.priority}
                 </span>
               </td>
-              <td style={{ border: 'none', boxShadow: "none" }}>
+              <td style={{
+                border: 'none',
+                boxShadow: "none",
+                padding: '8px 15px',
+                marginLeft: '20px',
+                verticalAlign: 'middle',
+              }}>
                 <span
                   style={{
                     boxShadow: "none",
@@ -576,50 +758,65 @@ const ComplaintTable = () => {
                     minWidth: '80px',
                     textAlign: 'center',
                     display: 'inline-block',
+                    fontSize: "13px"
                   }}
                 >
                   {comp.status}
                 </span>
               </td>
-              <td style={{ border: 'none', boxShadow: "none" }}>
-                <FaRegEdit
-                  className="text-success"
-                  onClick={() => handleEditClick(comp)}
-                  style={{
-                    marginRight: '10px',
-                    padding: '8px',
-                    borderRadius: '30%',
-                    fontSize: '35px',
-                    backgroundColor: '#f5f5f5',
-                  }}
-                />
-                <FaEye
-                  className="text-primary"
-                  onClick={() => handleViewClick(comp)}
-                  style={{
-                    marginRight: '10px',
-                    padding: '8px',
-                    borderRadius: '30%',
-                    fontSize: '35px',
-                    backgroundColor: '#f5f5f5',
-                  }}
-                />
-                <MdOutlineDeleteOutline
-                  className="text-danger"
-                  onClick={() => handleDeleteClick(comp)}
-                  style={{
-                    padding: '8px',
-                    borderRadius: '30%',
-                    fontSize: '35px',
-                    backgroundColor: '#f5f5f5',
-                    boxShadow: 'none', // Ensure no box-shadow
-                    outline: 'none', // Remove outline as well
-                  }}
-                />
+              <td style={{
+                border: 'none',
+                boxShadow: 'none',
+                padding: '0',
+                verticalAlign: 'middle',
+                textAlign: 'center',
+              }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center', 
+                  gap: '10px', 
+                }}>
+                  <FaRegEdit
+                    className="text-success"
+                    onClick={() => handleEditClick(comp)}
+                    style={{
+                      padding: '8px',
+                      borderRadius: '30%',
+                      fontSize: '30px',
+                      backgroundColor: '#f5f5f5',
+                      boxShadow: 'none',
+                    }}
+                  />
+                  <FaEye
+                    className="text-primary"
+                    onClick={() => handleViewClick(comp)}
+                    style={{
+                      padding: '8px',
+                      borderRadius: '30%',
+                      fontSize: '30px',
+                      backgroundColor: '#f5f5f5',
+                      boxShadow: 'none',
+                    }}
+                  />
+                  <MdOutlineDeleteOutline
+                    className="text-danger"
+                    onClick={() => handleDeleteClick(comp)}
+                    style={{
+                      padding: '8px',
+                      borderRadius: '30%',
+                      fontSize: '30px',
+                      backgroundColor: '#f5f5f5',
+                      boxShadow: 'none',
+                    }}
+                  />
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
+
+
 
 
 
@@ -628,9 +825,9 @@ const ComplaintTable = () => {
       {/* Edit Modal */}
       {editData && (
         <div>
-          <div className={`modal-backdrop fade ${showEditModal ? 'show' : ''}`} style={{ display: showEditModal ? 'block' : 'none' }}></div>
+          <div className={modal-backdrop fade ${showEditModal ? 'show' : ''}} style={{ display: showEditModal ? 'block' : 'none' }}></div>
 
-          <div className={`modal fade ${showEditModal ? 'show' : ''}`} style={{ display: showEditModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
+          <div className={modal fade ${showEditModal ? 'show' : ''}} style={{ display: showEditModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
@@ -759,7 +956,7 @@ const ComplaintTable = () => {
                       backgroundColor: "transparent",
                       border: "1px solid grey",
                       color: "black",
-                      width: "48%",
+                      width: "40%",
                     }}
                   >
                     Close
@@ -771,7 +968,7 @@ const ComplaintTable = () => {
                     style={{
                       background: "linear-gradient(90deg, rgb(254, 81, 46) 0%, rgb(240, 150, 25) 100%)",
                       border: "none",
-                      width: "48%",
+                      width: "40%",
                     }}
                     disabled={!editData.name || !editData.complaint || !editData.date || !editData.status || !editData.priority}
                   >
@@ -790,12 +987,12 @@ const ComplaintTable = () => {
       {complaintToView && (
         <div>
           <div
-            className={`modal-backdrop fade ${showViewModal ? 'show' : ''}`}
+            className={modal-backdrop fade ${showViewModal ? 'show' : ''}}
             style={{ display: showViewModal ? 'block' : 'none' }}
           ></div>
 
           <div
-            className={`modal fade ${showViewModal ? 'show' : ''}`}
+            className={modal fade ${showViewModal ? 'show' : ''}}
             style={{ display: showViewModal ? 'block' : 'none' }}
             tabIndex="-1"
             role="dialog"
@@ -830,8 +1027,8 @@ const ComplaintTable = () => {
 
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                     <img
-                      src={complaintToView.profilePhoto} // Use the profilePhoto from the selected complaint
-                      alt={`${complaintToView.name}'s profile`}
+                      src={complaintToView.profilePhoto} 
+                      alt={${complaintToView.name}'s profile}
                       style={{
                         width: '60px',
                         height: '60px',
@@ -927,10 +1124,10 @@ const ComplaintTable = () => {
       {complaintToDelete && (
         <div>
 
-          <div className={`modal-backdrop fade ${showDeleteModal ? 'show' : ''}`} style={{ display: showDeleteModal ? 'block' : 'none' }}></div>
+          <div className={modal-backdrop fade ${showDeleteModal ? 'show' : ''}} style={{ display: showDeleteModal ? 'block' : 'none' }}></div>
 
 
-          <div className={`modal fade ${showDeleteModal ? 'show' : ''}`} style={{ display: showDeleteModal ? 'block' : 'none', boxShadow: "3px 4px 5px solid black" }} tabIndex="-1" role="dialog">
+          <div className={modal fade ${showDeleteModal ? 'show' : ''}} style={{ display: showDeleteModal ? 'block' : 'none', boxShadow: "3px 4px 5px solid black" }} tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div
                 className="modal-content"
@@ -954,7 +1151,7 @@ const ComplaintTable = () => {
                       backgroundColor: "transparent",
                       color: "black",
                       border: "1px solid grey",
-                      width: "48%"
+                      width: "45%"
                     }}
                   >
                     Cancel
@@ -964,7 +1161,7 @@ const ComplaintTable = () => {
                     className="btn btn-danger"
                     onClick={handleDeleteConfirm}
                     style={{
-                      width: "48%"
+                      width: "40%"
                     }}
                   >
                     Delete
@@ -981,145 +1178,83 @@ const ComplaintTable = () => {
   );
 };
 //  upcoming activity list
-function ActivityList() {
+const ActivityList = () => {
+  const activities = [
+    { id: 1, initial: 'A', name: 'Activity 1', date: '2024-11-01', time: '10:00 AM' },
+    { id: 2, initial: 'B', name: 'Activity 2', date: '2024-11-02', time: '11:00 AM' },
+    { id: 3, initial: 'C', name: 'Activity 3', date: '2024-11-03', time: '12:00 PM' },
+    
+  ];
+
   return (
-    <ul className="list-group custom-scroll" style={{ height: "250px" }}>
-      <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-        <div className="d-flex align-items-center w-75">
+    <ul className="list-group custom-scroll" style={{ height: '250px' }}>
+    {activities.map((activity) => (
+      <li
+        key={activity.id}
+        className="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+      >
+        <div className="d-flex align-items-center w-100">
+       
           <h6
             style={{
-              backgroundColor: "lightgreen",
-              width: "40px",
-              height: "40px",
-              textAlign: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              color: "green",
-              marginRight: "10px",
+              backgroundColor: '#E6BBAD',
+              width: '30px',
+              padding: '2px',
+              height: '30px',
+              textAlign: 'center',
+              justifyContent: 'center',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              fontWeight: 'bold',
+              color: 'DarkOrange',
+              marginRight: '10px',
+              fontSize: '0.9em',
             }}
+            className="d-flex justify-content-center align-items-center"
           >
-            S
+            {activity.initial}
           </h6>
-          <div className="d-flex flex-column">
-            <span>Society Meeting</span>
-            <p style={{ fontSize: "0.8em", margin: 0, color: "gray" }}>10 AM to 3 PM</p>
+  
+          {/* Activity content */}
+          <div className="d-flex flex-column flex-grow-1 w-100">
+            <div className="d-flex align-items-center justify-content-between w-100">
+              <span
+                className="text-truncate"
+                style={{
+                  marginRight: '10px',
+                  flex: 1,
+                  fontSize: '1em', 
+                }}
+              >
+                {activity.name}
+              </span>
+              <span
+                className="text-muted text-truncate"
+                style={{
+                  fontSize: '13px',
+                }}
+              >
+                {activity.date}
+              </span>
+            </div>
+            <p
+              style={{
+                fontSize: '0.8em',
+                margin: 0,
+                color: 'gray',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {activity.time}
+            </p>
           </div>
         </div>
-        <span className="text-muted" style={{ marginLeft: "auto" }}>{`24-09-2024`}</span>
       </li>
-
-      <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-        <div className="d-flex align-items-center w-75">
-          <h6
-            style={{
-              backgroundColor: "#E6BBAD",
-              width: "40px",
-              height: "40px",
-              textAlign: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              color: "DarkOrange",
-              marginRight: "10px",
-            }}
-          >
-            H
-          </h6>
-          <div className="d-flex flex-column">
-            <span>Holi Festival</span>
-            <p style={{ fontSize: "0.8em", margin: 0, color: "gray" }}>10 AM to 3 PM</p>
-          </div>
-        </div>
-        <span className="text-muted" style={{ marginLeft: "auto" }}>{`24-09-2024`}</span>
-      </li>
-
-      <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-        <div className="d-flex align-items-center w-75">
-          <h6
-            style={{
-              backgroundColor: "#E6BBAD",
-              width: "40px",
-              height: "40px",
-              textAlign: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              color: "DarkOrange",
-              marginRight: "10px",
-            }}
-          >
-            H
-          </h6>
-          <div className="d-flex flex-column">
-            <span>Holi Festival</span>
-            <p style={{ fontSize: "0.8em", margin: 0, color: "gray" }}>10 AM to 3 PM</p>
-          </div>
-        </div>
-        <span className="text-muted" style={{ marginLeft: "auto" }}>{`24-09-2024`}</span>
-      </li>
-
-      <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-        <div className="d-flex align-items-center w-75">
-          <h6
-            style={{
-              backgroundColor: "#E6BBAD",
-              width: "40px",
-              height: "40px",
-              textAlign: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              color: "DarkOrange",
-              marginRight: "10px",
-            }}
-          >
-            H
-          </h6>
-          <div className="d-flex flex-column">
-            <span>Holi Festival</span>
-
-            <p style={{ fontSize: "0.8em", margin: 0, color: "gray" }}>10 AM to 3 PM</p>
-          </div>
-        </div>
-        <span className="text-muted" style={{ marginLeft: "auto" }}>{`24-09-2024`}</span>
-      </li>
-
-      <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-        <div className="d-flex align-items-center w-75">
-          <h6
-            style={{
-              backgroundColor: "#E6BBAD",
-              width: "40px",
-              height: "40px",
-              textAlign: "center",
-              justifyContent: "center",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              color: "DarkOrange",
-              marginRight: "10px",
-            }}
-          >
-            H
-          </h6>
-          <div className="d-flex flex-column">
-            <span>Holi Festival</span>
-
-            <p style={{ fontSize: "0.8em", margin: 0, color: "gray" }}>10 AM to 3 PM</p>
-          </div>
-        </div>
-        <span className="text-muted" style={{ marginLeft: "auto" }}>{`24-09-2024`}</span>
-      </li>
-    </ul>
+    ))}
+  </ul>
+  
   );
-}
+};

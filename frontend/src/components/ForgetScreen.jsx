@@ -1,45 +1,31 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "/src/hooks/useForm";
-import axios from 'axios';
-
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { GetOtp } from '../apiservices/Authentication';
 
 
 export default function ForgetScreen() {
     const navigate = useNavigate();
 
-    // Define validation function for email
-    const validate = (name, value) => {
-        if (name === "Email") {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(value) ? "" : "Please enter a valid email address.";
-        }
-        return "";
-    };
+    const { errors } = useForm(
+        {EmailOrPhone : ""},
+    )
 
-    // Initialize useForm with initial values and validation function
-    const { values, errors, handleChange, setErrors } = useForm(
-        { Email: "" },
-        validate
-    );
+    const [EmailOrPhone, setEmailOrPhone] = useState("");
 
     const handleSendOtp = async () => {
-        if (!values.Email || errors.Email) {
-            alert("Please enter a valid email before proceeding.");
-            return;
-        }
-        try {
-            console.log('Sending request with:',
-                { emailorphone: values.Email });
-            const response = await axios.post('http://localhost:9000/api/auth/forgot-password/send-otp',
-                { emailorphone: values.Email });
-            console.log('Response:', response.data);
-            alert("OTP sent successfully");
-            navigate('/otp');
-        } catch (error) {
-            console.error('There was an error!', error);
-            setErrors({ ...errors, Email: 'Error sending OTP. Please try again.' });
-        }
+      try {
+        const response = await GetOtp({ EmailOrPhone });
+        localStorage.setItem("EmailOrPhone", EmailOrPhone);
+        toast.success(response.data.message);
+        navigate("/otp");
+      } catch (error) {
+        toast.error(error.response.data.message);
+      } finally {
+        setEmailOrPhone("");
+      }
     };
 
     return (
@@ -54,7 +40,7 @@ export default function ForgetScreen() {
                         <img className='w-25 h-25 mt-5 ms-4' src="src/assets/Logo.png" alt="Logo" />
                     </div>
                     <div className="mailImg mt-4 text-center">
-                        <img className="img-fluid mt-4" style={{ width: "100%", maxWidth: "507px", height: "auto", position: "sticky" }} src="src/assets/forget-img.png" alt="Forget" />
+                        <img  className="img-fluid mt-4" style={{ width: "100%", maxWidth: "507px", height: "auto"  ,position:"sticky"}} src="src/assets/forget-img.png" alt="Forget" />
                     </div>
                 </div>
 
@@ -73,28 +59,29 @@ export default function ForgetScreen() {
                             </label>
                             <input
                                 id="email"
-                                name="Email"
+                                name="EmailOrPhone"
                                 type="text"
-                                onChange={handleChange}
+                                value={EmailOrPhone}
+                                onChange={(e) => setEmailOrPhone(e.target.value)}
                                 className='form-control radious p-3 mt-2'
                                 placeholder="Enter your email"
-                                value={values.Email}
+                               
                             />
-                            {errors.Email && <p style={{ color: "red" }}>{errors.Email}</p>}
+                            {errors.EmailOrPhone && <p style={{ color: "red" }}>{errors.EmailOrPhone}</p>}
                         </div>
 
                         <div className="col-12 mt-3 mb-3">
                             <button
                                 onClick={handleSendOtp}
                                 className='btn text-white radious l-btn w-100 p-3'
-                                disabled={!values.Email || errors.Email}
+                                disabled={!EmailOrPhone || errors.EmailOrPhone}
                             >
                                 Get OTP
                             </button>
                         </div>
 
                         <div className="col-12 text-center mt-3">
-                            <Link to={'/login'} className='text-decoration-none'>
+                            <Link to={'/'} className='text-decoration-none'>
                                 <span className='text-danger' style={{ cursor: "pointer" }}>Back to Login</span>
                             </Link>
                         </div>
