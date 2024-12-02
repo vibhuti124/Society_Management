@@ -113,7 +113,7 @@ export default function Login() {
                 </label>
               </div>
               <div>
-                <Link to="/resetpassword" className="text-sm text-red-500">
+                <Link to="/forget" className="text-sm text-red-500">
                   Forgot Password?
                 </Link>
               </div>
