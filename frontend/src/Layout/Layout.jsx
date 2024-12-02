@@ -53,11 +53,11 @@ export default function Layout({ component }) {
         setIsOpen(!isOpen);
     };
     const handleAccept = (id) => {
-        alert(Accepted notification with ID ${id});
+        alert(`Accepted notification with ID ${id}`);
     };
 
     const handleDecline = (id) => {
-        alert(Declined notification with ID ${id});
+        alert(`Declined notification with ID ${id}`);
     };
 
     const clearAll = () => {
