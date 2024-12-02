@@ -7,7 +7,7 @@ const UpdateProfile = () => {
   const [profile, setProfile] = useState({
     firstName: 'Arlene',
     lastName: 'McCoy',
-    phoneNumber: '+91 99130 44537',
+    phoneNumber: '+91 95123 64879',
     email: 'you@example.com',
     society: 'Shantigram residency',
     country: 'India',

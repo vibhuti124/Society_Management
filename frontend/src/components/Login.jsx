@@ -52,7 +52,7 @@ export default function Login() {
             <div className="hidden md:flex md:w-1/2 items-center justify-center bg-indigo-50">
                 <div className="flex flex-col items-center">
                     <img src="src/assets/Logo.png" alt="Logo" className="w-40 mb-6" />
-                    <img src="src/assets/sideIMG.png" alt="Side Image" className="w-full max-w-lg" />
+                    <img src="src/assets/login.png" alt="Side Image" className="w-full max-w-lg" />
                 </div>
             </div>
 
