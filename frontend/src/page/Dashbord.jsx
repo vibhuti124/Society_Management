@@ -462,7 +462,7 @@ function ModalForm({ show, handleClose, handleAddContact, initialData }) {
 function StatCard({ title, value, iconSrc, cardClass }) {
   return (
     <div className="col-lg-3  ">
-      <div className={`balance-card  ${cardClass}`}>
+      <div className={balance-card  ${cardClass}}>
         <div className="balance-info ">
           <p className="mb-0 text-muted pt-2">{title}</p>
           <h5 className="balance-amount f-2">{value}</h5>
@@ -825,9 +825,9 @@ const ComplaintTable = () => {
       {/* Edit Modal */}
       {editData && (
         <div>
-          <div className={`modal-backdrop fade ${showEditModal ? 'show' : ''}`} style={{ display: showEditModal ? 'block' : 'none' }}></div>
+          <div className={modal-backdrop fade ${showEditModal ? 'show' : ''}} style={{ display: showEditModal ? 'block' : 'none' }}></div>
 
-          <div className={`modal fade ${showEditModal ? 'show' : ''}`} style={{ display: showEditModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
+          <div className={modal fade ${showEditModal ? 'show' : ''}} style={{ display: showEditModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
@@ -987,12 +987,12 @@ const ComplaintTable = () => {
       {complaintToView && (
         <div>
           <div
-            className={`modal-backdrop fade ${showViewModal ? 'show' : ''}`}
+            className={modal-backdrop fade ${showViewModal ? 'show' : ''}}
             style={{ display: showViewModal ? 'block' : 'none' }}
           ></div>
 
           <div
-            className={`modal fade ${showViewModal ? 'show' : ''}`}
+            className={modal fade ${showViewModal ? 'show' : ''}}
             style={{ display: showViewModal ? 'block' : 'none' }}
             tabIndex="-1"
             role="dialog"
@@ -1028,7 +1028,7 @@ const ComplaintTable = () => {
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                     <img
                       src={complaintToView.profilePhoto} 
-                      alt={`${complaintToView.name}'s profile`}
+                      alt={${complaintToView.name}'s profile}
                       style={{
                         width: '60px',
                         height: '60px',
@@ -1124,10 +1124,10 @@ const ComplaintTable = () => {
       {complaintToDelete && (
         <div>
 
-          <div className={`modal-backdrop fade ${showDeleteModal ? 'show' : ''}`} style={{ display: showDeleteModal ? 'block' : 'none' }}></div>
+          <div className={modal-backdrop fade ${showDeleteModal ? 'show' : ''}} style={{ display: showDeleteModal ? 'block' : 'none' }}></div>
 
 
-          <div className={`modal fade ${showDeleteModal ? 'show' : ''}`} style={{ display: showDeleteModal ? 'block' : 'none', boxShadow: "3px 4px 5px solid black" }} tabIndex="-1" role="dialog">
+          <div className={modal fade ${showDeleteModal ? 'show' : ''}} style={{ display: showDeleteModal ? 'block' : 'none', boxShadow: "3px 4px 5px solid black" }} tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
               <div
                 className="modal-content"

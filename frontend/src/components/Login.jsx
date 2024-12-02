@@ -99,7 +99,7 @@ export default function Login() {
                                 onClick={togglePasswordVisibility} 
                                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                             >
-                                <i className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`} />
+                                <i className={fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}} />
                             </button>
                         </div>
                         {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
