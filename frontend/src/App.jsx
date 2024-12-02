@@ -38,8 +38,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Registration" element={<RegistrationPage />} />
         <Route path='/' element={<Login />} />
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route path='/forget' element={<ForgetScreen />} />
         <Route path='/otp' element={<OTPVerification />} />
         <Route path='/resetpassword' element={<ResetPassword />} />

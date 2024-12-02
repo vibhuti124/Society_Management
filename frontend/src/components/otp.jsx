@@ -52,7 +52,7 @@ const OTPVerification = () => {
       setOtp(newOtp);
 
       if (value && index < otp.length - 1) {
-        document.getElementById(otp-input-${index + 1}).focus();
+        document.getElementById(otp-input-`${index + 1}`).focus();
       }
     }
   };
@@ -60,7 +60,7 @@ const OTPVerification = () => {
   const handleKeyDown = (index, event) => {
    
     if (event.key === "Backspace" && !otp[index] && index > 0) {
-      document.getElementById(otp-input-${index - 1}).focus();
+      document.getElementById(otp-input-`${index - 1}`).focus();
     }
   };
 
@@ -153,7 +153,7 @@ const OTPVerification = () => {
                   <input
                    key={index}
                     type="text"
-                    id={otp-input-${index}}
+                    id={otp-input-`${index}`}
                     maxLength="1"
                     value={Number}
                     className='radious'
@@ -170,8 +170,8 @@ const OTPVerification = () => {
                   {seconds > 0 || minutes > 0 ? (
                     <p>
                       <span><i className="fa-regular fa-clock"></i> </span>
-                      {minutes < 10 ? 0${minutes} : minutes}:
-                      {seconds < 10 ? 0${seconds} : seconds} sec
+                      {minutes < 10 ? 0`${minutes}` : minutes}:
+                      {seconds < 10 ? 0`${seconds}` : seconds} sec
                     </p>
                   ) : (
                     <p>Didn't receive code?</p>
