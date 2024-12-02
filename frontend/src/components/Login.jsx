@@ -35,10 +35,6 @@ export default function Login() {
             alt="Society management illustration"
             className="mb-6"
           />
-          <p className="text-xl text-center text-gray-700">
-            Your Space, Your Place: <br />
-            <span className="font-semibold">Society Management Made Simple</span>
-          </p>
         </div>
       </div>
 
@@ -117,7 +113,7 @@ export default function Login() {
                 </label>
               </div>
               <div>
-                <Link to="/forgotpassword" className="text-sm text-red-500">
+                <Link to="/resetpassword" className="text-sm text-red-500">
                   Forgot Password?
                 </Link>
               </div>
