@@ -4,7 +4,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import toast, { Toaster } from 'react-hot-toast';
-
 import RegistrationPage from './components/RegistrationPage';
 import Login from './components/Login';
 import ForgetScreen from './components/ForgetScreen';
@@ -25,13 +24,10 @@ import CompleteTraking from './page/CompleteTraking';
 import Tenant from './page/Tenant';
 import SecurityLayout from './Layout/SecurityLayout';
 import EmergencyManagement from './page2/EmergencyManagement';
-
 import Visitor from './page/Visitor';
 import Securityprotocols from './page/Securityprotocols';
-
 import Icome from './page/Icome';
 import Otherincome from './page/otheincom';
-
 import VisitorTracking from './page2/Visitortracking';
 
 function App() {
