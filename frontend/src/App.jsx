@@ -38,8 +38,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/Registration" element={<RegistrationPage />} />
-        <Route path='/' element={<Login />} />
+        <Route path="/" element={<RegistrationPage />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/forget' element={<ForgetScreen />} />
         <Route path='/otp' element={<OTPVerification />} />
         <Route path='/resetpassword' element={<ResetPassword />} />
@@ -47,7 +47,6 @@ function App() {
 
 
         <Route path='/resident' element={<Layout component={<ResidentManageMent />} />} />
-
 
 
         {/* DASHBORD */}

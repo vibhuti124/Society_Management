@@ -88,18 +88,18 @@ function RegistrationPage() {
   };
   
   
-  // const signup = async (formData) => {
-  //   try {
-  //     const response = await axios.post('http://localhost:8001/api/auth/signup', formData, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     return response;
-  //   } catch (error) {
-  //     throw error; // Re-throw error to be caught in onSubmit
-  //   }
-  // };
+  const signup = async (formData) => {
+    try {
+      const response = await axios.post('http://localhost:9000/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error; // Re-throw error to be caught in onSubmit
+    }
+  };
 
   const togglePasswordVisibility = () => {
     showPassword(prev => !prev);
