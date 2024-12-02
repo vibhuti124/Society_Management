@@ -66,6 +66,7 @@ function Login() {
                 {errors.Email && <div className="invalid-feedback">{errors.Email.message}</div>}
               </div>
 
+
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
                   Password <span className="text-danger">*</span>
@@ -79,6 +80,7 @@ function Login() {
                 />
                 {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
               </div>
+
 
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <div className="form-check">
@@ -114,9 +116,11 @@ function Login() {
             </form>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
 
 export default Login;
+

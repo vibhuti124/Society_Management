@@ -1,6 +1,8 @@
 const express = require('express');
-const dotenv = require('dotenv');
+require("dotenv").config();
 const connectDB = require('./config/db');
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const authRoutes = require('./routes/authRoutes');
 const societyRoutes = require('./routes/societyRoutes');
@@ -20,11 +22,23 @@ const securityGuardRoutes = require('./routes/securityGuardRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const importantNumberRoutes = require('./routes/importantNumberRoutes');
 
-dotenv.config();
+
 connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// for all origin
+const corsOptions = {
+    origin: function (origin, callback) {
+      callback(null, origin);
+    },
+    credentials: true,
+  };
+    
+app.use(cors(corsOptions));
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/auth', authRoutes);
@@ -47,4 +61,4 @@ app.use('/api/important-number', importantNumberRoutes);
 
 const PORT = process.env.PORT || 9000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log (`Server running on port ${PORT}`));
