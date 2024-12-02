@@ -86,7 +86,9 @@ export default function ResetPassword() {
                                 onClick={handleToggleNewPasswordVisibility}
                                 style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }}
                             >
+
                                 <i className={`fas ${showNewPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+
                             </span>
                             <br />
                             {errors.showNewPassword && <small className="text-danger ">{errors.showNewPassword}</small>}
@@ -110,7 +112,9 @@ export default function ResetPassword() {
                                 onClick={toggleConfirmPasswordVisibility}
                                 style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none' }}
                             >
+
                                 <i className={`fas ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+
                             </span>
                             <br />
                             {errors.confirmPassword && <small className="text-danger">{errors.confirmPassword}</small>}

@@ -55,7 +55,9 @@ const ResidentManageMent = () => {
         {
             field: 'unitNumber', headerName: 'Unit Number', flex: 1, minWidth: 100, headerAlign: 'center', align: 'center',
             renderCell: (params) => (
+
                 <div className={`status-badge ${params.value.toLowerCase()} d-flex gap-3`}>
+
                     <p className='wing mt-2' ><p className='wing-chile mb-4'>{params.row.wing}</p> </p>  <span> {params.value}</span>
 
                 </div>

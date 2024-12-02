@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+
 import loginImage from '../assets/Login.png';
 import Logo from '../assets/Logo.png';
+
 import axios from 'axios';
 import { StoreUser } from '../redux/authslice'
 import backimg from '../assets/back.png'
@@ -114,9 +116,12 @@ function Login() {
             </form>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
 
+
 export default Login;
+
