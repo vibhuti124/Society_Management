@@ -235,7 +235,7 @@ const ResidentManageMent = () => {
                         <h5 className='fs-4 add-text'>Resident Tenant and Owner Details</h5>
                     </div>
                     <div className="col-12 col-md-3 mt-2 add-p-btn  ">
-                        <div className=' add-btn ' onClick={() => naviget("/owner")}> <span><FaPlus /></span> <span>Add New Resident details</span> </div>
+                        <div className=' add-btn flex' onClick={() => naviget("/owner")}> <span><FaPlus className='mt-1' /></span> <span>Add New Resident details</span> </div>
                     </div>
                 </div>
                 <DataGrid
