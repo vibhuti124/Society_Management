@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-export default function Icome() {
+export default function Income() {
   const [show, setShow] = useState(false);
   const [showsetmantenenc, setShowsetmantenenc] = useState(false);
   const [showsetmantenencdetels, setshowsetmantenencdetels] = useState(false);
@@ -245,7 +245,7 @@ export default function Icome() {
 
         </div>
         <div className="setmaintenance">
-          <button className='l-btn text-white' onClick={() => setShowsetmantenenc(true)}>Set Maintenance</button>
+          <button className='l-btn text-white p-2' onClick={() => setShowsetmantenenc(true)}>Set Maintenance</button>
         </div>
 
       </div>

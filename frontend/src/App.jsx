@@ -26,7 +26,7 @@ import SecurityLayout from './Layout/SecurityLayout';
 import EmergencyManagement from './page2/EmergencyManagement';
 import Visitor from './page/Visitor';
 import Securityprotocols from './page/Securityprotocols';
-import Icome from './page/Icome';
+import Income from './page/Icome';
 import Otherincome from './page/otheincom';
 import VisitorTracking from './page2/Visitortracking';
 
@@ -58,7 +58,7 @@ function App() {
         <Route path='/Financial' element={<Layout component={<Financial />} />} />
         <Route path='/Expense' element={<Layout component={<Expense />} />}/>
         <Route path='/Otherincome' element={<Layout component={<Otherincome />} />}/>
-        <Route path='/Icome' element={<Layout component={<Icome />} />}/>
+        <Route path='/Income' element={<Layout component={<Income />} />}/>
         {/* FacilityManagement */}
         <Route path='/FacilityManagement' element={<Layout component={<FacilityManagement />} />} />
         {/* traking */}

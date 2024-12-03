@@ -211,10 +211,10 @@ left:-23px;
 
                             {/* acoding */}
                             {
-                                location.pathname === "/Financial" || location.pathname === "/Icome" || location.pathname === "/Expense" ? <div> {showFinancialSubmenu2 && (
+                                location.pathname === "/Financial" || location.pathname === "/income" || location.pathname === "/Expense" ? <div> {showFinancialSubmenu2 && (
                                     <Submenu>
                                         <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Financial" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Financial")} >Note</span></SubmenuItem>
-                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Icome" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Icome")}> Income</span></SubmenuItem>
+                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/income" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/income")}> Income</span></SubmenuItem>
                                         <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Expense" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Expense")}>Expense</span></SubmenuItem>
                                     </Submenu>
                                 )} </div> : ""
@@ -287,7 +287,7 @@ left:-23px;
 
                                             {showFinancialSubmenu2 && (
                                                 <Submenu>
-                                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Icome" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Icome")}> Income</span></SubmenuItem>
+                                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/income" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/income")}> Income</span></SubmenuItem>
                                                     <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Expense" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Expense")}>Expense</span></SubmenuItem>
                                                     <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Financial" ? "2px solid black" : "2px solid gray" }}>Note</span></SubmenuItem>
                                                 </Submenu>
