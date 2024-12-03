@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import img1 from "../assets/Login.png";
 import img2 from "../assets/back.png";
+import { useState } from "react";
+
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -57,9 +60,8 @@ export default function Login() {
               </label>
               <input
                 type="text"
-                className={`mt-1 block w-full p-2 border rounded ${
-                  errors.identifier ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`mt-1 block w-full p-2 border rounded ${errors.identifier ? "border-red-500" : "border-gray-300"
+                  }`}
                 {...register("identifier", {
                   required: "Email or Phone is required",
                   minLength: {
@@ -77,7 +79,7 @@ export default function Login() {
             </div>
 
             {/* Password */}
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <label className="block text-sm font-medium text-gray-700">
                 Password
               </label>
@@ -98,7 +100,41 @@ export default function Login() {
               {errors.password && (
                 <p className="text-red-500 text-sm">{errors.password.message}</p>
               )}
+            </div> */}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className={`mt-1 block w-full p-2 border rounded ${errors.password ? "border-red-500" : "border-gray-300"
+                    }`}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  placeholder="Enter Password"
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <i
+                    className={`fas ${showPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                  ></i>
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password.message}</p>
+              )}
             </div>
+
 
             {/* Remember Me & Forgot Password */}
             <div className="flex justify-between items-center mt-4">
