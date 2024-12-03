@@ -190,12 +190,12 @@ left:-23px;
                 <div className=" d-flex">
 
                     <div className="  layout  col-12 col-md-3 side-bar   ">
-                        <Logo className="mt-1">
+                        <Logo>
                             <Link to={"/deshbord"}>
-                                <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
+                                <img className='sidebar-logo my-4 mx-2' src="src/assets/Logo.png" alt="Logo" />
                             </Link>
                             <center>
-                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                <div style={{ border: "1px solid #F4F4F4" }} className="">
                                 </div>
                             </center>
                         </Logo>
@@ -235,14 +235,14 @@ left:-23px;
 
                             {
                                 location.pathname === "/Visitor" || location.pathname === "/Securityprotocols" ? <div>
-                                    
-                            {showFinancialSubmenu3 && (
-                                <Submenu>
-                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
-                                    <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
-                                </Submenu>
-                            )}
-                                </div> :""
+
+                                    {showFinancialSubmenu3 && (
+                                        <Submenu>
+                                            <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
+                                            <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
+                                        </Submenu>
+                                    )}
+                                </div> : ""
                             }
 
 
@@ -267,7 +267,7 @@ left:-23px;
                                                 <img className='h-75 w-75' src="src/assets/Logo.png" alt="Logo" />
                                             </Link>
                                             <center>
-                                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                                <div style={{ border: "1px solid #F4F4F4" }} className="mt-5 ">
                                                 </div>
                                             </center>
                                         </Logo>
@@ -321,9 +321,17 @@ left:-23px;
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
-                            <div className="search">
+                            <div className="search" style={{width:"500px"}}>
                                 {
-                                    location.pathname === "/deshbord" ? <div><SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />  <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} /> </div> : <div> <span onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>  <span className='ms-2  mb-2'><FaGreaterThan className='' /></span> <span style={{ color: "#5678E9" }} className='ms-2'>{location.pathname.split("/")}</span></div>
+                                    location.pathname === "/deshbord" ? <div>
+                                        <SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />
+                                        <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} />
+                                    </div> :
+                                        <div className='flex'>
+                                            <span className='text-lg' onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>
+                                            <span className='ms-2 mt-2  '><FaGreaterThan className='' /></span>
+                                            <span style={{ color: "#5678E9" }} className='ms-2 text-lg'>{location.pathname.split("/")}</span>
+                                        </div>
                                 }
 
 

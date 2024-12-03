@@ -172,7 +172,7 @@ export default function Dashboard() {
             <div className="card h-100" style={{ marginRight: "5px", borderRadius: "15px" }}>
               <div className="card-body" style={{ paddingBottom: "0" }}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="card-title" style={{ fontSize: "16px", fontWeight: "bold" }}>Important Numbers</h6>
+                  <h6 className="card-title" style={{ fontSize: "18px", fontWeight: "bold" }}>Important Numbers</h6>
                   <Button
                     onClick={toggleModal}
                     className="btn "
@@ -194,9 +194,9 @@ export default function Dashboard() {
                     Add
                   </Button>
                 </div>
-                <div style={{ overflowY: "auto" }}>
-                  <ContactCard name="Hanna Donin" phone="98595733657" work="Plumber" />
-                  <ContactCard name="Hanna Donin" phone="98595733657" work="Plumber" />
+                <div className='text-lg' style={{ overflowY: "auto" }}>
+                  <ContactCard name="Hanna Donin" phone="9859573300" work="Plumber" />
+                  <ContactCard name="Hanna Donin" phone="9859573300" work="Plumber" />
 
 
 
@@ -221,7 +221,7 @@ export default function Dashboard() {
   <div className="card h-100" style={{ borderRadius: "15px" }}>
     <div className="card-body" style={{ paddingBottom: "0" }}>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h6 className="card-title" style={{ fontSize: "13px", fontWeight: "bold" }}>
+        <h6 className="card-title" style={{ fontSize: "18px", fontWeight: "bold" }}>
           Pending Maintenances
         </h6>
         <a href="#" className="text-primary" style={{ textDecoration: "none" }}>
@@ -492,16 +492,16 @@ function ContactCard({ name, phone, work, onEdit, onDelete, id }) {
       <div className="row">
         <div className="col-12 col-md-6">
           <p style={{ color: "grey", marginBottom: "0" }}>
-            <span style={{ color: "black", fontSize: "11px" }}>Name:</span>
-            <span style={{ fontSize: "13px" }}>{name}</span>
+            <span style={{ color: "black", fontSize: "16px" }}>Name :</span>
+            <span style={{ fontSize: "16px" }}>{name}</span>
           </p>
           <p style={{ color: "grey", marginBottom: "0" }}>
-            <span style={{ color: "black", fontSize: "11px" }}>Phone:</span>
-            <span style={{ fontSize: "13px" }}> {phone}</span>
+            <span style={{ color: "black", fontSize: "16px" }}>Phone :</span>
+            <span style={{ fontSize: "16px" }}> {phone}</span>
           </p>
           <p style={{ color: "grey" }}>
-            <span style={{ color: "black", fontSize: "11px" }}>Work:</span>
-            <span style={{ fontSize: "13px" }}> {work}</span>
+            <span style={{ color: "black", fontSize: "16px" }}>Work :</span>
+            <span style={{ fontSize: "16px" }}> {work}</span>
           </p>
         </div>
         <div className="col-12 col-md-6">
