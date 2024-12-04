@@ -3,23 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GetOtp, Otpverification } from '../apiservices/Authentication';
 import toast from 'react-hot-toast';
+import img1 from "../assets/forget-img.png";
+import img2 from "../assets/back.png";
 
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-    background: linear-gradient(90deg, #FE512E 0%, #F09619 100%);
-  color: white;
+  background: ${({ disabled }) =>
+    disabled
+      ? "gray"
+      : "linear-gradient(90deg, #FE512E 0%, #F09619 100%)"};
+  color: ${({ disabled }) => (disabled ? "white" : "white")};
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  transition: background 0.3s ease;
 
   &:hover {
-    background-color: #ff8c42;
-  }
-
-  &:disabled {
-    background-color: black;
-    cursor: not-allowed;
+    background: ${({ disabled }) =>
+      disabled ? "gray" : "linear-gradient(90deg, #F09619 0%, #FE512E 100%)"};
   }
 `;
 
@@ -52,47 +54,36 @@ const OTPVerification = () => {
       setOtp(newOtp);
 
       if (value && index < otp.length - 1) {
-        document.getElementById(otp-input-`${index + 1}`).focus();
+        document.getElementById(`otp-input-${index + 1}`).focus();
       }
     }
   };
 
   const handleKeyDown = (index, event) => {
-   
     if (event.key === "Backspace" && !otp[index] && index > 0) {
-      document.getElementById(otp-input-`${index - 1}`).focus();
+      document.getElementById(`otp-input-${index - 1}`).focus();
     }
   };
 
   const handleOtp = async () => {
     try {
-      const OTP = otp.join("");  // Join OTP as a string
+      const OTP = otp.join("");
       const EmailOrPhone = localStorage.getItem("EmailOrPhone");
-  
+
       if (!OTP || !EmailOrPhone) {
         throw new Error("Missing OTP or Email/Phone");
       }
-  
-      const otpDetail = { otp: OTP, EmailOrPhone: EmailOrPhone };
-      console.log("Payload to verify OTP:", otpDetail);
-  
+
+      const otpDetail = { otp: OTP, EmailOrPhone };
       const response = await Otpverification(otpDetail);
       toast.success(response.data.message);
       navigate("/resetpassword");
     } catch (error) {
-      console.error("Error in OTP verification:", error);
-  
-      // error handling and message
-      if (error.response) {
-        console.error("Response from server:", error.response);
-        toast.error(error.response?.data?.message || "Error verifying OTP");
-      } else {
-        toast.error("Unknown error occurred.");
-      }
+      toast.error(
+        error.response?.data?.message || "Error verifying OTP"
+      );
     }
   };
-  
-  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,9 +99,7 @@ const OTPVerification = () => {
       }
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [seconds, minutes]);
 
   const resendOtp = async () => {
@@ -118,88 +107,84 @@ const OTPVerification = () => {
       const EmailOrPhone = localStorage.getItem("EmailOrPhone");
       const response = await GetOtp({ EmailOrPhone });
       toast.success(response.data.message);
+      setMinutes(0);
+      setSeconds(59);
     } catch (error) {
-      console.log(error);
       toast.error(error.response?.data?.message || "Error sending OTP");
     }
   };
 
-  // Check if all OTP fields are filled
-  const isButtonDisabled = otp.some(value => value === "");
+  const isButtonDisabled = otp.some((value) => value === "");
 
   return (
-    <div className='container-fluid'>
-      <div className="col-12 d-sm-block d-md-none mt-5 text-center">
-        <img className='w-50 mt-5 h-50 img-fluid' src="src/assets/Logo.png" alt="Logo" />
+    <div className="flex flex-col lg:flex-row h-screen">
+      <div className="lg:w-1/2 bg-gray-50 p-6 lg:p-12">
+        <h1 className="text-5xl font-bold">
+          <span className="text-orange-600">Dash</span>Stack
+        </h1>
+        <div className="flex flex-col justify-center items-center pt-5 mt-5">
+          <img src={img1} alt="Illustration" className="mb-6" />
+        </div>
       </div>
-      <div className="row container-img">
-        <div className="col-12 col-md-6 d-none d-md-block bg-color">
-          <div className="logo mt-4 ms-3 ">
-            <img className='w-25 h-25 ms-4' src="src/assets/Logo.png" alt="Logo" />
-          </div>
-          <div className="mailImg  text-center">
-            <img className="img-fluid mt-5" style={{ width: "100%", maxWidth: "507px", height: "auto" }} src="src/assets/forget-img.png" alt="Forget" />
-          </div>
-        </div>
 
-        <div className="col-12  mt-5 col-md-6 mb-5 d-flex justify-content-center align-items-center">
-          <div className="from1 row mt-5  row mb-5 p-5">
-            <img className='d-sm-block d-md-none' src="src/assets/forget-img.png" alt="" />
-            <h2>Enter OTP</h2>
-            <p>Please enter the 6-digit code sent to your phone number.</p>
-            <form className=''>
-              <OTPInput>
-                {otp.map((Number, index) => (
-                  <input
-                   key={index}
-                    type="text"
-                    id={otp-input-`${index}`}
-                    maxLength="1"
-                    value={Number}
-                    className='radious'
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(index, e)}
-                  />
-                ))}
-              </OTPInput>
+      <div
+        className="lg:w-1/2 flex justify-center items-center bg-white p-6 lg:p-12"
+        style={{
+          backgroundImage: `url(${img2})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right",
+        }}
+      >
+        <form className="w-full max-w-lg bg-white p-10 rounded-lg shadow-sm">
+          <h2 className="text-4xl font-semibold mb-6">Enter OTP</h2>
+          <p className="mb-7 text-gray-600">
+            Please enter the 6-digit code sent to your phone number.
+          </p>
 
-              {error && <p style={{ color: "red" }}>{error}</p>}
+          <OTPInput>
+            {otp.map((value, index) => (
+              <input
+                key={index}
+                type="text"
+                id={`otp-input-${index}`}
+                maxLength="1"
+                value={value}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+              />
+            ))}
+          </OTPInput>
 
-              <div className="col-12 d-flex justify-content-between">
-                <div className="time">
-                  {seconds > 0 || minutes > 0 ? (
-                    <p>
-                      <span><i className="fa-regular fa-clock"></i> </span>
-                      {minutes < 10 ? 0`${minutes}` : minutes}:
-                      {seconds < 10 ? 0`${seconds}` : seconds} sec
-                    </p>
-                  ) : (
-                    <p>Didn't receive code?</p>
-                  )}
-                </div>
-                <div className="resend">
-                  <span
-                    disabled={seconds > 0 || minutes > 0}
-                    style={{
-                      color: seconds > 0 ? "gray" : "red",
-                      cursor: "pointer"
-                    }}
-                    onClick={resendOtp}
-                  >
-                    Resend OTP
-                  </span>
-                </div>
-              </div>
-            </form>
-            <Button
-              disabled={isButtonDisabled}
-              className='mt-4 text-light  radious p-3'
-              onClick={handleOtp}
-            >
-              Verify
-            </Button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          <div className="col-12 d-flex justify-content-between mb-6">
+            <div>
+              {seconds > 0 || minutes > 0 ? (
+                <p>
+                  {minutes < 10 ? `0${minutes}` : minutes}:
+                  {seconds < 10 ? `0${seconds}` : seconds}
+                </p>
+              ) : (
+                <p>Didn't receive code?</p>
+              )}
+            </div>
+            <div>
+              <span
+                onClick={resendOtp}
+                style={{
+                  color: seconds > 0 ? "gray" : "red",
+                  cursor: seconds > 0 ? "not-allowed" : "pointer",
+                }}
+              >
+                Resend OTP
+              </span>
+            </div>
           </div>
-        </div>
+
+          <Button disabled={isButtonDisabled} onClick={handleOtp}>
+            Verify
+          </Button>
+        </form>
       </div>
     </div>
   );

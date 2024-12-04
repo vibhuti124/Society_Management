@@ -1,93 +1,130 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useForm from "/src/hooks/useForm";
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { GetOtp } from '../apiservices/Authentication';
-
+import toast from "react-hot-toast";
+import { GetOtp } from "../apiservices/Authentication";
+import img1 from "../assets/forget-img.png";
+import img2 from "../assets/back.png";
 
 export default function ForgetScreen() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const { errors } = useForm(
-        {EmailOrPhone : ""},
-    )
+  // State to manage input and validation
+  const [EmailOrPhone, setEmailOrPhone] = useState("");
+  const [error, setError] = useState("");
 
-    const [EmailOrPhone, setEmailOrPhone] = useState("");
+  // Validate the email or phone input
+  const validateInput = () => {
+    if (!EmailOrPhone) {
+      setError("This field is required.");
+      return false;
+    }
+    // Basic email/phone validation logic
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
 
-    const handleSendOtp = async () => {
-      try {
-        const response = await GetOtp({ EmailOrPhone });
-        localStorage.setItem("EmailOrPhone", EmailOrPhone);
-        toast.success(response.data.message);
-        navigate("/otp");
-      } catch (error) {
-        toast.error(error.response.data.message);
-      } finally {
-        setEmailOrPhone("");
-      }
-    };
+    if (!emailRegex.test(EmailOrPhone) && !phoneRegex.test(EmailOrPhone)) {
+      setError("Enter a valid email or 10-digit phone number.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
 
-    return (
-        <div className='container-fluid'>
-            <div className="col-12 d-sm-block d-md-none mt-5 text-center">
-                <img className='w-50 h-50 img-fluid mb-5' src="src/assets/Logo.png" alt="Logo" />
-            </div>
-            <div className="row container-img">
+  // Handle the "Get OTP" button click
+  const handleSendOtp = async () => {
+    if (!validateInput()) return;
 
-                <div className="col-12 col-md-6 d-none d-md-block bg-color">
-                    <div className="logo">
-                        <img className='w-25 h-25 mt-5 ms-4' src="src/assets/Logo.png" alt="Logo" />
-                    </div>
-                    <div className="mailImg mt-4 text-center">
-                        <img  className="img-fluid mt-4" style={{ width: "100%", maxWidth: "507px", height: "auto"  ,position:"sticky"}} src="src/assets/forget-img.png" alt="Forget" />
-                    </div>
-                </div>
+    try {
+      const response = await GetOtp({ EmailOrPhone });
+      localStorage.setItem("EmailOrPhone", EmailOrPhone);
+      toast.success(response.data.message);
+      navigate("/otp");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setEmailOrPhone("");
+    }
+  };
 
-                <div className="col-12 col-md-6 mt-5 d-flex justify-content-center align-items-center">
-                    <from className="from1 row mb-5 mt-5 p-3">
-                        <div className="col-12 d-sm-block d-md-none mb-4 text-center">
-                            <img style={{ height: "332.99px", width: "355.11px" }} className='img-fluid' src="src/assets/forget-img.png" alt="Forget" />
-                        </div>
+  return (
+    <>
+      <div className="flex flex-col lg:flex-row h-screen">
 
-                        <h3 className='mt-5 mb-4'>Forget Password</h3>
-                        <p className='text-center'>Enter your email and we'll send you an OTP to reset your password</p>
-
-                        <div className="col-12 mt-3 mb-2 ">
-                            <label style={{ fontWeight: "500" }} htmlFor="email">
-                                Email <span className='text-danger'>*</span>
-                            </label>
-                            <input
-                                id="email"
-                                name="EmailOrPhone"
-                                type="text"
-                                value={EmailOrPhone}
-                                onChange={(e) => setEmailOrPhone(e.target.value)}
-                                className='form-control radious p-3 mt-2'
-                                placeholder="Enter your email"
-                               
-                            />
-                            {errors.EmailOrPhone && <p style={{ color: "red" }}>{errors.EmailOrPhone}</p>}
-                        </div>
-
-                        <div className="col-12 mt-3 mb-3">
-                            <button
-                                onClick={handleSendOtp}
-                                className='btn text-white radious l-btn w-100 p-3'
-                                disabled={!EmailOrPhone || errors.EmailOrPhone}
-                            >
-                                Get OTP
-                            </button>
-                        </div>
-
-                        <div className="col-12 text-center mt-3">
-                            <Link to={'/'} className='text-decoration-none'>
-                                <span className='text-danger' style={{ cursor: "pointer" }}>Back to Login</span>
-                            </Link>
-                        </div>
-                    </from>
-                </div>
-            </div>
+        <div className="lg:w-1/2 bg-gray-50 p-6 lg:p-12">
+          <h1 className="text-5xl font-bold">
+            <span className="text-orange-600">Dash</span>Stack
+          </h1>
+          <div className="flex flex-col justify-center items-center pt-5 mt-5">
+            <img
+              src={img1}
+              alt="Society management illustration"
+              className="mb-6"
+            />
+          </div>
         </div>
-    );
+
+        <div
+          className="lg:w-1/2 flex justify-center items-center bg-white p-6 lg:p-12"
+          style={{
+            backgroundImage: `url(${img2})`,
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+          }}
+        >
+          <form className="w-full bg-white p-10 rounded-lg shadow-sm" style={{width:'80%'}}>
+            <h2 className="text-4xl font-semibold mb-6">Forget Password</h2>
+            <p className="mb-6 text-gray-600">
+              Enter your email or phone number, and we'll send you an OTP to
+              reset your password.
+            </p>
+
+            {/* Email or Phone Input */}
+            <div className="mb-4">
+              <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="email"
+              >
+                Email or Phone <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="email"
+                name="EmailOrPhone"
+                type="text"
+                value={EmailOrPhone}
+                onChange={(e) => {
+                  setEmailOrPhone(e.target.value);
+                  setError(""); // Clear error on change
+                }}
+                onBlur={validateInput} // Validate on blur
+                className={`mt-1 block w-full p-3 border rounded ${
+                  error ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Enter your email or phone number"
+              />
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+            </div>
+
+            {/* Get OTP Button */}
+            <div className="mb-4">
+              <button
+                type="button"
+                onClick={handleSendOtp}
+                className="w-full bg-orange-500 text-white p-3 rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
+                disabled={!EmailOrPhone || !!error} // Disable button if input is empty or invalid
+              >
+                Get OTP
+              </button>
+            </div>
+
+            {/* Back to Login Link */}
+            <div className="text-center">
+              <Link to="/" className="text-orange-500 text-sm">
+                Back to Login
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
 }
