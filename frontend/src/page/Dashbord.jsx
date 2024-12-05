@@ -490,7 +490,7 @@ function ContactCard({ name, phone, work, onEdit, onDelete, id }) {
   return (
     <div className="importent-number" style={{ overflowX: "hidden" }}>
       <div className="row">
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6" style={{border:"1px solid black", borderRadius:"3px"}}>
           <p style={{ color: "grey", marginBottom: "0" }}>
             <span style={{ color: "black", fontSize: "16px" }}>Name : </span>
             <span style={{ fontSize: "16px" }}>{name}</span>
