@@ -74,7 +74,13 @@ function App() {
         <Route path='/profileupdate' element={<Layout component={<ProfileEditForm />} />} />
         <Route path='/profile' element={<Layout component={<UpdateProfile />} />} />
         {/* resident */}
-      
+        <Route path='/user/deshbord' element={<UserLayout component={<Dashbord />} />} />
+        <Route path='/personaldetail' element={<UserLayout component={<PersonalDetail />} />} />
+        <Route path="/personaldetailstenant" element={<UserLayout component={<TenantPersonalDetails />} />} />
+        <Route path='/serviceandcomplaint' element={<UserLayout component={<ServiceComplaint />} />} />
+        <Route path='/requestandsubmission' element={<UserLayout component={<RequestSubmission />} />} />
+        <Route path='/eventsParticipation' element={<UserLayout component={<EventParticipation />} />} />
+        <Route path='/activityandparticipation' element={<UserLayout component={<ActivityParticipation />} />} />
 
 
 
