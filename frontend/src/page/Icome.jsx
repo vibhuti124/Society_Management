@@ -53,6 +53,10 @@ export default function Income() {
     { id: 2, Name: 'vced', unitNumber: '1002', date: '10/11/3624', wing: "B", residentStatus: 'Owner', phoneNumber: '7201000140', Amount: 3, Penalty: "", Payment: "Cash", Status: "Pending", },
     { id: 3, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Tenant', phoneNumber: '97687 85628', Amount: 3, Payment: "Cash", Status: "Done", Penalty: "200", img: "src/assets/notification-img.png" },
     { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
     // Additional rows...
   ];
 

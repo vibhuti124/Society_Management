@@ -1,853 +1,371 @@
 import React, { useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Button, Box } from '@mui/material';
-import { Edit, Image, PlusOne } from '@mui/icons-material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { LuBuilding2 } from "react-icons/lu";
-import { FaBuildingUser, FaPlus } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
-import { RiShieldUserFill } from "react-icons/ri";
-// import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import ArticleIcon from '@mui/icons-material/Article';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Modal, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaUser, FaHome, FaTag, FaEye, FaEdit, FaPlus } from 'react-icons/fa'; // Using react-icons as placeholders
+import Avtar from '../assets/Avatar.png';
+import editIcon from '../assets/Icons/Edit.png'
+import viewicon from '../assets/Icons/view.png'
 
 
-const ResidentManageMent = () => {
-    const naviget = useNavigate()
-    // Sample Data
-    const rows = [
-        { id: 1, fullName: 'Evelyn Harper', unitNumber: '1001', wing: "A", unitStatus: 'Occupied', residentStatus: 'Tenant', phoneNumber: '97687 85628', members: 0, vehicles: 1, img: "src/assets/notification-img.png" },
-        { id: 2, fullName: '', unitNumber: '1002', unitStatus: 'Vacate', wing: "B", residentStatus: '', phoneNumber: '', members: 3, vehicles: 2 },
-        { id: 3, fullName: 'Evelyn Harper', unitNumber: '1003', unitStatus: 'Occupied', wing: "C", residentStatus: 'Tenant', phoneNumber: '97687 85628', members: 3, vehicles: 1, img: "src/assets/notification-img.png" },
-        { id: 4, fullName: 'Evelyn Harper', unitNumber: '1003', unitStatus: 'Occupied', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', members: 3, vehicles: 0, img: "src/assets/notification-img.png" },
-        // Additional rows...
-    ];
+function ResidentManagement() {
+    const [residents, setResidents] = useState([
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'B', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'C', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'D', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 2, name: "-", unit: "B", Number: "1002", unitStatus: "Vacate", residentStatus: "--", phoneNumber: "--", members: "-", vehicles: "-" },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+        { id: 1, name: "Evelyn Harper", unit: 'A', Number: "1001", unitStatus: "Occupied", residentStatus: "Tenant", phoneNumber: "97587 85828", members: 1, vehicles: 2 },
+    ]);
 
-    // Define Columns
-    const columns = [
-        {
-            field: 'fullName',
-            headerName: 'Full Name',
-            flex: 1,
-            minWidth: 150,
-            headerAlign: 'center',
-            align: 'center',
-            renderCell: (params) => (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+    const [showModal, setShowModal] = useState(false);
+    const [showVacateModal, setShowVacateModal] = useState(false);
+    const [showCreateModal, setShowCreateModal] = useState(false); // New modal state for create modal
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [agreeChecked, setAgreeChecked] = useState(false);
+    const [idToDelete, setIdToDelete] = useState(null);
+    const navigate = useNavigate();
+    const handleOpenModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
+    const handleCloseVacateModal = () => setShowVacateModal(false);
+    const handleCloseCreateModal = () => setShowCreateModal(false); // Close create modal
 
-                    <img
-                        src={params.row.img || "/src/assets/defultProfile.png"}
-                        alt={params.value}
-                        style={{ width: 35, height: 35, borderRadius: '50%', marginRight: 8, border: params.row.img ? "" : "1px solid #F4F4F4", backgroundColor: params.row.img ? "" : "#F4F4F4" }}
-                    />
-                    {
-                        params.row.fullName === "" ? "-" : <span>{params.value}</span>
-                    }
-
-
-
-                </div>
-            ),
-        },
-        {
-            field: 'unitNumber', headerName: 'Unit Number', flex: 1, minWidth: 100, headerAlign: 'center', align: 'center',
-            renderCell: (params) => (
-                <div className={'status-badge `${params.value.toLowerCase()}` d-flex gap-3'}>
-                    <p className='wing mt-2' ><p className='wing-chile mb-4'>{params.row.wing}</p> </p>  <span> {params.value}</span>
-
-                </div>
-
-            )
-
-        },
-        {
-            field: 'unitStatus',
-            headerName: 'Unit Status',
-            flex: 1,
-            minWidth: 130,
-            headerAlign: 'center',
-            align: 'center',
-            renderCell: (params) => (
-                <span className={`status-badge ${params.value.toLowerCase()}`}>
-                    {
-                        params.row.unitStatus === "Occupied" ? <span> <LuBuilding2 /> {params.value}</span> : <span><FaBuildingUser /> {params.value}</span>
-                    }
-
-
-
-                </span>
-            )
-        },
-        {
-            field: 'residentStatus',
-            headerName: 'Resident Status',
-            flex: 1,
-            minWidth: 150,
-            headerAlign: 'center',
-            align: 'center',
-            renderCell: (params) => (
-                <span className={`status-badge ${params.value.toLowerCase()}`}>
-
-                    {
-                        params.row.residentStatus === "Tenant" ? <span> <FaUser /> {params.value}</span> : params.row.residentStatus === "" ? <span>--</span> : <span><RiShieldUserFill /> {params.value}</span>
-                    }
-                </span>
-            )
-        },
-        {
-            field: 'phoneNumber', headerName: 'Phone Number', flex: 1, minWidth: 150, headerAlign: 'center', align: 'center',
-            renderCell: (params) => (
-                <span>
-                    {
-                        params.row.phoneNumber ? <span>{params.value}</span> : <span>--</span>
-                    }
-                </span>
-            )
-        },
-        {
-            field: 'members', headerName: 'Members', type: 'number', flex: 0.5, minWidth: 80, headerAlign: 'center', align: 'center',
-            renderCell: (params) => (
-                <span>
-                    {
-                        params.row.members > 0 ? <span className=' wing p-2 '>{params.value}</span> : <span>-</span>
-                    }
-                </span>
-            )
-
-        },
-        {
-            field: 'vehicles', headerName: 'Vehicles', type: 'number', flex: 0.5, minWidth: 80, headerAlign: 'center', align: 'center',
-            renderCell: (params) => (
-                <span>
-                    {
-                        params.row.vehicles > 0 ? <span className=' wing p-2 '>{params.value}</span> : <span>-</span>
-                    }
-                </span>
-            )
-        },
-        {
-            field: 'actions',
-            headerName: 'Actions',
-            flex: 1,
-            minWidth: 150,
-            headerAlign: 'center',
-            align: 'center',
-            sortable: false,
-            renderCell: (params) => (
-                <div>
-                    {
-                        params.row.fullName === "" && params.row.residentStatus === "" && params.row.phoneNumber === "" ? <span>--</span> : <span>
-                            <span className='' onClick={handleShow}>
-                                <Edit style={{ cursor: "pointer" }} className='bg-success text-white p-1 radious mx-3 ' />
-                            </span>
-                            <span onClick={() => handleShow1(params.row.residentStatus)}>
-                                <VisibilityIcon style={{ cursor: "pointer" }} className='bg-primary p-1 radious text-white' />
-                            </span>
-                        </span>
-
-                    }
-
-
-
-
-                </div>
-            ),
-        },
-    ];
-
-
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const [status, setStatus] = useState("Occupied");
-    const [isAgreed, setIsAgreed] = useState(false);
-
-    const handleStatusChange = (event) => setStatus(event.target.value);
-    const handleAgreementChange = () => setIsAgreed(!isAgreed);
-
-
-    // form page route  function 
-
-    function HandleSubmit() {
-        try {
-            if (status === "Occupied") {
-
-                naviget("/owner")
-                setShow(false)
-            } else {
-                
-                setShow(false)
-                setShow3(true)
-            }
-
-        } catch (error) {
-            console.log(error)
+    const handleSave = () => {
+        if (selectedStatus === "Occupied" && agreeChecked) {
+            navigate('/residentForm');
+        } else if (selectedStatus === "Vacate") {
+            setShowVacateModal(true);
         }
-    }
-    function HandleSubmit1() {
-        try {
-            setShow3(false)
-            setShow4(true)
+        handleCloseModal();
+    };
 
-        } catch (error) {
-            console.log(error)
+    const handleCreateClick = () => {
+        setShowVacateModal(false); // Close the vacate modal
+        setShowCreateModal(true); // Open the create modal
+    };
+
+    const handleDelete = () => {
+        if (idToDelete) {
+            console.log("Deleting ID:", idToDelete); // Perform the delete action here (e.g., API call or state update)
+            // Reset the ID after deletion
+            setIdToDelete(null);
         }
-    }
-
-
-    const [show1, setShow1] = useState(false);
-    const [show2, setShow2] = useState(false);
-    const [show3, setShow3] = useState(false);
-    const [show4, setShow4] = useState(false);
-
-    const handleClose1 = () => setShow1(false);
-    const handleClose2 = () => setShow2(false);
-    const handleClose3 = () => setShow3(false);
-    const handleClose4 = () => setShow4(false)
-    // const handleShow1 = () => setShow1(true);
-
-    function handleShow1(Residence) {
-        try {
-            if (Residence === "Owner") {
-                console.log("Owner")
-                setShow1(true)
-            } else {
-                console.log("terent")
-                setShow2(true)
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
+        handleCloseCreateModal();
+    };
+    const imageColumnStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        gap: "10px",
+    };
 
     return (
-        <>
-            <Box className="radious" bgcolor={"white"} sx={{ height: '600px', width: '100%', padding: 2 }}>
-                <div className="row mt-3 justify-content-between align-items-center">
-                    <div className="col-12 col-md-6 mt-2 add-text ">
-                        <h5 className='fs-4 add-text'>Resident Tenant and Owner Details</h5>
-                    </div>
-                    <div className="col-12 col-md-3 mt-2 add-p-btn  ">
-                        <div className=' add-btn flex' onClick={() => naviget("/owner")}> <span><FaPlus className='mt-1' /></span> <span>Add New Resident details</span> </div>
-                    </div>
-                </div>
-                <DataGrid
-                    className='mt-4 h-75'
-                    rows={rows}
-                    columns={columns}
-                    pageSize={2}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    disableSelectionOnClick
-                    sx={{
-                        '& .status-badge.occupied': {
-                            backgroundColor: '#ECFFFF',
-                            width: "131px",
-                            padding: '5px 10px',
-                            borderRadius: '12px',
-                            color: '#14B8A6',
-                        },
-                        '& .status-badge.vacate': {
-                            backgroundColor: '#FFF6FF',
-                            padding: '5px 10px',
-                            borderRadius: '12px',
-                            color: '#9333EA',
-                            maxWidth: "95.31px",
+        <div className="d-flex flex-column flex-md-row dashboard-bg">
 
-                        },
-                        '& .status-badge.tenant': {
-                            backgroundColor: '#FFF1F8',
-                            padding: '5px 10px',
-                            borderRadius: '12px',
-                            color: '#EC4899',
-                        },
-                        '& .status-badge.owner': {
-                            backgroundColor: '#F1F0FF',
 
-                            padding: '5px 10px',
-                            borderRadius: '12px',
-                            color: '#4F46E5',
-                        },
-                        '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: '#eaf1f8',
-                        },
-                    }}
-                />
-            </Box>
+            {/* <div className="flex-grow-1  stickyHeader container-fluid" > */}
+                <div className="container-fluid  ">
 
-            {/* open a view section */}
-            {
 
-            }
-            <Offcanvas show={show1} placement={"end"} >
-                <div className="show-layout">
-                    <div className="show-layout-body">
-                        <div className="show-layout-header d-flex gap-4 mt-3">
-                            <img className='mb-2 ms-3' src="/src/assets/closearo.png" alt="" onClick={handleClose1} />
-                            <h4 className='mt-1 header-text'>View Owner Details</h4>
+                    <div className="table-responsive" style={{ border: "1px solid #ddd", borderRadius: "8px", boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)", overflow: "hidden", backgroundColor: "#fff", padding: "20px", marginTop: "20px", marginLeft: "10px" }}>
+                        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+
+                            <h4>Resident Tenant and Owner Details</h4>
+
+                            <Button onClick={handleOpenModal} className="mainColor2 mt-3 mt-md-0 flex justify-content-center p-2" style={{ border: "none", width: "250px" }}>
+                                <FaPlus className='mt-1' style={{ fontSize: "18px", borderRadius: "5px", background: "rgba(255, 255, 255, 1)", color: "#FE512E", marginRight: "8px" }} />
+                                Add New Resident Details
+                            </Button>
+
                         </div>
+                        <table className="table striped hover responsive">
 
-                        <div className="view-layour-body mt-3">
-                            <div className="iew-layout-profile mt-4">
-                                <center>
-                                    <img width={"90px"} height={"90px"} src="/src/assets/Avatar.png" className='fs-1' alt="" />
-                                             <h5 className='view-name mt-1'>Roger Lubin</h5>
-                                    <p className='view-email'>RogerLubin@gmail.com</p>
-                                </center>
-                            </div>
-                            <center>
+                            <thead>
+                                <tr className="rmHead"  >
+                                    <th
+                                        className="text-start"
+                                        style={{
+                                            padding: "10px",
+                                            width: "200px",
+                                            background: "rgb(185, 198, 242)",
+                                            fontSize: "14px",
+                                            fontWeight: 600,
+                                            lineHeight: "21px",
+                                            textAlign: "left",
+                                            textUnderlinePosition: "from-font",
+                                            textDecorationSkipInk: "none",
+                                        }}
+                                    >
+                                        Full Name
+                                    </th>
 
-                                <div className="viwe-detels-layout ">
-                                    <div className="profile-detels ">
-                                        <p className='ms-3  text-1'>Wing</p>
-                                        <p className='mx-3 text-2'>A</p>
-                                    </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels mt-2 ">
-                                        <p className='ms-3  text-1'>Unit</p>
-                                        <p className='mx-3 text-2'>101</p>
-                                    </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels ">
-                                        <p className='ms-3  text-1'>Age</p>
-                                        <p className='mx-3 text-2'>20</p>
-                                    </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels mt-2">
-                                        <p className='ms-3  text-1'>Gender</p>
-                                        <p className='mx-3 text-2'>Male</p>
-                                    </div>
-                                    <div className="line"></div>
-                                </div>
-                            </center>
-                            <center>
-                                <div className="viwe-detels-layout mt-3 ">
-                                    <div className="profile-detels ">
-                                        <div >
-                                            <h5 className='title'>Document</h5>
-                                            <div className="document">
-                                                <div className="d-flex document-1">
-                                                    <div className="document-ditels d-flex">
-                                                        <div className="img-icon ">
-                                                            <Image className='fs-3' />
-                                                        </div>
-                                                        <div className="document-name d-block ms-2">
-                                                            <h6 className='d-text'>
-                                                                Adharcard Front Side.JPG
-                                                            </h6>
-                                                            <p className="d-n ">3.5 MB</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="document-view mt-1">
-                                                        <VisibilityIcon />
-
-                                                    </div>
-                                                </div>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "150px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Unit Number</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "150px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Unit Status</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "150px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Resident Status</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "150px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Phone Number</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "130px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Members</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "130px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Vehicle</th>
+                                    <th className="text-center" style={{
+                                        padding: "10px", width: "150px", background: "rgb(185, 198, 242)",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        lineHeight: "21px",
+                                        textAlign: "left",
+                                        textUnderlinePosition: "from-font",
+                                        textDecorationSkipInk: "none",
+                                    }}>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {residents.map((resident, index) => (
+                                    <tr key={index} className="align-middle"  >
+                                        <td className="px-3">
+                                            <div style={imageColumnStyle} className="text-center">
+                                                <img
+                                                    src={Avtar}
+                                                    alt="avatar"
+                                                    className="rounded-circle"
+                                                    style={{
+                                                        width: "40px",
+                                                        height: "40px",
+                                                        borderRadius: "36px",
+                                                        border: "2px solid #F4F4F4",
+                                                    }}
+                                                />
+                                                <span
+                                                    style={{
+                                                        fontFamily: "Poppins",
+                                                        fontSize: "16px",
+                                                        fontWeight: "500",
+                                                        lineHeight: "24px",
+                                                        textAlign: "left",
+                                                    }}
+                                                >
+                                                    {resident.name}
+                                                </span>
                                             </div>
-                                            <div className="document">
-                                                <div className="d-flex document-1">
-                                                    <div className="document-ditels d-flex">
-                                                        <div className="img-icon ">
-                                                            <ArticleIcon className='fs-3 text-danger' />
-                                                        </div>
-                                                        <div className="document-name d-block ms-2">
-                                                            <h6 className='d-text'>
-                                                                Address Proof Front Side.PDF
-                                                            </h6>
-                                                            <p className="d-n ">3.5 MB</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="document-view mt-1">
-                                                        <VisibilityIcon />
+                                        </td>
+                                        <td style={{ padding: "15px", textAlign: "center", verticalAlign: "middle" }}>
+                                            <span style={{ border: "1px solid ", borderRadius: "50%", width: "28px", height: "28px", display: "inline-flex", justifyContent: "center", alignItems: "center", color: "skyblue" }}>
+                                                {resident.unit}
+                                            </span>
+                                            <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: "500", fontSize: "16px", lineHeight: "24px", marginLeft: "8px" }}>
+                                                {resident.Number}
+                                            </span>
+                                        </td>
+                                        <td className="text-center">
+                                            <span
+                                                className="badge"
+                                                style={{
+                                                    backgroundColor: resident.unitStatus === "Occupied" ? "#ECFFFF" :
+                                                        resident.unitStatus === "Vacate" ? "#FFF6FF" : "#F6F8FB",
+                                                    color: resident.unitStatus === "Occupied" ? "#14B8A6" :
+                                                        resident.unitStatus === "Vacate" ? "#9333EA" : "#202224",
+                                                }}
+                                            >
+                                                {resident.unitStatus === 'Occupied' ? <span><FaHome />  Occupide</span> : (resident.unitStatus === 'Vacate' ? <span><FaTag />  Vacate</span> : <FaHome />)}
+                                            </span>
+                                        </td>
+                                        <td className="text-center">
+                                            <span
+                                                className="badge"
+                                                style={{
+                                                    backgroundColor: resident.residentStatus === "Tenant" ? "#FFF1F8" :
+                                                        resident.residentStatus === "Owner" ? "#F1F0FF" : "#F6F8FB",
+                                                    color: resident.residentStatus === "Tenant" ? "#EC4899" :
+                                                        resident.residentStatus === "Owner" ? "#4F46E5" : "#202224",
+                                                }}
+                                            >
+                                                {resident.residentStatus === "Tenant" ? <span><FaUser />  Tenant</span> : (resident.residentStatus === "Owner" ? <FaTag /> : "--")}
+                                            </span>
+                                        </td>
+                                        <td className="text-center px-3">{resident.phoneNumber}</td>
+                                        <td className="text-center">{resident.members}</td>
+                                        <td className="text-center">{resident.vehicles}</td>
 
-                                                    </div>
-                                                </div>
+                                        <td className="text-center"
+                                            style={{ verticalAlign: "middle" }}>
+                                            <div className="d-flex align-items-center justify-content-center">
+                                                <img src={editIcon} className="text-success me-2" style={{ cursor: "pointer" }} onClick={handleOpenModal} />
+                                                <img src={viewicon} className="text-success me-2" style={{ cursor: "pointer" }} />
+
                                             </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </center>
-
-                            <center>
-
-                                <div className="viwe-detels-layout1 mt-4 ">
-                                    <div className="MemberCounting d-flex justify-content-between  align-items-center  ">
-                                        <h6 className='ms-3 mt-2 text-white'>Member Counting</h6>
-                                        <h6 className='mx-3 mt-2 text-white'>02</h6>
-                                    </div>
-                                    <div className="member-info ">
-                                        <div className="profile-detels mt-4 p-1 ">
-                                            <p className='ms-3  mt-2 text-1'>First Name</p>
-                                            <p className='mx-3 mt-2 text-2'>Roger Lubin</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2 ">
-                                            <p className='ms-3  text-1'>Phone No</p>
-                                            <p className='mx-3 text-2'>9123455555</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels ">
-                                            <p className='ms-3  text-1'>Age</p>
-                                            <p className='mx-3 text-2'>20</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Gender</p>
-                                            <p className='mx-3 text-2'>Male</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Relation</p>
-                                            <p className='mx-3 text-2'>Brother</p>
-                                        </div>
-                                    </div>
-                                    <div className="member-info">
-                                        <div className="profile-detels mt-4 p-1 ">
-                                            <p className='ms-3  mt-2 text-1'>First Name</p>
-                                            <p className='mx-3 mt-2 text-2'>Roger Lubin</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2 ">
-                                            <p className='ms-3  text-1'>Phone No</p>
-                                            <p className='mx-3 text-2'>9123455555</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels ">
-                                            <p className='ms-3  text-1'>Age</p>
-                                            <p className='mx-3 text-2'>20</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Gender</p>
-                                            <p className='mx-3 text-2'>Male</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Relation</p>
-                                            <p className='mx-3 text-2'>Brother</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </center>
-                        </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </Offcanvas>
-            {/* terent canvase */}
-            <Offcanvas show={show2} placement={"end"} >
-                <div className="show-layout">
-                    <div className="show-layout-body">
-                        <div className="show-layout-header d-flex gap-4 mt-3">
-                            <img className='mb-2 ms-3' src="/src/assets/closearo.png" alt="" onClick={handleClose2} />
-                            <h4 className='mt-1 header-text'>View Tenant Details</h4>
-                        </div>
 
-                        <div className="view-layour-body mt-3">
-                            <div className="iew-layout-profile mt-4">
-                                <center>
-                                    <img width={"90px"} height={"90px"} src="/src/assets/Avatar.png" className='fs-1' alt="" />
-                                    <h5 className='view-name mt-1'>Roger Lubin</h5>
-                                    <p className='view-email'>RogerLubin@gmail.com</p>
-                                </center>
-                            </div>
-                            <center>
 
-                                <div className="viwe-detels-layout ">
-                                    <div className="profile-detels ">
-                                        <p className='ms-3  text-1'>Wing</p>
-                                        <p className='mx-3 text-2'>A</p>
+                    <Modal className="square-modal" show={showModal} onHide={handleCloseModal} centered>
+                        <Modal.Header >
+                            <Modal.Title>Residence Status</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="residence-status-modal">
+                                <Form>
+                                    <div className="d-flex mb-3" style={{ gap: "70px" }}>
+                                        <Form.Check
+                                            className='radio-group'
+                                            style={{ border: "1px solid rgba(211, 211, 211, 1)", paddingLeft: "30px", paddingTop: "8px", paddingBottom: "8px", paddingRight: "30px", borderRadius: "5px" }}
+                                            type="radio"
+                                            label="Occupied"
+                                            name="residenceStatus"
+                                            value="Occupied"
+                                            checked={selectedStatus === "Occupied"}
+                                            onChange={(e) => setSelectedStatus(e.target.value)}
+                                        />
+                                        <Form.Check
+                                            className='radio-group'
+                                            style={{ border: "1px solid rgba(211, 211, 211, 1)", paddingLeft: "30px", paddingTop: "8px", paddingBottom: "8px", paddingRight: "30px", borderRadius: "5px" }}
+                                            type="radio"
+                                            label="Vacate"
+                                            name="residenceStatus"
+                                            value="Vacate"
+                                            checked={selectedStatus === "Vacate"}
+                                            onChange={(e) => setSelectedStatus(e.target.value)}
+                                        />
                                     </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels mt-2 ">
-                                        <p className='ms-3  text-1'>Unit</p>
-                                        <p className='mx-3 text-2'>101</p>
-                                    </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels ">
-                                        <p className='ms-3  text-1'>Age</p>
-                                        <p className='mx-3 text-2'>20</p>
-                                    </div>
-                                    <div className="line"></div>
-                                    <div className="profile-detels mt-2">
-                                        <p className='ms-3  text-1'>Gender</p>
-                                        <p className='mx-3 text-2'>Male</p>
-                                    </div>
-                                    <div className="line"></div>
-                                </div>
-                            </center>
-                            <center>
-                                <div className="viwe-detels-layout mt-3 ">
-                                    <div className="profile-detels ">
-                                        <div >
-                                            <h5 className='title'>Document</h5>
-                                            <div className="document">
-                                                <div className="d-flex document-1">
-                                                    <div className="document-ditels d-flex">
-                                                        <div className="img-icon ">
-                                                            <Image className='fs-3' />
-                                                        </div>
-                                                        <div className="document-name d-block ms-2">
-                                                            <h6 className='d-text'>
-                                                                Adharcard Front Side.JPG
-                                                            </h6>
-                                                            <p className="d-n ">3.5 MB</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="document-view mt-1">
-                                                        <VisibilityIcon />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="document">
-                                                <div className="d-flex document-1">
-                                                    <div className="document-ditels d-flex">
-                                                        <div className="img-icon ">
-                                                            <ArticleIcon className='fs-3 text-danger' />
-                                                        </div>
-                                                        <div className="document-name d-block ms-2">
-                                                            <h6 className='d-text'>
-                                                                Address Proof Front Side.PDF
-                                                            </h6>
-                                                            <p className="d-n ">3.5 MB</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="document-view mt-1">
-                                                        <VisibilityIcon />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </center>
-
-
-                            <center>
-
-                                <div className="viwe-detels-layout1 mt-4 ">
-                                    <div className="MemberCounting d-flex justify-content-between  align-items-center  ">
-                                        <h6 className='ms-3 mt-2 text-white'>Owner Details</h6>
-                                    </div>
-                                    <div className="member-info ">
-                                        <div className="profile-detels mt-4 p-1 ">
-                                            <p className='ms-3  mt-2 text-1'> Name</p>
-                                            <p className='mx-3 mt-2 text-2'>Roger Lubin</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2 ">
-                                            <p className='ms-3  text-1'>Phone No</p>
-                                            <p className='mx-3 text-2'>9123455555</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels ">
-                                            <p className='ms-3  text-1'>Address</p>
-                                            <p className='mx-3 text-2'>2972 Westheimer Rd..</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </center>
-                            <center>
-
-                                <div className="viwe-detels-layout1 mt-4 ">
-                                    <div className="MemberCounting d-flex justify-content-between  align-items-center  ">
-                                        <h6 className='ms-3 mt-2 text-white'>Member Counting</h6>
-                                        <h6 className='mx-3 mt-2 text-white'>02</h6>
-                                    </div>
-                                    <div className="member-info ">
-                                        <div className="profile-detels mt-4 p-1 ">
-                                            <p className='ms-3  mt-2 text-1'>First Name</p>
-                                            <p className='mx-3 mt-2 text-2'>Roger Lubin</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2 ">
-                                            <p className='ms-3  text-1'>Phone No</p>
-                                            <p className='mx-3 text-2'>9123455555</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels ">
-                                            <p className='ms-3  text-1'>Age</p>
-                                            <p className='mx-3 text-2'>20</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Gender</p>
-                                            <p className='mx-3 text-2'>Male</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Relation</p>
-                                            <p className='mx-3 text-2'>Brother</p>
-                                        </div>
-                                    </div>
-                                    <div className="member-info">
-                                        <div className="profile-detels mt-4 p-1 ">
-                                            <p className='ms-3  mt-2 text-1'>First Name</p>
-                                            <p className='mx-3 mt-2 text-2'>Roger Lubin</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2 ">
-                                            <p className='ms-3  text-1'>Phone No</p>
-                                            <p className='mx-3 text-2'>9123455555</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels ">
-                                            <p className='ms-3  text-1'>Age</p>
-                                            <p className='mx-3 text-2'>20</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Gender</p>
-                                            <p className='mx-3 text-2'>Male</p>
-                                        </div>
-                                        <div className="line"></div>
-                                        <div className="profile-detels mt-2">
-                                            <p className='ms-3  text-1'>Relation</p>
-                                            <p className='mx-3 text-2'>Brother</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </center>
-                        </div>
-                    </div>
-                </div>
-            </Offcanvas>
-
-
-
-            {/* Residence Status popup selelct occupied and vacate */}
-            <div className="d-flex justify-content-center">
-                <Modal
-                    className="custom-modal"
-                    show={show}
-
-                    centered
-                >
-                    <Modal.Header >
-                        <Modal.Title>Residence Status</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <div className="status-options d-flex justify-content-between">
-                                {/* Occupied Option */}
-                                <div
-                                    className={`p-2 d-flex align-items-center option ${status === "Occupied" ? "selected" : ""
-                                        }`}
-                                    onClick={() => setStatus("Occupied")}
-                                    style={{ border: "1px solid #D3D3D3", borderColor: status === "Occupied" ? "#FE512E #F09619" : "#D3D3D3", color: status === "Occupied" ? "black" : "#D3D3D3" }}
-                                >
                                     <Form.Check
-                                        type="radio"
-                                        label="Occupied"
-                                        name="status"
-                                        value="Occupied"
-                                        checked={status === "Occupied"}
-                                        onChange={handleStatusChange}
-                                        className="status-radio mt-2"
-                                    />
-                                </div>
-                                {/* Vacant Option */}
-                                <div
-                                    style={{ border: "1px solid #D3D3D3", borderColor: status === "Vacant" ? "#FE512E #F09619" : "#D3D3D3", color: status === "Vacant" ? "black" : "#D3D3D3" }}
 
-                                    className={`p-2 d-flex align-items-center option ${status === "Vacant" ? "selected" : ""
-                                        }`}
-                                    onClick={() => setStatus("Vacant")}
-                                >
-                                    <Form.Check
-                                        type="radio"
-                                        label="Vacant"
-                                        name="status"
-                                        value="Vacant"
-                                        checked={status === "Vacant"}
-                                        onChange={handleStatusChange}
-                                        className="status-radio mt-2"
+                                        type="checkbox"
+                                        label={`By submitting, you agree to select ${selectedStatus}.`}
+                                        checked={agreeChecked}
+                                        onChange={(e) => setAgreeChecked(e.target.checked)}
+                                        className="mb-3 radio-group"
                                     />
-                                </div>
+                                </Form>
                             </div>
-                            {/* Agreement Checkbox */}
-                            <Form.Group controlId="agreementCheckbox" className="mt-4">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="By submitting, you agree to select Occupied"
-                                    checked={isAgreed}
-                                    className='mt-3'
-                                    onChange={handleAgreementChange}
-                                />
-                            </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer className=" d-flex justify-content-between">
-                        <div className="d-flex gap-3">
-                        <Button
-                            className=" cancel-btn radious "
-                            style={{ border: "1px solid #D3D3D3",  }}
-                            variant="light"
-                            onClick={handleClose}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="save-btn radious l-btn "
-                            style={{
-                                background: "linear-gradient(90deg, #FE512E, #F09619)",
-                                border: "none",
-                                cursor: "pointer"
-                            }}
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button style={{ width: "175px", height: "51px", border: "1px solid #202224", padding: "10px 55px 10px 55px", background: "#FFFFFF", color: "#202224", }} className='cancle' onClick={handleCloseModal}>Cancel</Button>
+                            <Button style={{ width: "175px", height: "51px", border: "1px", padding: "10px 55px 10px 55px", color: "#202224", }} className="save" onClick={handleSave} disabled={!agreeChecked}>Save</Button>
+                        </Modal.Footer>
+                    </Modal>
 
-                            onClick={HandleSubmit}
-                        >
-                            Save
-                        </Button>
-                        </div>
-                      
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
-
-            {/* Residence Status popup for select wing and unit */}
-            <div className="d-flex justify-content-center">
-                <Modal
-                    className="custom-modal"
-                    show={show3}
-
-                    centered
-                >
-                    <Modal.Header >
-                        <Modal.Title>Residence Status</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <div className="status-options d-flex ">
-                                {/* Occupied Option */}
-                                <div className="col-md-6 col-10">
-                                    <label className='text-wrap'>Wing<span className='text-danger1 '>*</span></label>
-                                    <select className="form-select  input-text mt-1 input-style" required>
-                                        <option>Select Wing</option>
+                    <Modal className="square-modal" show={showVacateModal} onHide={handleCloseVacateModal} centered>
+                        <Modal.Header >
+                            <Modal.Title>Residence Status</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form className="d-flex align-items-center gap-4">
+                                <Form.Group controlId="wingSelect" className="flex-grow-1">
+                                    <Form.Label >Wing<span className="text-danger">*</span></Form.Label>
+                                    <Form.Control as="select">
                                         <option>A</option>
                                         <option>B</option>
                                         <option>C</option>
-                                    </select>
-                                </div>
-                                {/* Vacant Option */}
-                                <div className="col-md-6 col-10 ">
-                                    <label className='text-wrap'>Unit<span className='text-danger1 '>*</span></label>
-                                    <select className="form-select  input-text mt-1 input-style" required>
-                                        <option>Select Unit</option>
-                                        <option>1000</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                        <option>F</option>
+                                        <option>G</option>
+                                        <option>H</option>
+                                        <option>I</option>
+                                    </Form.Control>
+                                </Form.Group>
+
+                                <Form.Group controlId="unitSelect" className="flex-grow-1">
+                                    <Form.Label>Unit<span className="text-danger">*</span></Form.Label>
+                                    <Form.Control as="select">
+                                        <option>1001</option>
                                         <option>1002</option>
                                         <option>1003</option>
-                                    </select>
-                                </div>
-                            </div>
-                            {/* Agreement Checkbox */}
-                            <Form.Group controlId="agreementCheckbox" className="mt-4">
-                                <Form.Check
-                                    type="checkbox"
-                                    label="By submitting, you agree to select Vacant"
-                                    checked={isAgreed}
-                                    className='mt-3'
-                                    onChange={handleAgreementChange}
-                                />
-                            </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer className=" d-flex justify-content-between">
-                        <div className="d-flex gap-3">
+                                        <option>1004</option>
+                                        <option>2001</option>
+                                        <option>2002</option>
+                                        <option>2003</option>
+                                        <option>2004</option>
+                                        <option>3001</option>
+                                        <option>3002</option>
+                                        <option>3003</option>
+                                        <option>3004</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button style={{ width: "175px", height: "51px", border: "1px solid #202224", padding: "10px 55px 10px 55px", background: "#FFFFFF", color: "#202224", }} variant="secondary" onClick={handleCloseVacateModal}>Cancel</Button>
+                            <Button className='save' style={{ width: "175px", height: "51px", border: "1px", padding: "10px 55px 10px 55px", color: "#202224", }} onClick={handleCreateClick}>Create</Button>
+                        </Modal.Footer>
+                    </Modal>
 
-                        
-                        <Button
-                            className="cancel-btn radious "
-                            style={{ border: "1px solid #D3D3D3",  }}
-                            variant="light"
-                            onClick={handleClose3}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="save-btn radious l-btn "
-                            style={{
-                                background: "linear-gradient(90deg, #FE512E, #F09619)",
-                                border: "none",
-                                cursor: "pointer"
-                            }}
-
-                            onClick={HandleSubmit1}
-                        >
-                            Conform
-                        </Button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
-
-            {/* Do you want to vacate the finlay flat? */}
-
-            <div className="d-flex justify-content-center">
-                <Modal
-                    className="custom-modal"
-                    show={show4}
-
-                    centered
-                >
-                    <Modal.Header >
-                        <Modal.Title>Do you want to vacate the finlay flat?</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body style={{color:"#A7A7A7"}}>
-                    
-                    Are you sure you want to delate all details?
-                    </Modal.Body>
-                    <Modal.Footer className=" d-flex">
-                        <div className="d-flex gap-3">
-                        <Button
-                            className="cancel-btn radious "
-                            style={{ border: "1px solid #D3D3D3", }}
-                            variant="light"
-                            onClick={handleClose4}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="save-btn radious l-btn "
-                            style={{
-                                background: "#E74C3C",
-                                border: "none",
-                                cursor: "pointer"
-                            }}
-
-                            onClick={()=>naviget("/resident")|| setShow4(false)}
-                        >
-                            Conform
-                        </Button>
-                        </div>
-                       
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        </>
-
+                    {/* New Create Modal */}
+                    <Modal className="Round-modal" show={showCreateModal} onHide={handleCloseCreateModal} centered>
+                        <Modal.Header >
+                            <Modal.Title><strong>Do you want to vacate the finlay flat?</strong></Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Are you sure you want to delate all details?</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" className='cancle' style={{ width: "175px", height: "51px", border: "1px solid #202224", padding: "10px 55px 10px 55px", background: "#FFFFFF", color: "#202224", }} onClick={handleCloseCreateModal}>Cancle</Button>
+                            <Button style={{ width: "175px", height: "51px", border: "1px", padding: "10px 55px 10px 55px", color: "white", background: " rgba(231, 76, 60, 1)" }} className=".dropdown-item.text-danger " onClick={handleDelete}>Conform</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
+            {/* </div> */}
+        </div>
     );
-};
+}
 
-export default ResidentManageMent;
+export default ResidentManagement;
