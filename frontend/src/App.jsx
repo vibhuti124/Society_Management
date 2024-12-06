@@ -29,6 +29,15 @@ import Securityprotocols from './page/Securityprotocols';
 import Income from './page/Icome';
 import Otherincome from './page/otheincom';
 import VisitorTracking from './page2/Visitortracking';
+import UserLayout from './Layout/UserLayout';
+import PersonalDetail from './UserPages/PersonalDetail';
+import TenantPersonalDetails from './UserPages/TenantPersonalDetails';
+import ServiceComplaint from './UserPages/ServiceComplaint';
+import RequestSubmission from './UserPages/RequestSubmission';
+import EventParticipation from './UserPages/EventParticipation';
+import ActivityParticipation from './UserPages/ActivityParticipation';
+  
+
 
 function App() {
   return (
