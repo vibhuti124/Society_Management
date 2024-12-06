@@ -16,6 +16,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import TotalBalanceChart from './TotalBalanceChart';
 
 // Register Chart.js 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -125,45 +126,10 @@ export default function Dashboard() {
       {/* Total Balance Chart */}
       <div className="row mb-4">
         <div className="col-lg-6 col-md-12 mb-4">
-          <div className="card h-100" style={{ borderRadius: "15px" }}>
-            <div className="card-body">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h3 className="card-title me-3 text-lg font-bold">Total Balance</h3>
-                <select
-                  className="form-select position-absolute top-0 end-0 m-2 p-1 font-bold"
-                  style={{
-                    width: 'auto',
-                    minWidth: '100px',
-                    height: '44px',
-                    fontSize: '13px',
-                    appearance: 'none',
-                    MozAppearance: 'none',
-                    WebkitAppearance: 'none',
-                    border: '1px solid #ccc',
-                    borderRadius: '10px',
-                    paddingTop: '12px',
-                    paddingRight: '14px',
-                    paddingBottom: '12px',
-                    paddingLeft: '14px',
-                    gap: '10px',
-                  }}
-                >
-                  <option>Month</option>
-                  <option>Last week</option>
-                  <option>Last month</option>
-                  <option>Last Year</option>
-                </select>
-
-
-
-
-              </div>
-              <div style={{ height: '300px' }}>
-                <Line data={data} options={options} />
-              </div>
-            </div>
-          </div>
+        <TotalBalanceChart />
+          
         </div>
+
 
         {/* Important Numbers and Pending Maintenance */}
         <div className="col-lg-6 d-flex flex-wrap">
@@ -490,7 +456,7 @@ function ContactCard({ name, phone, work, onEdit, onDelete, id }) {
   return (
     <div className="importent-number" style={{ overflowX: "hidden" }}>
       <div className="row">
-        <div className="col-12 col-md-6" style={{border:"1px solid black", borderRadius:"3px"}}>
+        <div className="col-12 col-md-6" style={{ border: "1px solid black", borderRadius: "3px" }}>
           <p style={{ color: "grey", marginBottom: "0" }}>
             <span style={{ color: "black", fontSize: "16px" }}>Name : </span>
             <span style={{ fontSize: "16px" }}>{name}</span>
