@@ -58,7 +58,7 @@ const EventParticipation = () => {
                           complaint.map((val, index) => {
                             return (
                               <tr key={index} className='bg-light'>
-                                <td><img src={val.img} className='me-2' height={40} />{val.complainer}</td>
+                                <td className='flex '><img src={val.img} className='me-2' height={40} /><span className='pt-2'>{val.complainer}</span></td>
                                 <td>{val.des}</td>
                                 <td><Button className='event-time-btn border-0 text-dark mt-0'>{val.time}</Button></td>
 

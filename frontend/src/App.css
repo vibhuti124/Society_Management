@@ -1042,7 +1042,7 @@ input[type="email"] {
 
 
 
-/Dashbord css/
+/* /Dashbord css/ */
 .balance-card {
   background-color: #ffffff;
   border-radius: 12px;
@@ -2280,4 +2280,7 @@ color: #A7A7A7;
 }
 .A-1 {
   border-radius: 14px;
+}
+.mainColor2{
+  background: linear-gradient(90deg, #FE512E 0%, #F09619 100%);
 }

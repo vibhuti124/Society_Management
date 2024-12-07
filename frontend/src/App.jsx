@@ -36,7 +36,12 @@ import ServiceComplaint from './UserPages/ServiceComplaint';
 import RequestSubmission from './UserPages/RequestSubmission';
 import EventParticipation from './UserPages/EventParticipation';
 import ActivityParticipation from './UserPages/ActivityParticipation';
-  
+import PaymentPortal from './UserPages/PaymentPortal';
+import OtherInvoices from './UserPages/OtherInvoices';
+import ViewInvoice from './UserPages/ViewInvoice';
+import OtherIncomeInvoices from './UserPages/OtherInvoices';
+import SecurityProtocall from './UserPages/SecurityProtocall';
+
 
 
 function App() {
@@ -90,6 +95,11 @@ function App() {
         <Route path='/requestandsubmission' element={<UserLayout component={<RequestSubmission />} />} />
         <Route path='/eventsParticipation' element={<UserLayout component={<EventParticipation />} />} />
         <Route path='/activityandparticipation' element={<UserLayout component={<ActivityParticipation />} />} />
+        <Route path='/paymentportal' element={<UserLayout component={<PaymentPortal />} />} />
+        <Route path='/otherinvoices' element={<UserLayout component={<OtherInvoices />} />} />
+        <Route path='/viewinvoice' element={<UserLayout component={<ViewInvoice />} />} />
+        <Route path='/otherincomeinvoices' element={<UserLayout component={<OtherIncomeInvoices />} />} />
+        <Route path='/securityprotocall' element={<UserLayout component={<SecurityProtocall />} />} />
 
 
 

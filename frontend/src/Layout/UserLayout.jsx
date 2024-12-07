@@ -7,6 +7,8 @@ import { MdDashboard } from "react-icons/md";
 import PersonalDetailIcon from "../assets/Icons/personalcard.png"
 import ServiceIcon from "../assets/Icons/2.png"
 import EventsIcon from "../assets/Icons/Events Participation.png"
+import PaymentPortalIcon from "../assets/Icons/wallet.png"
+import SecurityProtocallIcon from "../assets/Icons/Frame.png"
 import { TbLogout } from "react-icons/tb";
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -24,6 +26,17 @@ export default function UserLayout({ component }) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+    const [showFinancialSubmenu2, setShowFinancialSubmenu2] = useState(false);
+    const [showFinancialSubmenu3, setShowFinancialSubmenu3] = useState(false);
+
+
+
+
+    // Toggle Financial Management submenu
+    const toggleFinancialSubmenu = () => setShowFinancialSubmenu2(!showFinancialSubmenu2);
+    const toggleFinancialSubmenu1 = () => setShowFinancialSubmenu3(!showFinancialSubmenu3);
 
 
     // notification 
@@ -188,7 +201,7 @@ left:-23px;
                             <Link className='link-tag' to={"/user/deshbord"}  > <div className='side-design' style={{ display: location.pathname === "/user/deshbord" ? "block" : "none" }}><SidebarMiniButton /> </div>    <NavLink style={{ background: location.pathname === "/user/deshbord" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/user/deshbord" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
 
 
-                            
+
                             <Link className='link-tag' to={"/personaldetail"} >  <div className='side-design' style={{ display: location.pathname === "/personaldetail" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/personaldetail" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/personaldetail" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={PersonalDetailIcon} alt="" /> Personal Detail</NavLink></Link>
 
 
@@ -198,6 +211,25 @@ left:-23px;
 
 
                             <Link className='link-tag' to={"/eventsparticipation"} >  <div className='side-design' style={{ display: location.pathname === "/eventsparticipation" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/eventsparticipation" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/eventsparticipation" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={EventsIcon} alt="" /> Events Participation</NavLink></Link>
+
+
+
+                            <Link className='link-tag' to={"/paymentportal"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/paymentportal" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/paymentportal" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/paymentportal" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={PaymentPortalIcon} alt="" /> Payment Portal</NavLink></Link>
+
+
+                            {
+                                location.pathname === "/paymentportal" || location.pathname === "/otherinvoices" ? <div> {showFinancialSubmenu2 && (
+                                    <Submenu>
+                                        <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/paymentportal" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/paymentportal")} >Maintenance Invoices</span></SubmenuItem>
+                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/otherinvoices" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/otherinvoices")}> Other Invoices</span></SubmenuItem>
+
+                                    </Submenu>
+                                )} </div> : ""
+                            }
+
+
+
+                            <Link className='link-tag' to={"/securityprotocall"} >  <div className='side-design' style={{ display: location.pathname === "/securityprotocall" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/securityprotocall" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/securityprotocall" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={SecurityProtocallIcon} alt="" /> Security Protocall</NavLink></Link>
 
 
 
@@ -240,15 +272,36 @@ left:-23px;
 
 
 
-                                            <Link className='link-tag' to={"/serviceandcomplaint"} >  <div className='side-design' style={{ display: location.pathname === "/serviceandcomplaint" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/serviceandcomplaint" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/serviceandcomplaint" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={ServiceIcon} alt="" /> Service And Complaint</NavLink></Link>
+                                            <Link className='link-tag' to={"/serviceandcomplaint"} >  <div className='side-design' style={{ display: location.pathname === "/serviceandcomplaint" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/serviceandcomplaint" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/serviceandcomplaint" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={ServiceIcon} alt="" /> Service And Complaint</NavLink></Link>
 
 
 
 
-                                            <Link className='link-tag' to={"/eventsparticipation"} >  <div className='side-design' style={{ display: location.pathname === "/eventsparticipation" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink style={{ background: location.pathname === "/eventsparticipation" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/eventsparticipation" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={EventsIcon} alt="" /> Events Participation</NavLink></Link>
+                                            <Link className='link-tag' to={"/eventsparticipation"} >  <div className='side-design' style={{ display: location.pathname === "/eventsparticipation" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/eventsparticipation" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/eventsparticipation" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={EventsIcon} alt="" /> Events Participation</NavLink></Link>
 
-                                            
-                                            
+
+
+
+                                            <Link className='link-tag' to={"/paymentportal"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/paymentportal" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/paymentportal" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/paymentportal" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={PaymentPortalIcon} alt="" /> Payment Portal</NavLink></Link>
+
+
+                                            {
+                                                location.pathname === "/paymentportal" || location.pathname === "/otherinvoices" ? <div> {showFinancialSubmenu2 && (
+                                                    <Submenu>
+                                                        <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/paymentportal" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/paymentportal")} >Maintenance Invoices</span></SubmenuItem>
+                                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/otherinvoices" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/otherinvoices")}> Other Invoices</span></SubmenuItem>
+
+                                                    </Submenu>
+                                                )} </div> : ""
+                                            }
+
+
+
+
+                                            <Link className='link-tag' to={"/securityprotocall"} >  <div className='side-design' style={{ display: location.pathname === "/securityprotocall" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/securityprotocall" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/securityprotocall" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'> <img src={SecurityProtocallIcon} alt="" /> Security Protocall</NavLink></Link>
+
+
+
 
 
                                             <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
@@ -256,7 +309,7 @@ left:-23px;
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
-                            <div className="search" style={{width:"500px"}}>
+                            <div className="search" style={{ width: "500px" }}>
                                 {
                                     location.pathname === "/deshbord" ? <div>
                                         <SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />
