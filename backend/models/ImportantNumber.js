@@ -12,7 +12,15 @@ const ImportantNumberSchema = new mongoose.Schema({
     work: {
         type: String,
         required: true,
-    }
+    },
+    createdBy: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    },
+    Society: { 
+        type: mongoose.Schema.Types.ObjectId,
+         ref: 'Society' 
+        }
 }, { timestamps: true });
 
 module.exports = mongoose.model('ImportantNumber', ImportantNumberSchema);

@@ -14,7 +14,7 @@ exports.addOtherIncome = async (req, res) => {
 // View all other income 
 exports.getAllOtherIncome = async (req, res) => {
     try {
-        const incomeRecords = await OtherIncome.find();
+        const incomeRecords = await OtherIncome.find().populate(".User").populate(".Society");
         res.status(200).json(incomeRecords);
     } catch (error) {
         res.status(500).json({ error: error.message });

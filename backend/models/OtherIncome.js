@@ -6,7 +6,9 @@ const otherIncomeSchema = new mongoose.Schema({
     date: { type: Date, required: true },
     dueDate: { type: Date, required: true },
     description: { type: String },
-    totalMembers: { type: Number, default: 0 }
+    totalMembers: { type: Number, default: 0 },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    Society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' }
 });
 
 module.exports = mongoose.model('OtherIncome', otherIncomeSchema);

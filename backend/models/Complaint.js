@@ -9,6 +9,8 @@ const complaintSchema = new mongoose.Schema({
   priority: { type: String, enum: ['High', 'Medium', 'Low'], required: true },
   status: { type: String, enum: ['Open', 'Pending', 'Solve'], required: true },
   createdAt: { type: Date, default: Date.now },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  Society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' }
 });
 
 module.exports = mongoose.model('Complaint', complaintSchema);

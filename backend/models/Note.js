@@ -1,4 +1,3 @@
-// models/Note.js
 const mongoose = require("mongoose");
 
 const NoteSchema = new mongoose.Schema({
@@ -18,6 +17,14 @@ const NoteSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  Society: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Society'
+  }
 });
 
 module.exports = mongoose.model("Note", NoteSchema);

@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
     city: { type: String, required: true },
     society: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ['resident', 'society-manager', 'security'], required: true }
+    role: { type: String, enum: ['user', 'admin ', 'SecurityGuard'], required: true }
 });
 
 UserSchema.pre('save', async function (next) {

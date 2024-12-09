@@ -14,7 +14,7 @@ exports.addMaintenance = async (req, res) => {
 // View all maintenance 
 exports.getAllMaintenance = async (req, res) => {
     try {
-        const maintenanceRecords = await Maintenance.find()
+        const maintenanceRecords = await Maintenance.find().populate(".User").populate(".Society")
         res.status(200).json(maintenanceRecords);
     } catch (error) {
         res.status(500).json({ error: error.message });

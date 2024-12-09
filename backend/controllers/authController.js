@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Guard = require('../models/SecurityGuard');
 const generateToken = require('../utils/generateToken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
@@ -66,7 +67,41 @@ exports.login = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 };
+exports.addGuard = async (req, res) => {
+    const { name, email, shift, shiftDate, shiftTime, gender} = req.body;
 
+    try {
+        // Generate a random password
+        const randomPassword = crypto.randomBytes(6).toString('hex');
+
+        // Create a new security guard
+        const guard = new Guard({
+            name,
+            email,
+            shift,
+            shiftDate,
+            shiftTime,
+            gender,
+            password: randomPassword,
+        });
+
+        await guard.save();
+
+        // Send email with password
+        await sendEmail(
+            email,
+            `Hello ${name},\n\nYour account has been created. Use the following password to log in:\n\nPassword: ${randomPassword}`
+        );
+
+        res.status(201).json({
+            message: 'Security Guard added successfully. Password sent to the email.',
+            guard,
+        });
+    } catch (error) {
+        console.error('Error adding guard:', error.message);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
 
 // Sending OTP via email
 exports.sendOTP = async (req, res) => {
@@ -104,8 +139,8 @@ const sendEmail = async (email, otp) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'DashStack Password Reset OTP',
-        text: `Your OTP is: ${otp}`
+        subject: 'DashStack Password',
+        text: `${otp}`
     };
 
     await transporter.sendMail(mailOptions);

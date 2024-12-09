@@ -1,6 +1,49 @@
 const SecurityGuard = require('../models/SecurityGuard');
+const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
+
+exports.guardLogin = async (req, res) => {
+    
+    console.log(req.body);
+    
+    try {
+        const { email, password } = req.body;
+        const guard = await SecurityGuard.findOne({ email });
+        console.log(guard);
+        
+        // if (!guard) {
+        //     return res.status(400).json({ message: 'Invalid credentials.' });
+        // }
+        const isPasswordValid = await bcrypt.compare(password, guard.password);
+        console.log(password);
+        console.log(guard.password);
+        
+        if (!isPasswordValid) return res.status(401).json({ message: 'Invalid password.' });
+
+        // const isMatch = await bcrypt.compare(password, guard.password);
+        // if (!isMatch) {
+        //     return res.status(400).json({ message: 'Invalid credentials.' });
+        // }
+
+        // const token = jwt.sign({ id: guard._id, role: 'guard' }, process.env.JWT_SECRET, {
+        //     expiresIn: '1d',
+        // });
+
+        // res.status(200).json({
+        //     _id: guard._id,
+        //     name: guard.name,
+        //     email: guard.email,
+        //     role: 'guard',
+        //     token,
+        // });
+
+        res.status(200).json({ message: 'Login successful.', guard });
+    } catch (error) {
+        console.error('Login error:', error.message);
+        res.status(500).json({ message: 'Server error. Please try again later.' });
+    }
+};
 
 // Create a new security guard
 exports.createSecurityGuard = async (req, res) => {
@@ -32,7 +75,7 @@ exports.createSecurityGuard = async (req, res) => {
 // Get all security guards
 exports.getAllSecurityGuards = async (req, res) => {
     try {
-        const securityGuards = await SecurityGuard.find();
+        const securityGuards = await SecurityGuard.find().populate(".User").populate(".Society");
         res.status(200).json(securityGuards);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving security guards', error });

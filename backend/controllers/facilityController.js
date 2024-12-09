@@ -21,7 +21,7 @@ exports.createFacility = async (req, res) => {
 
 exports.getFacilities = async (req, res) => {
     try {
-        const facilities = await Facility.find();
+        const facilities = await Facility.find().populate(".User").populate(".Society");
         res.status(200).json(facilities);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve facilities' });

@@ -39,7 +39,7 @@ exports.deleteComplaint = async (req, res) => {
 exports.getComplaint = async (req, res) => {
   try {
     const { id } = req.params;
-    const complaint = await Complaint.findById(id);
+    const complaint = await Complaint.findById(id).populate(".User").populate(".Society");
     if (!complaint) return res.status(404).json({ error: 'Complaint not found' });
     res.status(200).json(complaint);
   } catch (error) {

@@ -12,7 +12,7 @@ exports.createVisitorLog = async (req, res) => {
 
 exports.getAllVisitorLogs = async (req, res) => {
     try {
-        const logs = await VisitorLog.find();
+        const logs = await VisitorLog.find().populate(".User").populate(".Society");
         res.json(logs);
     } catch (error) {
         res.status(500).json({ error: error.message });

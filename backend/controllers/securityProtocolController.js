@@ -12,7 +12,7 @@ exports.createSecurityProtocol = async (req, res) => {
 
 exports.getAllSecurityProtocols = async (req, res) => {
     try {
-        const protocols = await SecurityProtocol.find();
+        const protocols = await SecurityProtocol.find().populate(".User").populate(".Society");
         res.json(protocols);
     } catch (error) {
         res.status(500).json({ error: error.message });

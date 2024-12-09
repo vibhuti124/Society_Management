@@ -14,7 +14,7 @@ exports.createRequest = async (req, res) => {
 // Get all requests
 exports.getAllRequests = async (req, res) => {
     try {
-        const requests = await Request.find();
+        const requests = await Request.find().populate(".User").populate(".Society");
         res.status(200).json(requests);
     } catch (error) {
         res.status(400).json({ message: 'Error fetching requests', error });

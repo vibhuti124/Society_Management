@@ -31,7 +31,9 @@ const residentOwnerSchema = new mongoose.Schema({
     rentAgreement: String,
     members: [memberSchema],
     vehicles: [vehicleSchema],
-    residentStatus: { type: String, enum: ['Occupied', 'Vacate'], default: 'Occupied' }
+    residentStatus: { type: String, enum: ['Occupied', 'Vacate'], default: 'Occupied' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    Society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' }
 });
 
 module.exports = mongoose.model('ResidentOwner', residentOwnerSchema);

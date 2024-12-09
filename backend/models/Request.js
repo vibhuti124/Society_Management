@@ -9,8 +9,8 @@ const requestSchema = new mongoose.Schema({
     unit: { type: String, required: true },
     priority: { type: String, enum: ['High', 'Medium', 'Low'], required: true },
     status: { type: String, enum: ['Open', 'Pending', 'Solve'], required: true },
-}, {
-    timestamps: true
-});
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    Society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' }
+}, {timestamps: true});
 
 module.exports = mongoose.model('Request', requestSchema);

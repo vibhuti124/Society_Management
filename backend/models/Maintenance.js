@@ -9,7 +9,9 @@ const maintenanceSchema = new mongoose.Schema({
     status: { type: String, enum: ['Pending', 'Complete'], default: 'Pending' },
     paymentMethod: { type: String, enum: ['Cash', 'Online'], default: 'Online' },
     lastDate: { type: Date },
-    penaltyAppliedAfterDays: { type: Number }
+    penaltyAppliedAfterDays: { type: Number },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    Society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' }
 });
 
 module.exports = mongoose.model('Maintenance', maintenanceSchema);

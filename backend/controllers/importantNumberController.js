@@ -14,7 +14,7 @@ exports.createImportantNumber = async (req, res) => {
 // Get all important numbers
 exports.getAllImportantNumbers = async (req, res) => {
     try {
-        const numbers = await ImportantNumber.find();
+        const numbers = await ImportantNumber.find().populate(".User").populate(".Society");
         res.status(200).json(numbers);
     } catch (error) {
         res.status(400).json({ message: error.message });

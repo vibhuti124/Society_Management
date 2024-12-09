@@ -21,7 +21,7 @@ exports.createSociety = async (req, res) => {
 
 exports.getSocieties = async (req, res) => {
     try {
-        const societies = await Society.find();
+        const societies = await Society.find().populate(".User").populate(".Society");
         res.status(200).json(societies);
     } catch (error) {
         res.status(500).json({ message: error.message });

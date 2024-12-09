@@ -19,7 +19,7 @@ exports.createNote = async (req, res) => {
 // Get All Notes
 exports.getNotes = async (req, res) => {
   try {
-    const notes = await Note.find();
+    const notes = await Note.find().populate(".User").populate(".Society");
     res.json(notes);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving notes", error });
