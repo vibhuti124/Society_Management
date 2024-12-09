@@ -5,6 +5,8 @@ import { CiSearch } from "react-icons/ci";
 import { MdNotificationImportant } from "react-icons/md"
 import { MdDashboard } from "react-icons/md";
 import PersonalDetailIcon from "../assets/Icons/personalcard.png"
+import LogoI from "../assets/Logo.png"
+import User from "../assets/Avatar.png"
 import ServiceIcon from "../assets/Icons/2.png"
 import EventsIcon from "../assets/Icons/Events Participation.png"
 import PaymentPortalIcon from "../assets/Icons/wallet.png"
@@ -188,7 +190,7 @@ left:-23px;
                     <div className="  layout  col-12 col-md-3 side-bar   ">
                         <Logo>
                             <Link to={"/deshbord"}>
-                                <img className='sidebar-logo my-4 mx-2' src="src/assets/Logo.png" alt="Logo" />
+                                <img className='sidebar-logo my-4 mx-2' src={LogoI} alt="Logo" />
                             </Link>
                             <center>
                                 <div style={{ border: "1px solid #F4F4F4" }} className="">
@@ -246,7 +248,7 @@ left:-23px;
                                     <Offcanvas.Title>
                                         <Logo className="mt-1">
                                             <Link to={"/deshbord"}>
-                                                <img className='h-75 w-75' src="src/assets/Logo.png" alt="Logo" />
+                                                <img className='h-75 w-75' src={LogoI} alt="Logo" />
                                             </Link>
                                             <center>
                                                 <div style={{ border: "1px solid #F4F4F4" }} className="mt-5 ">
@@ -406,7 +408,7 @@ left:-23px;
                                 <div className="lile border   " style={{ height: "40px" }}>
                                 </div>
 
-                                <UserAvatar onClick={() => naviget("/profile")} className='' src="src/assets/Avatar.png" alt="User" style={{ cursor: "pointer" }} />
+                                <UserAvatar onClick={() => naviget("/profile")} className='' src={User} alt="User" style={{ cursor: "pointer" }} />
 
 
                                 <UserName className=' search'>Moni Roy

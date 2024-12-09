@@ -248,11 +248,9 @@ left:-23px;
 
                             <Link className='link-tag' to={"/SecurityGuard"}   > <div className='side-design' style={{ display: location.pathname === "/SecurityGuard" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/SecurityGuard" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/SecurityGuard" ? "white" : "", textDecoration: "none" }} > <GrUserPolice className='fs-3 mb-1 ' /> Security Guard</NavLink></Link>
                             <Link className='link-tag' to={"/Announcement"} >  <div className='side-design' style={{ display: location.pathname === "/Announcement" ? "block" : "none" }}><SidebarMiniButton /> </div>   <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/Announcement" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/Announcement" ? "white" : "", textDecoration: "none" }} ><TfiAnnouncement className='fs-3 mb-1' /> Announcement</NavLink></Link>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "15px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+
+                            <p className='mt-5 text-danger flex self-end' style={{ margin: " 10px", padding: "15px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+
                         </NavLinks>
                     </div>
                     <div className="col-12 col-md-9 ">
@@ -316,12 +314,12 @@ left:-23px;
                                             <br />
                                             <br />
 
-                                            <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+                                            <p className='mt-5 text-danger flex' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
                                         </NavLinks>
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
-                            <div className="search" style={{width:"500px"}}>
+                            <div className="search" style={{ width: "500px" }}>
                                 {
                                     location.pathname === "/deshbord" ? <div>
                                         <SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />
@@ -428,7 +426,7 @@ left:-23px;
                                 </UserName>
                             </UserInfo>
                         </div>
-                        <div className="component-layout  h-100   ">
+                        <div className="component-layout" style={{ maxHeight: "89vh", overflow: "scroll", overflowX: "hidden" }}>
 
                             <br />
                             <div className="p-4">

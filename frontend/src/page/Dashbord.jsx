@@ -4,6 +4,10 @@ import { Line } from 'react-chartjs-2';
 import { FaRegEdit, FaEye, FaPlus } from "react-icons/fa";
 import { MdOutlineDeleteOutline, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { Modal, Button, Form } from 'react-bootstrap';
+import TotalBalanceIcon from '../assets/button1.png';
+import TotalIncomeIcon from '../assets/button2.png';
+import TotalExpenseIcon from '../assets/button3.png';
+import TotalUnitIcon from '../assets/button4.png';
 
 import '../App.css';
 import {
@@ -99,25 +103,25 @@ export default function Dashboard() {
         <StatCard
           title="Total Balance"
           value="₹ 2,22,520"
-          iconSrc="src/Assets/button1.png"
+          iconSrc={TotalBalanceIcon}
           cardClass="balance-card-orange"
         />
         <StatCard
           title="Total Income"
           value="₹ 55,000"
-          iconSrc="src/Assets/button2.png"
+          iconSrc={TotalIncomeIcon}
           cardClass="balance-card-green"
         />
         <StatCard
           title="Total Expense"
           value="₹ 20,550"
-          iconSrc="src/Assets/button3.png"
+          iconSrc={TotalExpenseIcon}
           cardClass="balance-card-blue"
         />
         <StatCard
           title="Total Unit"
           value="₹ 20,550"
-          iconSrc="src/Assets/button4.png"
+          iconSrc={TotalUnitIcon}
           cardClass="balance-card-pink"
         />
 
@@ -138,7 +142,7 @@ export default function Dashboard() {
             <div className="card h-100" style={{ marginRight: "5px", borderRadius: "15px" }}>
               <div className="card-body" style={{ paddingBottom: "0" }}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="card-title" style={{ fontSize: "18px", fontWeight: "bold" }}>Important Numbers</h6>
+                  <h6 className="text-lg font-semibold text-gray-800">Important Numbers</h6>
                   <Button
                     onClick={toggleModal}
                     className="btn "
@@ -187,7 +191,7 @@ export default function Dashboard() {
             <div className="card h-100" style={{ borderRadius: "15px" }}>
               <div className="card-body" style={{ paddingBottom: "0" }}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h6 className="card-title" style={{ fontSize: "18px", fontWeight: "bold" }}>
+                  <h6 className="text-lg font-semibold text-gray-800">
                     Pending Maintenances
                   </h6>
                   <a href="#" className="text-primary" style={{ textDecoration: "none" }}>
@@ -224,31 +228,16 @@ export default function Dashboard() {
           <div className="card h-100" style={{ borderRadius: "15px" }}>
             <div className="card-body ">
               <div className="d-flex justify-content-between align-items-center p-2" style={{ padding: "0" }}>
-                <h5 className="card-title p-2" style={{ marginBottom: "0" }}>Complaint List</h5>
-                <select
-                  className="form-select position-absolute top-0 end-0 m-2 p-1"
-                  style={{
-                    width: 'auto',
-                    minWidth: '100px',
-                    height: '44px',
-                    fontSize: '13px',
-                    appearance: 'none',
-                    MozAppearance: 'none',
-                    WebkitAppearance: 'none',
-                    border: '1px solid #ccc',
-                    borderRadius: '10px',
-                    paddingTop: '12px',
-                    paddingRight: '14px',
-                    paddingBottom: '12px',
-                    paddingLeft: '14px',
-                    gap: '10px',
-                  }}
-                >
-                  <option>Month</option>
-                  <option>Last week</option>
-                  <option>Last month</option>
-                  <option>Last Year</option>
-                </select>
+                <h5 className="text-lg font-semibold text-gray-800">Complaint List</h5>
+                <div className="relative">
+          <select
+            className="bg-gray-100 text-gray-800 p-2 rounded-lg outline-none"
+          >
+            <option>Last week</option>
+            <option>Last month</option>
+            <option>Last year</option>
+          </select>
+        </div>
 
               </div>
               <div style={{ maxHeight: "250px", overflowY: "auto" }}>
@@ -263,42 +252,18 @@ export default function Dashboard() {
           <div className="card h-100" style={{ borderRadius: '15px' }}>
             <div className="card-body ">
               <div className="d-flex justify-content-between align-items-center p-2" style={{ padding: '0' }}>
-                <h6
-                  className="card-title p-2"
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    fontSize: '12px',
-                    fontWeight: 'bold',
-                  }}
-                >
+                <h6 className="text-lg font-semibold text-gray-800">
                   Upcoming Activities
                 </h6>
-                <select
-                  className="form-select position-absolute top-0 end-0 m-2 p-1"
-                  style={{
-                    width: 'auto',
-                    minWidth: '100px',
-                    height: '44px',
-                    fontSize: '13px',
-                    appearance: 'none',
-                    MozAppearance: 'none',
-                    WebkitAppearance: 'none',
-                    border: '1px solid #ccc',
-                    borderRadius: '10px',
-                    paddingTop: '12px',
-                    paddingRight: '14px',
-                    paddingBottom: '12px',
-                    paddingLeft: '14px',
-                    gap: '10px',
-                  }}
-                >
-                  <option>Month</option>
-                  <option>Last week</option>
-                  <option>Last month</option>
-                  <option>Last Year</option>
-                </select>
+                <div className="relative">
+          <select
+            className="bg-gray-100 text-gray-800 p-2 rounded-lg outline-none"
+          >
+            <option>Last week</option>
+            <option>Last month</option>
+            <option>Last year</option>
+          </select>
+        </div>
               </div>
               <div style={{ maxHeight: '250px', overflowY: 'auto', paddingTop: '10px' }}>
                 <ActivityList />
@@ -455,7 +420,7 @@ function ContactCard({ name, phone, work, onEdit, onDelete, id }) {
 
   return (
     <div className="importent-number" style={{ overflowX: "hidden" }}>
-      <div className="row m-1" style={{ border: "1px solid grey", borderRadius: "3px" }}>
+      <div className="row m-1 shadow-sm" style={{ borderRadius: "3px" }}>
         <div className="col-12 col-md-7">
           <p style={{ color: "grey", marginBottom: "0" }}>
             <span style={{ color: "black", fontSize: "16px" }}>Name : </span>
