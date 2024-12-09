@@ -19,12 +19,10 @@ import { IoMdClose } from "react-icons/io";
 import { FaGreaterThan } from "react-icons/fa6";
 
 
-
 export default function SecurityLayout({ component }) {
     const [show, setShow] = useState(false);
-    const naviget = useNavigate()
-    const [serch, setserch] = useState(0)
-
+    const naviget = useNavigate();
+    const [serch, setserch] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -33,18 +31,11 @@ export default function SecurityLayout({ component }) {
     const [showFinancialSubmenu2, setShowFinancialSubmenu2] = useState(false);
     const [showFinancialSubmenu3, setShowFinancialSubmenu3] = useState(false);
 
-
-
-
     // Toggle Financial Management submenu
     const toggleFinancialSubmenu = () => setShowFinancialSubmenu2(!showFinancialSubmenu2);
     const toggleFinancialSubmenu1 = () => setShowFinancialSubmenu3(!showFinancialSubmenu3);
 
-
-
     // notification 
-
-
     const [isOpen, setIsOpen] = useState(false);
 
 
@@ -185,14 +176,12 @@ left:-23px;
 `;
     return (
         <div className='container-fulid' style={{ overflow: "hidden" }}>
-
             <div className="row ">
                 <div className=" d-flex">
-
                     <div className="  layout  col-12 col-md-3 side-bar   ">
                         <Logo className="mt-1">
                             <Link to={"/deshbord"}>
-                            <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
+                                <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
                             </Link>
                             <center>
                                 <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
@@ -201,26 +190,18 @@ left:-23px;
                         </Logo>
                         <NavLinks className='h-50' style={{ height: "60vh" }}>
 
-
-
-
-                            <Link className='link-tag' to={"/VisitorTracking"} onClick={toggleFinancialSubmenu} >  <div className='side-design' ><SidebarMiniButton /> </div>   <NavLink style={{ background:"linear-gradient(90deg, #FE512E 0%, #F09619 100%)", color:  "white" , textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' />Security </NavLink> </Link>
-
-
+                            <Link className='link-tag' to={"/VisitorTracking"} onClick={toggleFinancialSubmenu} >  <div className='side-design' ><SidebarMiniButton /> </div>   <NavLink style={{ background: "linear-gradient(90deg, #FE512E 0%, #F09619 100%)", color: "white", textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' />Security </NavLink> </Link>
 
                             {/* acoding */}
-
                             {showFinancialSubmenu2 && (
                                 <Submenu>
-                                <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/VisitorTracking" ? "2px solid black" : "2px solid gray" }} onClick={()=>naviget("/VisitorTracking")}> Visitor Tracking</span></SubmenuItem>
-                                <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/EmergencyManagement" ? "2px solid black" : "2px solid gray"  }} onClick={()=>naviget("/EmergencyManagement")}>Emergency Management</span></SubmenuItem>
-                            </Submenu>
+                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/VisitorTracking" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/VisitorTracking")}> Visitor Tracking</span></SubmenuItem>
+                                    <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/EmergencyManagement" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/EmergencyManagement")}>Emergency Management</span></SubmenuItem>
+                                </Submenu>
                             )}
-
-
                             <br />
                             <br />
-                           
+
                             <p className=' text-danger' style={{ margin: " 10px", padding: "15px", cursor: "pointer", borderTop: "1px solid #F4F4F4", marginTop: "60vh" }}> <TbLogout className='fs-3' />  Logout</p>
                         </NavLinks>
                     </div>
@@ -233,7 +214,7 @@ left:-23px;
                                     <Offcanvas.Title>
                                         <Logo className="mt-1">
                                             <Link to={"/deshbord"}>
-                                            <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
+                                                <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
                                             </Link>
                                             <center>
                                                 <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
@@ -243,14 +224,10 @@ left:-23px;
                                     </Offcanvas.Title>
                                     <Offcanvas.Body>
 
-
-
                                         {/* sidebar for A mobail sceen */}
                                         <NavLinks>
-
-
-
                                             <Link className='link-tag' to={"/VisitorTracking"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/Security" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>   <NavLink style={{ background: location.pathname === "/VisitorTracking" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/VisitorTracking" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' /> Security </NavLink> </Link>
+
                                             {/* acoding */}
 
                                             {showFinancialSubmenu2 && (
@@ -260,37 +237,31 @@ left:-23px;
                                                 </Submenu>
                                             )}
 
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <br />
 
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                            <br />
-                                          
-                                            
-                                           
                                             <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4", }}> <TbLogout className='fs-3' />  Logout</p>
                                         </NavLinks>
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
                             <div className="search">
-                               
-
-
                             </div>
                             <UserInfo>
-                               
+
                                 <Notifiction >
 
                                     <MdNotificationImportant style={{ cursor: "pointer" }} onClick={toggleDropdown} className='fs-2 mx-2' />
@@ -342,7 +313,7 @@ left:-23px;
                                                             {notifications.length > 0 ? notifications.map((notification) => (
                                                                 <div key={notification.id} className="notification-item">
                                                                     <div className="notification-content">
-                                                                    <h3><img src={notification.img} alt="" /> {notification.title}</h3>
+                                                                        <h3><img src={notification.img} alt="" /> {notification.title}</h3>
                                                                         <p className="notification-time">{notification.time}</p>
                                                                         <p>
                                                                             {notification.message.replace(notification.linkText, '')}
@@ -363,14 +334,11 @@ left:-23px;
                                         )
                                     }
 
-
-
                                 </Notifiction>
                                 <div className="lile border   " style={{ height: "40px" }}>
                                 </div>
 
                                 <UserAvatar onClick={() => naviget("/profile")} className='' src="src/assets/Avatar.png" alt="User" style={{ cursor: "pointer" }} />
-
 
                                 <UserName className=' search'>Moni Roy
                                     <br />
@@ -380,12 +348,9 @@ left:-23px;
                             </UserInfo>
                         </div>
                         <div className="component-layout  h-100   ">
-
                             <br />
                             <div className="p-4">
-                                <div className="container-fluid" style={{height:"100vh",overflow:"hidden"}}>
-
-
+                                <div className="container-fluid" style={{ height: "100vh", overflow: "hidden" }}>
                                     {component}
                                 </div>
                             </div>
