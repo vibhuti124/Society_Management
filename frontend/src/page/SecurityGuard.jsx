@@ -703,12 +703,6 @@ const SecurityGuard = () => {
           </div>
         </div>
       </div>
-
-
-
-
-
-
     </div>
   );
 };

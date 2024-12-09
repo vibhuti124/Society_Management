@@ -47,9 +47,7 @@ function App() {
         <Route path='/resetpassword' element={<ResetPassword />} />
         {/* layout */}
 
-
         <Route path='/resident' element={<Layout component={<ResidentManageMent />} />} />
-
 
         {/* DASHBORD */}
         <Route path='/deshbord' element={<Layout component={<Dashbord />} />} />
@@ -76,40 +74,23 @@ function App() {
         {/* SecurityGuard */}
         <Route path='/SecurityGuard' element={<Layout component={<SecurityGuard />} />} />
         {/* Announcement */}
-        <Route path='/Announcement' element={<Layout component={<Announcement />} />} />
-
-       
+        <Route path='/Announcement' element={<Layout component={<Announcement />} />} />       
 
         {/* Expence */}
         <Route path='/Expense' element={<Layout component={<Expense />} />} />
 
         {/* visirtortracking */}
-
-
         <Route path='/Financial' element={<Layout component={<Financial />} />} />
 
         {/* profile */}
         <Route path='/profileupdate' element={<Layout component={<ProfileEditForm />} />} />
         <Route path='/profile' element={<Layout component={<UpdateProfile />} />} />
         {/* resident */}
-      
-
-
-
-
-
-
-
 
         {/* Security */}
-
-
         
         <Route path='/VisitorTracking' element={<SecurityLayout component={<VisitorTracking />} />} />
         <Route path="/EmergencyManagement" element={<SecurityLayout component={<EmergencyManagement />} />} />
-
-
-
 
       </Routes>
       <Toaster />

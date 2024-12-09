@@ -20,7 +20,6 @@ import { FaGreaterThan } from "react-icons/fa6";
 
 
 
-
 export default function SecurityLayout({ component }) {
     const [show, setShow] = useState(false);
     const naviget = useNavigate()

@@ -14,9 +14,6 @@ const UpdateProfile = () => {
     state: 'Gujarat',
     city: 'Baroda',
   });
-
-
-
  
 
   return (

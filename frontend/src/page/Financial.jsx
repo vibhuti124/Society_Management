@@ -1,215 +1,161 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Dropdown, Modal, Form } from 'react-bootstrap';
-import { HiOutlineDotsVertical } from 'react-icons/hi';
-import { addNote, getAllNotes, updateNote } from '../apiservices/noteservice';
+import React, { useState } from 'react';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { Modal, Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 
-const Financial = () => {
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [selectedNoteId, setSelectedNoteId] = useState(null);
-  const [selectedTitle, setSelectedTitle] = useState('');
-  const [selectedDescription, setSelectedDescription] = useState('');
-  const [selectedDate, setSelectedDate] = useState(''); // New state for the date field
-  const [noteData, setNoteData] = useState([]);
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+function Financial() {
+  const [note, setNote] = useState([
+    { id: 1, title: 'Rent or Mortgage', des: 'A visual representation of your spending categories.', date: '2024-11-09', amt: '1200' },
+    { id: 2, title: 'Housing Costs', des: 'A visual representation of your spending categories.', date: '2024-11-10', amt: '800' },
+    { id: 2, title: 'Housing Costs', des: 'A visual representation of your spending categories.', date: '2024-11-10', amt: '800' },
+    { id: 2, title: 'Housing Costs', des: 'A visual representation of your spending categories.', date: '2024-11-10', amt: '800' },
+    { id: 2, title: 'Housing Costs', des: 'A visual representation of your spending categories.', date: '2024-11-10', amt: '800' },
+  ]);
 
-  const fetchNotes = async () => {
-    try {
-      const response = await getAllNotes();
-      // Check if response data has a records array
-      if (response.data && Array.isArray(response.data.records)) {
-        setNoteData(response.data.records);
-      } else {
-        console.error("Expected an array in records but got:", response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching notes:", error);
+  const [show, setShow] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
+  const [dropdownIndex, setDropdownIndex] = useState(null);
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
+
+  // Open and close modal
+  const handleClose = () => {
+    setShow(false);
+    reset();
+    setEditIndex(null);
+  };
+  const handleShow = () => setShow(true);
+
+  // Handle form submission
+  const onSubmit = (data) => {
+    if (editIndex !== null) {
+      // Update existing note
+      const updatedNotes = [...note];
+      updatedNotes[editIndex] = { ...updatedNotes[editIndex], ...data };
+      setNote(updatedNotes);
+    } else {
+      // Add new note
+      setNote([...note, { id: note.length + 1, ...data }]);
     }
+    handleClose();
   };
 
-  const handleEditModalOpen = (note) => {
-    setSelectedNoteId(note.id);
-    setSelectedTitle(note.title);
-    setSelectedDescription(note.description);
-    setSelectedDate(note.date || ''); // Load existing date if available
-    setShowEditModal(true);
-  };
-  const handleEditModalClose = () => setShowEditModal(false);
-
-  const handleCreateModalOpen = () => {
-    setSelectedNoteId(null);
-    setSelectedTitle('');
-    setSelectedDescription('');
-    setSelectedDate(''); // Clear the date for new notes
-    setShowCreateModal(true);
-  };
-  const handleCreateModalClose = () => setShowCreateModal(false);
-
-  const handleSaveChanges = async () => {
-    if (selectedNoteId) {
-      try {
-        await updateNote(selectedNoteId, {
-          title: selectedTitle,
-          description: selectedDescription,
-          date: selectedDate // Include the date field when saving changes
-        });
-        fetchNotes();
-        handleEditModalClose();
-      } catch (error) {
-        console.error("Error updating note:", error);
-      }
-    }
+  // Handle editing a specific note
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    const noteToEdit = note[index];
+    setValue('title', noteToEdit.title);
+    setValue('des', noteToEdit.des);
+    setValue('date', noteToEdit.date);
+    setValue('amt', noteToEdit.amt);
+    handleShow();
   };
 
-  const handleCreateNote = async () => {
-    try {
-      await addNote({
-        title: selectedTitle,
-        description: selectedDescription,
-        date: selectedDate // Include the date when creating a new note
-      });
-      fetchNotes();
-      handleCreateModalClose();
-    } catch (error) {
-      console.error("Error creating note:", error);
-    }
+  // Toggle dropdown menu for each card
+  const handleDropdownToggle = (index) => {
+    setDropdownIndex(dropdownIndex === index ? null : index);
   };
 
   return (
-    <Container fluid className="container-fluid" style={{ minHeight: '100vh' }}>
-      <div className="container-fluid d-flex flex-column bg-light shadow" style={{ width: "100%" }}>
-        <div className="d-flex justify-content-between align-items-center mb-3 p-3">
-          <h2>Note</h2>
-          <Button style={{ background: "linear-gradient(90deg, rgb(254, 81, 46) 0%, rgb(240, 150, 25) 100%)", borderColor: '#ff6b00' }} onClick={handleCreateModalOpen}>
-            Create Note
-          </Button>
-        </div>
+    <div className="d-flex flex-column flex-md-row">
 
-        <Row className="g-3 mb-5">
-          {noteData.map((note, idx) => (
-            <Col xs={12} sm={6} md={4} lg={3} key={note.id}>
-              <Card className="h-100" style={{ backgroundColor: '#fff', color: '#333', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-                <Card.Header
-                  className="d-flex justify-content-between align-items-center"
-                  style={{ backgroundColor: '#407bff', color: '#fff', fontSize: '1rem', borderTopLeftRadius: '8px', borderTopRightRadius: '8px' }}
-                >
-                  <div style={{ backgroundColor: '#407bff', padding: '5px 10px', borderRadius: '5px', color: '#fff', fontSize: '1rem' }}>
-                    {note.title}
+    
+          <div className='row'>
+            <div className='p-0 bg-light' >
+              <div className='d-flex justify-content-between align-items-center ps-2 pe-3 pt-1'>
+                <h3 className='mb-0 financial-income-title'>Note</h3>
+                <button className='set-maintainance-btn d-flex align-items-center p-2' style={{ background: "linear-gradient(90deg, #FE512E 0%, #F09619 100%)"}} onClick={handleShow}>
+                  Create Note
+                </button>
+              </div>
+
+              <div className="row px-3">
+                {note.map((val, index) => (
+                  <div className="col-lg-3 mb-3" key={val.id}>
+                    <div className="card">
+                      <div className="card-header  text-light d-flex align-items-center justify-content-between" style={{ height: "54px", fontSize: "16px", fontWeight: "500", background: " rgba(86, 120, 233, 1)" }}>
+                        {val.title}
+                        <div className='position-relative'>
+                          <button
+                            className="btn btn-light p-0"
+                            onClick={() => handleDropdownToggle(index)}
+                            style={{ width: '30px', height: '30px', marginBottom: "20px" }}
+                          >
+                            <BsThreeDotsVertical />
+                          </button>
+                          {dropdownIndex === index && (
+                            <div className="dropdown-menu show position-absolute" style={{ right: 0, top: '100%', zIndex: 10 }}>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => handleEdit(index)}
+                              >
+                                Edit
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <h6 className="card-des-title">Description</h6>
+                        <p className="card-text card-des">{val.des}</p>
+                      </div>
+                    </div>
                   </div>
-                  <Dropdown align="end">
-                    <Dropdown.Toggle variant="link" bsPrefix="p-0" id={`dropdown-${idx}`}>
-                      <HiOutlineDotsVertical style={{ color: '#fff', fontSize: '1.2rem' }} />
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => handleEditModalOpen(note)}>Edit</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text style={{ fontSize: '0.9rem', color: '#333' }}>
-                    <strong style={{ color: 'grey' }}>Description:</strong>
-                    <p>{note.description}</p>
-                    <strong style={{ color: 'grey' }}>Date:</strong> {note.date || 'N/A'}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+                ))}
+              </div>
+            </div>
+          </div>
+       
 
-      {/* Edit Modal */}
-      <Modal show={showEditModal} onHide={handleEditModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit {selectedTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Note Title <span style={{ color: "red" }}>*</span></Form.Label>
-              <Form.Control
-                type="text"
-                value={selectedTitle}
-                onChange={(e) => setSelectedTitle(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Description <span style={{ color: "red" }}>*</span></Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={selectedDescription}
-                onChange={(e) => setSelectedDescription(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Date</Form.Label>
-              <Form.Control
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button style={{ backgroundColor: "lightgrey", color: "white", border: "none", width: "45%" }} onClick={handleEditModalClose}>
-            Cancel
-          </Button>
-          <Button onClick={handleSaveChanges} style={{ background: "linear-gradient(90deg, rgb(254, 81, 46) 0%, rgb(240, 150, 25) 100%)", borderColor: '#ff6b00', color: "white", width: "45%" }}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        {/* Add/Edit Modal */}
+        <Modal show={show} onHide={handleClose} centered className="custom-modal">
+          <Modal.Header>
+            <Modal.Title className='Modal-Title'>
+              {editIndex !== null ? 'Edit Expense Details' : 'Add Expense Details'}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group className="mb-3" controlId="formTitle">
+                <Form.Label className='Form-Label'>Title<span className="text-danger"> *</span></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Title"
+                  {...register('title', { required: "Title is required" })}
+                  isInvalid={errors.title}
+                />
+                <Form.Control.Feedback type="invalid">{errors.title?.message}</Form.Control.Feedback>
+              </Form.Group>
 
-      {/* Create Note Modal */}
-      <Modal show={showCreateModal} onHide={handleCreateModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a New Note</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Note Title <span style={{ color: "red" }}>*</span></Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter title"
-                onChange={(e) => setSelectedTitle(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Description <span style={{ color: "red" }}>*</span></Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Enter description"
-                onChange={(e) => setSelectedDescription(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Date</Form.Label>
-              <Form.Control
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button style={{ backgroundColor: "lightgrey", color: "white", border: "none", width: "45%" }} onClick={handleCreateModalClose}>
-            Cancel
-          </Button>
-          <Button style={{ background: "linear-gradient(90deg, rgb(254, 81, 46) 0%, rgb(240, 150, 25) 100%)", borderColor: '#ff6b00', color: "white", width: "45%" }} onClick={handleCreateNote}>
-            Create Note
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+              <Form.Group className="mb-3" controlId="formDescription">
+                <Form.Label className='Form-Label'>Description<span className="text-danger"> *</span></Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Description"
+                  {...register('des', { required: "Description is required" })}
+                  isInvalid={errors.des}
+                />
+                <Form.Control.Feedback type="invalid">{errors.des?.message}</Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formDate">
+                <Form.Label className='Form-Label'>Date<span className="text-danger"> *</span></Form.Label>
+                <Form.Control
+                  type="date"
+                  {...register('date', { required: "Date is required" })}
+                  isInvalid={errors.date}
+                />
+                <Form.Control.Feedback type="invalid">{errors.date?.message}</Form.Control.Feedback>
+              </Form.Group>
+
+              <div className="d-flex justify-content-between">
+                <Button variant="secondary" onClick={handleClose} className="btn mt-2 btn-sm cancle">Cancel</Button>
+                <Button variant="primary" type="submit" className='btn btn-sm save mt-2'>Save</Button>
+              </div>
+            </Form>
+          </Modal.Body>
+        </Modal>
+    </div>
   );
-};
-
+}
 export default Financial;

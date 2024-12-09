@@ -38,11 +38,7 @@ export default function Owner() {
     };
 
     return (
-
-        <>
-        <div div className=''>
-           
-
+        <div>
             <div className='row'>
                 <div className="d-flex mt-4">
                     <div
@@ -70,13 +66,14 @@ export default function Owner() {
 
             <div className="bg-white section-1">
                 <div className="row d-flex">
-
-                    <div className="col-12 col-md-1 p-3 profilePage img-profile ">
-                        <label className="photo-upload mt-2 ">
-                            <img src="/src/assets/addprofile.png " alt="" />
-                            <input type="file" accept="image/*" />
-                            <div className="photo-preview text-center mt-4 profil-text" style={{ backgroundImage: `url(${photo || ''})` }}>
-
+                    <div className="col-12 col-md-1 p-3 profilePage img-profile">
+                        <label className="photo-upload mt-2">
+                            <img src="/src/assets/addprofile.png" alt="Upload Profile" />
+                            <input type="file" accept="image/*" onChange={(e) => setPhoto(URL.createObjectURL(e.target.files[0]))} />
+                            <div
+                                className="photo-preview text-center mt-4 profil-text"
+                                style={{ backgroundImage: `url(${photo || ''})` }}
+                            >
                                 {!photo && <span className="camera-icon text-center mt-5">Add Photo</span>}
                             </div>
                         </label>
@@ -198,8 +195,5 @@ export default function Owner() {
                 </div>
             </div>
         </div>
-
-        </>
-        )
+    );
 }
-

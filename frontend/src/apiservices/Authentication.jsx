@@ -10,24 +10,24 @@ export const viewSociety = async () =>
 
 // Register
 export const signup = async (data) => 
-  await api.post("http://localhost:8001/api/auth/signup", data);
+  await api.post("http://localhost:9000/api/auth/register", data);
 
 // Login
-export const login = async (data) => await api.post("http://localhost:8001/api/auth/login", data);
+// export const login = async (data) => await api.post("http://localhost:9000/api/auth/login", data);
 
 // Logout
 export const logout = async () => await api.get("http://localhost:8001/api/auth/logout");
 
 // Send otp
-export const GetOtp = async (data) => await api.post("http://localhost:8001/api/auth/GetOtp", data);
+export const GetOtp = async (data) => await api.post("http://localhost:9000/api/auth/forgot-password/send-otp", data);
 
 // Verify otp
 export const Otpverification = async (data) =>
-  await api.post("http://localhost:8001/api/auth/Otpverification", data);
+  await api.post("http://localhost:9000/api/auth//forgot-password/verify-otp", data);
 
 // Reset password
 export const resetpass = async (data) =>
-  await api.post("http://localhost:8001/api/auth/resetpass", data);
+  await api.post("http://localhost:9000/api/auth/forgot-password/reset", data);
 
 // Update user profile
 export const UpdateUserProfile = async (userId, data) =>

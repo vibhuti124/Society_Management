@@ -1,16 +1,16 @@
 const Society = require('../models/Society');
 
 exports.createSociety = async (req, res) => {
-    const { name, address, country, state, city, zipCode } = req.body;
+    const { societyName, societyAddress, country, state, city, zipCode } = req.body;
 
     try {
-        const societyExists = await Society.findOne({ name });
+        const societyExists = await Society.findOne({ societyName });
         if (societyExists) {
             return res.status(400).json({ message: 'Society already exists' });
         }
 
         const society = await Society.create({
-            name, address, country, state, city, zipCode
+            societyName, societyAddress, country, state, city, zipCode
         });
 
         res.status(201).json({ message: 'Society created successfully', society });

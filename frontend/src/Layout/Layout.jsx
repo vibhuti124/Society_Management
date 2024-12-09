@@ -190,12 +190,12 @@ left:-23px;
                 <div className=" d-flex">
 
                     <div className="  layout  col-12 col-md-3 side-bar   ">
-                        <Logo className="mt-1">
+                        <Logo>
                             <Link to={"/deshbord"}>
-                                <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
+                                <img className='sidebar-logo my-4 mx-2' src="src/assets/Logo.png" alt="Logo" />
                             </Link>
                             <center>
-                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                <div style={{ border: "1px solid #F4F4F4" }} className="">
                                 </div>
                             </center>
                         </Logo>
@@ -225,7 +225,7 @@ left:-23px;
                             <Link className='link-tag' to={"/traking"}   > <div className='side-design' style={{ display: location.pathname === "/traking" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/traking" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/traking" ? "white" : "", textDecoration: "none" }}><MdAttachEmail className='mb-1 fs-3' />   Complaint Tracking</NavLink></Link>
                             {/* {showFinancialSubmenu3 && (
                                 <Submenu>
-                                    <SubmenuItem>Income</SubmenuItem>
+                                    <SubmenuItem>Icome</SubmenuItem>
                                     <SubmenuItem>Expense</SubmenuItem>
                                     <SubmenuItem>Note</SubmenuItem>
                                 </Submenu>
@@ -235,14 +235,14 @@ left:-23px;
 
                             {
                                 location.pathname === "/Visitor" || location.pathname === "/Securityprotocols" ? <div>
-                                    
-                            {showFinancialSubmenu3 && (
-                                <Submenu>
-                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
-                                    <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
-                                </Submenu>
-                            )}
-                                </div> :""
+
+                                    {showFinancialSubmenu3 && (
+                                        <Submenu>
+                                            <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
+                                            <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
+                                        </Submenu>
+                                    )}
+                                </div> : ""
                             }
 
 
@@ -267,7 +267,7 @@ left:-23px;
                                                 <img className='h-75 w-75' src="src/assets/Logo.png" alt="Logo" />
                                             </Link>
                                             <center>
-                                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                                <div style={{ border: "1px solid #F4F4F4" }} className="mt-5 ">
                                                 </div>
                                             </center>
                                         </Logo>
@@ -281,7 +281,9 @@ left:-23px;
 
 
                                             <Link className='link-tag' to={"/deshbord"}  > <div className='side-design ' style={{ display: location.pathname === "/deshbord" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>    <NavLink style={{ background: location.pathname === "/deshbord" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/deshbord" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious link-tag'>    <MdDashboard className=' fs-3 mb-1' />Dashboard  </NavLink></Link>
+
                                             <Link className='link-tag' to={"/resident"} >  <div className='side-design' style={{ display: location.pathname === "/resident" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink style={{ background: location.pathname === "/resident" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/resident" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'>  <MdAddHomeWork className=' fs-3 mb-1' />Resident Management </NavLink></Link>
+
                                             <Link className='link-tag' to={"/Financial"} onClick={toggleFinancialSubmenu} >  <div className='side-design' style={{ display: location.pathname === "/Financial" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>   <NavLink style={{ background: location.pathname === "/Financial" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/Financial" ? "white" : "", textDecoration: "none" }} className=' d-flex gap-3 radious'><HiMiniCurrencyDollar className=' fs-3 mb-1 ' /> Financial Management </NavLink> </Link>
                                             {/* acoding */}
 
@@ -297,7 +299,7 @@ left:-23px;
                                             <Link className='link-tag' to={"/traking"}   > <div className='side-design' style={{ display: location.pathname === "/traking" ? "block" : "none" }}><SidebarMiniButton style={{ left: "-34px" }} /> </div>  <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/traking" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/traking" ? "white" : "", textDecoration: "none" }}><MdAttachEmail className='mb-1 fs-3' />   Complaint Tracking</NavLink></Link>
                                             {/* {showFinancialSubmenu3 && (
                                                 <Submenu>
-                                                    <SubmenuItem>Income</SubmenuItem>
+                                                    <SubmenuItem>Icome</SubmenuItem>
                                                     <SubmenuItem>Expense</SubmenuItem>
                                                     <SubmenuItem>Note</SubmenuItem>
                                                 </Submenu>
@@ -321,9 +323,17 @@ left:-23px;
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
-                            <div className="search">
+                            <div className="search" style={{width:"500px"}}>
                                 {
-                                    location.pathname === "/deshbord" ? <div><SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />  <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} /> </div> : <div> <span onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>  <span className='ms-2  mb-2'><FaGreaterThan className='' /></span> <span style={{ color: "#5678E9" }} className='ms-2'>{location.pathname.split("/")}</span></div>
+                                    location.pathname === "/deshbord" ? <div>
+                                        <SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />
+                                        <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} />
+                                    </div> :
+                                        <div className='flex'>
+                                            <span className='text-lg' onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>
+                                            <span className='ms-2 mt-2  '><FaGreaterThan className='' /></span>
+                                            <span style={{ color: "#5678E9" }} className='ms-2 text-lg'>{location.pathname.split("/")}</span>
+                                        </div>
                                 }
 
 
