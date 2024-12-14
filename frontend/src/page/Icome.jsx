@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-export default function Icome() {
+export default function Income() {
   const [show, setShow] = useState(false);
   const [showsetmantenenc, setShowsetmantenenc] = useState(false);
   const [showsetmantenencdetels, setshowsetmantenencdetels] = useState(false);
@@ -52,6 +52,10 @@ export default function Icome() {
     { id: 1, Name: 'Evelyn Harper', unitNumber: '1001', wing: "A", date: '10/11/3624', residentStatus: 'Tenant', phoneNumber: '97687 85628', Amount: 0, Payment: "Online", Status: "Pending", Penalty: "200", img: "src/assets/notification-img.png" },
     { id: 2, Name: 'vced', unitNumber: '1002', date: '10/11/3624', wing: "B", residentStatus: 'Owner', phoneNumber: '7201000140', Amount: 3, Penalty: "", Payment: "Cash", Status: "Pending", },
     { id: 3, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Tenant', phoneNumber: '97687 85628', Amount: 3, Payment: "Cash", Status: "Done", Penalty: "200", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
+    { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
     { id: 4, Name: 'Evelyn Harper', unitNumber: '1003', date: '10/11/3624', wing: "C", residentStatus: 'Owner', phoneNumber: '97687 85628', Amount: 3, Payment: "Online", Status: "Pending", Penalty: "600", img: "src/assets/notification-img.png" },
     // Additional rows...
   ];
@@ -245,7 +249,7 @@ export default function Icome() {
 
         </div>
         <div className="setmaintenance">
-          <button className='l-btn text-white' onClick={() => setShowsetmantenenc(true)}>Set Maintenance</button>
+          <button className='l-btn text-white p-2' onClick={() => setShowsetmantenenc(true)}>Set Maintenance</button>
         </div>
 
       </div>

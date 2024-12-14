@@ -190,12 +190,12 @@ left:-23px;
                 <div className=" d-flex">
 
                     <div className="  layout  col-12 col-md-3 side-bar   ">
-                        <Logo className="mt-1">
+                        <Logo>
                             <Link to={"/deshbord"}>
-                                <img className='sidebar-logo' src="src/assets/Logo.png" alt="Logo" />
+                                <img className='sidebar-logo my-4 mx-2' src="src/assets/Logo.png" alt="Logo" />
                             </Link>
                             <center>
-                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                <div style={{ border: "1px solid #F4F4F4" }} className="">
                                 </div>
                             </center>
                         </Logo>
@@ -211,10 +211,10 @@ left:-23px;
 
                             {/* acoding */}
                             {
-                                location.pathname === "/Financial" || location.pathname === "/Icome" || location.pathname === "/Expense" ? <div> {showFinancialSubmenu2 && (
+                                location.pathname === "/Financial" || location.pathname === "/income" || location.pathname === "/Expense" ? <div> {showFinancialSubmenu2 && (
                                     <Submenu>
                                         <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Financial" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Financial")} >Note</span></SubmenuItem>
-                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Icome" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Icome")}> Income</span></SubmenuItem>
+                                        <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/income" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/income")}> Income</span></SubmenuItem>
                                         <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Expense" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Expense")}>Expense</span></SubmenuItem>
                                     </Submenu>
                                 )} </div> : ""
@@ -235,24 +235,22 @@ left:-23px;
 
                             {
                                 location.pathname === "/Visitor" || location.pathname === "/Securityprotocols" ? <div>
-                                    
-                            {showFinancialSubmenu3 && (
-                                <Submenu>
-                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
-                                    <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
-                                </Submenu>
-                            )}
-                                </div> :""
+
+                                    {showFinancialSubmenu3 && (
+                                        <Submenu>
+                                            <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Visitor" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Visitor")}> Visitor Logs</span></SubmenuItem>
+                                            <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Securityprotocols" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Securityprotocols")}>Security Protocols</span></SubmenuItem>
+                                        </Submenu>
+                                    )}
+                                </div> : ""
                             }
 
 
                             <Link className='link-tag' to={"/SecurityGuard"}   > <div className='side-design' style={{ display: location.pathname === "/SecurityGuard" ? "block" : "none" }}><SidebarMiniButton /> </div>  <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/SecurityGuard" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/SecurityGuard" ? "white" : "", textDecoration: "none" }} > <GrUserPolice className='fs-3 mb-1 ' /> Security Guard</NavLink></Link>
                             <Link className='link-tag' to={"/Announcement"} >  <div className='side-design' style={{ display: location.pathname === "/Announcement" ? "block" : "none" }}><SidebarMiniButton /> </div>   <NavLink className=' d-flex gap-3 radious' style={{ background: location.pathname === "/Announcement" ? "linear-gradient(90deg, #FE512E 0%, #F09619 100%)" : "", color: location.pathname === "/Announcement" ? "white" : "", textDecoration: "none" }} ><TfiAnnouncement className='fs-3 mb-1' /> Announcement</NavLink></Link>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "15px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+
+                            <p className='mt-5 text-danger flex self-end' style={{ margin: " 10px", padding: "15px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+
                         </NavLinks>
                     </div>
                     <div className="col-12 col-md-9 ">
@@ -267,7 +265,7 @@ left:-23px;
                                                 <img className='h-75 w-75' src="src/assets/Logo.png" alt="Logo" />
                                             </Link>
                                             <center>
-                                                <div style={{ border: "1px solid #F4F4F4" }} className="  mt-5 ">
+                                                <div style={{ border: "1px solid #F4F4F4" }} className="mt-5 ">
                                                 </div>
                                             </center>
                                         </Logo>
@@ -287,7 +285,7 @@ left:-23px;
 
                                             {showFinancialSubmenu2 && (
                                                 <Submenu>
-                                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/Icome" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Icome")}> Income</span></SubmenuItem>
+                                                    <SubmenuItem>   <span className='p-1' style={{ borderLeft: location.pathname === "/income" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/income")}> Income</span></SubmenuItem>
                                                     <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Expense" ? "2px solid black" : "2px solid gray" }} onClick={() => naviget("/Expense")}>Expense</span></SubmenuItem>
                                                     <SubmenuItem> <span className='p-1' style={{ borderLeft: location.pathname === "/Financial" ? "2px solid black" : "2px solid gray" }}>Note</span></SubmenuItem>
                                                 </Submenu>
@@ -316,14 +314,22 @@ left:-23px;
                                             <br />
                                             <br />
 
-                                            <p className='mt-5 text-danger' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
+                                            <p className='mt-5 text-danger flex' style={{ margin: " 10px", padding: "14px", cursor: "pointer", borderTop: "1px solid #F4F4F4" }}> <TbLogout className='fs-3' />  Logout</p>
                                         </NavLinks>
                                     </Offcanvas.Body>
                                 </Offcanvas>
                             </div>
-                            <div className="search">
+                            <div className="search" style={{ width: "500px" }}>
                                 {
-                                    location.pathname === "/deshbord" ? <div><SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />  <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} /> </div> : <div> <span onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>  <span className='ms-2  mb-2'><FaGreaterThan className='' /></span> <span style={{ color: "#5678E9" }} className='ms-2'>{location.pathname.split("/")}</span></div>
+                                    location.pathname === "/deshbord" ? <div>
+                                        <SearchBar className='perent-search' onChange={() => setserch(2)} type='search' placeholder="           Search Here" />
+                                        <CiSearch className='fs-3 fw-bolde child-search ' style={{ display: serch == 0 ? "block" : "none" }} />
+                                    </div> :
+                                        <div className='flex'>
+                                            <span className='text-lg' onClick={() => naviget("/deshbord")} style={{ color: "#A7A7A7", cursor: "pointer" }}>Home</span>
+                                            <span className='ms-2 mt-2  '><FaGreaterThan className='' /></span>
+                                            <span style={{ color: "#5678E9" }} className='ms-2 text-lg'>{location.pathname.split("/")}</span>
+                                        </div>
                                 }
 
 
@@ -420,7 +426,7 @@ left:-23px;
                                 </UserName>
                             </UserInfo>
                         </div>
-                        <div className="component-layout  h-100   ">
+                        <div className="component-layout" style={{ maxHeight: "89vh", overflow: "scroll", overflowX: "hidden" }}>
 
                             <br />
                             <div className="p-4">

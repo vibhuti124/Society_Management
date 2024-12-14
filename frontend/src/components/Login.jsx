@@ -1,126 +1,179 @@
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import loginImage from '../assets/login.png';
-import Logo from './Logo';
-import axios from 'axios';
-import { StoreUser } from '../redux/authslice'
-import backimg from '../assets/back.png'
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import img1 from "../assets/Login.png";
+import img2 from "../assets/back.png";
+import { useState } from "react";
 
-function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
-    try {
-      const response  = await axios.post("http://localhost:8001/api/v1/login",data);
-      console.log(response.data); // Log response data for debugging
+export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange", // Validation mode to enable button only when inputs are valid
+  });
 
-      // Handle successful login
-      if (response.data.success) {
-        alert(response.data.success) // Assuming the API response has a "success" property
-        const user = response.data.user; // Assuming the API response includes user data
-        StoreUser(user); // Assuming this function stores user data in Redux store (if applicable)
-        navigate('/dashboard'); // Redirect to homepage after successful login
-      } else {
-        alert(response.data.message || 'Login failed!'); // Display error message from response or a generic message
-      }
-    } catch (error) {
-      console.log(error); // Log errors for debugging
-      // alert('An error occurred. Please try again.'); // Generic error message for user
-    }
+  const onSubmit = (data) => {
+    console.log("Form Submitted:", data);
+    alert("Sign In Successful!");
   };
 
+  // Watching input values for validation
+  const watchAllFields = watch();
+
   return (
-    <div className="container-fluid d-flex align-items-center min-vh-100">
-      <div className="row w-100">
-        <div className="left-side col-lg-6 col-md-6 col-sm-12 justify-content-center align-items-center d-flex flex-column">
-          <div className='stack mt-5 '>
-            <Logo />
-          </div>
-
-          <div>
-            <img
-              className="login-image mx-5 mt-5"
-              src={loginImage}
-              alt="Login"
-              style={{ maxWidth: '80%' }}
-            />
-          </div>
+    <div className="flex flex-col lg:flex-row h-screen">
+      {/* Left Section */}
+      <div className="lg:w-1/2 bg-gray-50 p-6 lg:p-12">
+        <h1 className="text-5xl font-bold">
+          <span className="text-orange-600">Dash</span>Stack
+        </h1>
+        <div className="flex flex-col justify-center items-center pt-5 mt-5">
+          <img
+            src={img1}
+            alt="Society management illustration"
+            className="mb-6"
+          />
         </div>
+      </div>
 
-        <div className="right-sec col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center align-items-center min-vh-100" style={{backgroundImage:`url(${backimg})`, backgroundPositionX:"-250px"}}>
-          <div className="login-form-container w-75 p-4 shadow-lg bg-white rounded">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-3">
-                <label htmlFor="Email" className="form-label">
-                  Email or Phone <span className="text-danger">*</span>
-                </label>
+      {/* Right Section */}
+      <div
+        className="lg:w-1/2 flex justify-center items-center bg-white p-6 lg:p-12"
+        style={{
+          backgroundImage: `url(${img2})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right",
+        }}
+      >
+        <div className="w-full max-w-lg bg-white p-10 rounded-lg pb-5 shadow-sm">
+          <h2 className="text-4xl font-semibold mb-6">Login</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* Email or Phone */}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Email or Phone<span style={{ color: "red" }}>*</span>
+              </label>
+              <input
+                type="text"
+                className={`mt-1 block w-full p-2 border rounded ${errors.identifier ? "border-red-500" : "border-gray-300"
+                  }`}
+                {...register("identifier", {
+                  required: "Email or Phone is required",
+                  minLength: {
+                    value: 3,
+                    message: "Must be at least 3 characters",
+                  },
+                })}
+                placeholder="Enter Your Phone Number Or Email"
+              />
+              {errors.identifier && (
+                <p className="text-red-500 text-sm">
+                  {errors.identifier.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password */}
+            {/* <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                className={`mt-1 block w-full p-2 border rounded ${
+                  errors.password ? "border-red-500" : "border-gray-300"
+                }`}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                placeholder="Enter Password"
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password.message}</p>
+              )}
+            </div> */}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="relative">
                 <input
-                  type="text"
-                  className={`form-control ${errors.Email ? 'is-invalid' : ''}`}
-                  id="Email"
-                  placeholder="Enter Email or Phone"
-                  {...register('Email', { required: 'Email or phone is required' })}
-                />
-                {errors.Email && <div className="invalid-feedback">{errors.Email.message}</div>}
-              </div>
-
-
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password <span className="text-danger">*</span>
-                </label>
-                <input
-                  type="password"
-                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  className={`mt-1 block w-full p-2 border rounded ${errors.password ? "border-red-500" : "border-gray-300"
+                    }`}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
                   placeholder="Enter Password"
-                  {...register('password', { required: 'Password is required' })}
                 />
-                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <i
+                    className={`fas ${showPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                  ></i>
+                </button>
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password.message}</p>
+              )}
+            </div>
 
 
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <div className="form-check">
+            {/* Remember Me & Forgot Password */}
+            <div className="flex justify-between items-center mt-4">
+              <div>
+                <label className="flex items-center">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="rememberMe"
-                    {...register('rememberMe')}
+                    className="mr-2 text-orange-500"
+                    {...register("remember")}
                   />
-                  <label className="form-check-label" htmlFor="rememberMe">
-                    Remember me
-                  </label>
-                </div>
-                <Link to="/forgot-password" className="text-decoration-none" style={{ color: '#ee6a42' }}>
-                  Forgot password?
+                  <span className="text-sm text-gray-700">Remember me</span>
+                </label>
+              </div>
+              <div>
+                <Link to="/forget" className="text-sm text-red-500">
+                  Forgot Password?
                 </Link>
               </div>
+            </div>
 
-              <button
-                type="submit"
-                className="btn btn-primary w-100"
-                style={{ backgroundColor: '#ee6a42', border: 'none' }}
-              >
-                Sign In
-              </button>
+            {/* Sign In Button */}
+            <button
+              type="submit"
+              className="mt-6 w-full bg-orange-500 text-white p-2 rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
+              disabled={!isValid} // Disable the button if the form is invalid
+            >
+              Sign In
+            </button>
 
-              <p className="text-center mt-3">
-                Don't have an account?{' '}
-                <Link to="/" className="text-decoration-none" style={{ color: '#ee6a42' }}>
-                  Register
-                </Link>
-              </p>
-            </form>
-          </div>
+            {/* Registration Link */}
+            <p className="text-center text-gray-500 mt-4">
+              Don't have an account?{" "}
+              <Link to={"/"} className="text-orange-500">
+                Registration
+              </Link>
+            </p>
+          </form>
         </div>
-
       </div>
     </div>
   );
 }
-
-export default Login;
-

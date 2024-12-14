@@ -23,7 +23,8 @@ function RegistrationPage() {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(prev => !prev);
   };
-
+ 
+  
   const onSubmit = (data) => {
     if (!isAgreed) {
       alert('You must agree to the terms and conditions to register.');

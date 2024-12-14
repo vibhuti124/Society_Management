@@ -4,7 +4,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import toast, { Toaster } from 'react-hot-toast';
-
 import RegistrationPage from './components/RegistrationPage';
 import Login from './components/Login';
 import ForgetScreen from './components/ForgetScreen';
@@ -25,14 +24,25 @@ import CompleteTraking from './page/CompleteTraking';
 import Tenant from './page/Tenant';
 import SecurityLayout from './Layout/SecurityLayout';
 import EmergencyManagement from './page2/EmergencyManagement';
-
 import Visitor from './page/Visitor';
 import Securityprotocols from './page/Securityprotocols';
-
-import Icome from './page/Icome';
+import Income from './page/Icome';
 import Otherincome from './page/otheincom';
-
 import VisitorTracking from './page2/Visitortracking';
+import UserLayout from './Layout/UserLayout';
+import PersonalDetail from './UserPages/PersonalDetail';
+import TenantPersonalDetails from './UserPages/TenantPersonalDetails';
+import ServiceComplaint from './UserPages/ServiceComplaint';
+import RequestSubmission from './UserPages/RequestSubmission';
+import EventParticipation from './UserPages/EventParticipation';
+import ActivityParticipation from './UserPages/ActivityParticipation';
+import PaymentPortal from './UserPages/PaymentPortal';
+import OtherInvoices from './UserPages/OtherInvoices';
+import ViewInvoice from './UserPages/ViewInvoice';
+import OtherIncomeInvoices from './UserPages/OtherInvoices';
+import SecurityProtocall from './UserPages/SecurityProtocall';
+
+
 
 function App() {
   return (
@@ -44,12 +54,6 @@ function App() {
         <Route path='/otp' element={<OTPVerification />} />
         <Route path='/resetpassword' element={<ResetPassword />} />
         {/* layout */}
-
-
-        <Route path='/resident' element={<Layout component={<ResidentManageMent />} />} />
-
-
-
         {/* DASHBORD */}
         <Route path='/deshbord' element={<Layout component={<Dashbord />} />} />
         <Route path='/profile' element={<Layout component={<UpdateProfile />} />} />
@@ -62,7 +66,7 @@ function App() {
         <Route path='/Financial' element={<Layout component={<Financial />} />} />
         <Route path='/Expense' element={<Layout component={<Expense />} />}/>
         <Route path='/Otherincome' element={<Layout component={<Otherincome />} />}/>
-        <Route path='/Icome' element={<Layout component={<Icome />} />}/>
+        <Route path='/Income' element={<Layout component={<Income />} />}/>
         {/* FacilityManagement */}
         <Route path='/FacilityManagement' element={<Layout component={<FacilityManagement />} />} />
         {/* traking */}
@@ -76,22 +80,26 @@ function App() {
         <Route path='/SecurityGuard' element={<Layout component={<SecurityGuard />} />} />
         {/* Announcement */}
         <Route path='/Announcement' element={<Layout component={<Announcement />} />} />
-
-       
-
         {/* Expence */}
         <Route path='/Expense' element={<Layout component={<Expense />} />} />
-
         {/* visirtortracking */}
-
-
         <Route path='/Financial' element={<Layout component={<Financial />} />} />
-
         {/* profile */}
         <Route path='/profileupdate' element={<Layout component={<ProfileEditForm />} />} />
         <Route path='/profile' element={<Layout component={<UpdateProfile />} />} />
         {/* resident */}
-      
+        <Route path='/user/deshbord' element={<UserLayout component={<Dashbord />} />} />
+        <Route path='/personaldetail' element={<UserLayout component={<PersonalDetail />} />} />
+        <Route path="/personaldetailstenant" element={<UserLayout component={<TenantPersonalDetails />} />} />
+        <Route path='/serviceandcomplaint' element={<UserLayout component={<ServiceComplaint />} />} />
+        <Route path='/requestandsubmission' element={<UserLayout component={<RequestSubmission />} />} />
+        <Route path='/eventsParticipation' element={<UserLayout component={<EventParticipation />} />} />
+        <Route path='/activityandparticipation' element={<UserLayout component={<ActivityParticipation />} />} />
+        <Route path='/paymentportal' element={<UserLayout component={<PaymentPortal />} />} />
+        <Route path='/otherinvoices' element={<UserLayout component={<OtherInvoices />} />} />
+        <Route path='/viewinvoice' element={<UserLayout component={<ViewInvoice />} />} />
+        <Route path='/otherincomeinvoices' element={<UserLayout component={<OtherIncomeInvoices />} />} />
+        <Route path='/securityprotocall' element={<UserLayout component={<SecurityProtocall />} />} />
 
 
 
@@ -101,9 +109,6 @@ function App() {
 
 
         {/* Security */}
-
-
-        
         <Route path='/VisitorTracking' element={<SecurityLayout component={<VisitorTracking />} />} />
         <Route path="/EmergencyManagement" element={<SecurityLayout component={<EmergencyManagement />} />} />
 
